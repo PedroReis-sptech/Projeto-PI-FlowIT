@@ -1,0 +1,1 @@
+Adicionar nesta pasta todos os entregáveis de Sistemas Operacionais, ao terminar de fazer um commit, descreva o que você mudou
