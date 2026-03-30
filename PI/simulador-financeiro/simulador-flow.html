@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flow Simulator</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <div class="container">
+        <div class="simulador">
+        <div class="simulador-header">
+        <h2>Simulador Financeiro</h2>
+        <div class="informativo-header">
+        <span> Este será utilizado somente com fins <b>simulativos</b>, é importante destacar que todos os valores fornecidos neste estão baseados no mercado financeiro atual.</span>
+        </div>
+        </div>
+        <div class="simulador-form">
+            <span><i>Sinta-se à vontade para fornecer estimativas, os valores não necessariamente precisam ser exatos.</i></span>
+            <div class="fluxo">
+            <p>Aproximadamente, quantas pessoas frequentaram sua loja no último mês? </p>
+            <input type="number" id="ipt_fluxo" placeholder="ex: 300">
+            </div>
+            <div class="conversao">
+                <p><b>Taxa de conversão média</b></p>
+            <p>Nível de conversão atual: </p>
+            <select id="select_conversao">
+                <option value="#" selected disabled>Selecione uma opção</option>
+                <option value="0.05">5%</option>
+                <option value="0.10">10%</option>
+                <option value="0.15">15%</option>
+                <option value="0.25">25%</option>
+            </select>
+            <div class="informativo-conversao">
+            <p><i>De acordo com a Vemco Group varejistas físicos enfrentam uma disparidade de cerca de 37% na sua taxa de conversão em relação a concorrência online. Essa divergência substancial ressalta a necessidade urgente de os proprietários de lojas físicas investirem em tecnologia de monitoramento de fluxo e softwares de análise, maximizando essa vantagem competitiva.</i></p>
+            </div>
+            </div>
+            <div class="ticket">
+            <p>Ticket Médio (R$): </p>
+            <input type="number" id="ipt_ticket" placeholder="ex: 50">
+            </div>
+        </div>
+        <br>    
+        <div>
+            <button onclick="calcular()">Calcular Impacto</button>
+        </div>
+
+        <div id="div_resultado">
+
+        <div class="resultados"></div>
+
+        </div>
+    </div>
+    </div>
+    
+</body>
+</html>
+<script>
+    function calcular(){
+        let fluxo = Number(ipt_fluxo.value);
+        let conversao = Number(select_conversao.value)
+        let ticket = Number(ipt_ticket.value);
+
+        let mensagem = ``;
+
+        // Conversão estimada após análise de fluxo + pontos percentuais mínimos
+        let convMinMelhorada = conversao + 0.05;
+
+        // Calculadas em razão da qnt média de dias em 1 mês (30 dias é o padrão de cálculo empresarial)
+        let vendasAtuais = fluxo * conversao * ticket * 30;
+
+        let vendasNovas = fluxo * convMinMelhorada * ticket * 30;
+
+        let ganho = vendasNovas - vendasAtuais;
+
+        mensagem += `<b>Resultados:</b>
+        <br>
+
+        <b>Faturamento Atual: </b> R$ ${vendasAtuais.toLocaleString('pt-BR')} <br>
+
+        <b>Faturamento com melhoria de conversão: </b> R$ ${vendasNovas.toLocaleString('pt-BR')} <br> 
+        
+        (Nova conversão estimada: <b>${(convMinMelhorada * 100).toFixed(2)} % </b>)<br><br>
+            
+        <strong style="color:darkred;">
+        Sua loja está deixando de ganhar:<br>
+        R$ ${ganho.toFixed(2)} por mês sem análise de fluxo.
+        </strong><br><br>
+        
+        <strong style="color:navy;">
+        A análise de fluxo aumenta a conversão entre 3 e 8 pontos percentuais no varejo.
+        </strong>`
+
+        div_resultado.innerHTML = mensagem;
+    }
+</script>
