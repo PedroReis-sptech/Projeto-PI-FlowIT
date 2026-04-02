@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<title>Calculadora Financeira</title>
+
+<style>
+    body {
+        font-family: Arial;
+        background: #f4f4f4;
+        padding: 20px;
+    }
+
+    .container {
+        width: 400px;
+        background: white;
+        padding: 20px;
+        margin: auto;
+        border-radius: 10px;
+    }
+
+    input {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 8px;
+    }
+
+    button {
+        width: 100%;
+        padding: 10px;
+        background: green;
+        color: white;
+        border: none;
+        cursor: pointer;
+    }
+
+    #div_mensagem {
+        margin-top: 15px;
+        background: #eee;
+        padding: 10px;
+        border-radius: 5px;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Calculadora Financeira</h2>
+
+    Quantidade de corredores:
+    <input type="number" id="input_corredores">
+
+
+    Faturamento mensal:
+    <input type="number" id="input_faturamento">
+
+    Aumento estimado (%):
+    <input type="number" id="input_aumento">
+
+    <button onclick="calcular()">Calcular</button>
+
+    <div id="div_mensagem"></div>
+</div>
+
+<script>
+
+function calcular() {
+
+    let corredores = Number(input_corredores.value);
+    let faturamento = Number(input_faturamento.value);
+    let aumento = Number(input_aumento.value);
+
+    let investimentoInicial = (corredores * 2) * 15;
+
+    let custoMensal = (corredores * 30) + 100;
+
+    let ganhoMensal = faturamento * (aumento / 100);
+
+    let lucroMensal = ganhoMensal - custoMensal;
+
+    let payback = 0;
+
+    if (lucroMensal > 0) {
+        payback = investimentoInicial / lucroMensal;
+    }
+
+    div_mensagem.innerHTML =
+        `Investimento Inicial: R$ ${investimentoInicial.toFixed(2)} <br>
+         Ganho Mensal: R$ ${ganhoMensal.toFixed(2)} <br>
+         Lucro Mensal: R$ ${lucroMensal.toFixed(2)} <br>
+         Tempo de Retorno: ${payback.toFixed(1)} meses`;
+}
+
+</script>
+
+</body>
+</html>
