@@ -65,31 +65,21 @@ p.subtitle {
     margin-bottom: 15px;
 }
 
-.card {
-    padding: 15px;
-    margin-bottom: 15px;
-    border-radius: 8px;
-}
+.perdas{
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    padding: 3%;
 
-.card-red {
+
+
     background-color: #ffe6e6;
     border-left: 5px solid #ff4d4d;
+    border-radius: 16px;
+
+
 }
 
-.card-green {
-    background-color: #e6ffe6;
-    border-left: 5px solid #2eb82e;
-}
-
-.card h3 {
-    margin-top: 0;
-    font-size: 18px;
-}
-
-.flowIt-cost {
-    text-align: center;
-    font-size: 14px;
-    color: #555;
-    margin-top: 20px;
-    font-style: italic;
+.txtRed{
+    color: #cc0000;
 }

@@ -31,6 +31,25 @@
 
         <button onclick="calcularROI()">Calcular Oportunidade Oculta</button>
 
+        <div class="resultado">
+
+            <div class="perdas">
+                <h3 class="txtRed">Você está perdendo demais com Zonas Frias!</h3>
+                <p>Estimamos com base no TradeMarketing que <b id="qtdFrios"></b> dos seus corredores tenham fluxo
+                    abaixo do ideal.</p>
+                <p>Você gasta <span class="destaque txtRed " id="aluguelPerdido"></span> todo mês de aluguel apenas
+                    para manter esses espaços ociosos.</p>
+                <span class="sinalizador sinalizadorRed">Isso representa <span id="pctAluguel"></span> do seu aluguel total jogado
+                    fora!</span>
+
+            </div>
+
+
+            <div class="ganhos">
+
+            </div>
+
+        </div>
 
 
     </div>
@@ -47,14 +66,14 @@
         let corredores = Number(iCorredores.value);
         let faturamento = Number(iFaturamento.value);
 
-        if(aluguel == '' || faturamento == '' || corredores == '' || corredores <= 0){
+        if (aluguel == '' || faturamento == '' || corredores == '' || corredores <= 0) {
             alert(`Por favor preencha todos os campos com valores válidos!`)
         }
 
         let corredoresFrios = corredores * 0.1;
         corredoresFrios -= (corredoresFrios % 1);
 
-        if(corredoresFrios <= 1){
+        if (corredoresFrios <= 1) {
             corredoresFrios = 1;
         }
 
@@ -65,12 +84,14 @@
         let vendasRecuperadasComFlow = faturamentoPorCorredor * corredoresFrios;
         let vendasRecuperadasPorAno = vendasRecuperadasComFlow * 12;
 
-        let valorFlow = 7000;
-        let roi = (vendasRecuperadasPorAno - valorFlow) / valorFlow * 100;
-        let payback = valorFlow / (vendasRecuperadasComFlow / 30)
+        let pontoDeVista = 7000;
+        let roi = (vendasRecuperadasPorAno - pontoDeVista) / pontoDeVista * 100;
+        let payback = pontoDeVista / (vendasRecuperadasComFlow / 30)
 
-        
-        
+        let retornoBruto = roi / 100;
+        let retornoBrasileiro = retornoBruto.toFixed(2).replaceAll('.', ',')
+        // alert(`O seu ROI é de ${roi.toFixed(2)}%. Isso significa que a cada R$ 1,00 que você investe no FlowIT, voltam R$ ${retornoBrasileiro} bruto para o seu bolso!`);
+
 
     }
 
