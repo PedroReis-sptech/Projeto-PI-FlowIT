@@ -60,10 +60,17 @@
         let desperdicioDeAluguel = custoPorCorredor * corredoresFrios;
         let faturamentoPorCorredor = faturamento / corredores;
 
-        alert(custoPorCorredor)
-        alert(desperdicioDeAluguel)
-        alert(faturamentoPorCorredor)
+        let vendasRecuperadasComFlow = faturamentoPorCorredor * corredoresFrios;
+        let vendasRecuperadasPorAno = vendasRecuperadasComFlow * 12;
 
+        alert(vendasRecuperadasComFlow)
+        alert(vendasRecuperadasPorAno)
+
+
+        alert(`Valor Perdido com aluguel: ${desperdicioDeAluguel}
+        \nValor Recuperado: ${vendasRecuperadasComFlow}
+        \n Faturamento Antigo: ${faturamento}
+        \n Faturamento Novo: ${faturamento * 1.1}`)
 
 
 
