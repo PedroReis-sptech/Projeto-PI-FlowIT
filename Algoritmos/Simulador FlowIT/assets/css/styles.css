@@ -128,6 +128,11 @@ p.subtitle {
 
 .ganhos hr {
     border: 0;
-    border-top: 1px solid #ccc; 
+    border-top: 1px solid #ccc;
     margin: 15px 0;
+}
+
+#returnOnInvestment {
+   margin: 5% 5%;
+    color: #656363;
 }
