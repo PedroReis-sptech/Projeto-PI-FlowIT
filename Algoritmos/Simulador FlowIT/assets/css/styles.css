@@ -65,10 +65,11 @@ p.subtitle {
     margin-bottom: 15px;
 }
 
-.resultado{
+.resultado {
     display: none;
 }
-.card {   
+
+.card {
     display: flex;
     flex-direction: column;
     margin-top: 5%;
@@ -82,7 +83,8 @@ p.subtitle {
     border-radius: 16px;
 }
 
-.card h3, .card p{
+.card h3,
+.card p {
     margin: 0;
 }
 
@@ -107,5 +109,25 @@ p.subtitle {
 
 .sinalizadorRed {
     background-color: #ffcccc;
+}
 
+.sinalizadorGreen {
+    background-color: #ccffcc;
+}
+
+.ganhos {
+    background-color: #e6ffe6;
+    border-left: 5px solid #2eb82e;
+    border-radius: 16px;
+}
+
+.txtGreen {
+    color: #1f7a1f;
+    font-weight: bold;
+}
+
+.ganhos hr {
+    border: 0;
+    border-top: 1px solid #ccc; 
+    margin: 15px 0;
 }
