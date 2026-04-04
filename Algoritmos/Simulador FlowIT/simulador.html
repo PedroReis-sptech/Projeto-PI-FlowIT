@@ -47,7 +47,7 @@
 
             <div class="card ganhos">
                 <h3 class="txtGreen">Potencial de Recuperação com o PontoDeVista!</h3>
-                <p>Ao monitorar o fluxo e otimizar o layout, você pode recuperar: <span class="destaque txtGreen"
+                <p id="monitor">Ao monitorar o fluxo e otimizar o layout, você pode recuperar: <br> <span class="destaque txtGreen"
                         id="vendaMensal"></span> em vendas adicionais <b>por mês</b>.</p>
 
                 <span class="sinalizador sinalizadorGreen txtGreen">Crescimento de <span id="pctFaturamento"></span> no
@@ -63,7 +63,7 @@
 
             </div>
 
-            <div>
+            <div class="roiContainer">
                 <span id="returnOnInvestment"></span>
             </div>
         </div>
@@ -108,10 +108,10 @@
         // alert(`O seu ROI é de ${roi.toFixed(2)}%. Isso significa que a cada R$ 1,00 que você investe no FlowIT, voltam R$ ${retornoBrasileiro} bruto para o seu bolso!`);
 
         qtdFrios.innerHTML = `${corredoresFrios}`
-        aluguelPerdido.innerHTML = `RS ${desperdicioDeAluguel}`
-        pctAluguel.innerHTML = ` ${(desperdicioDeAluguel / aluguel) * 100}%  `
+        aluguelPerdido.innerHTML = `RS ${desperdicioDeAluguel.toFixed(2)}`
+        pctAluguel.innerHTML = ` ${((desperdicioDeAluguel / aluguel) * 100).toFixed(2)}%  `
 
-        vendaMensal.innerHTML = `R$ ${vendasRecuperadasComFlow}`
+        vendaMensal.innerHTML = `R$ ${vendasRecuperadasComFlow.toFixed(2)}`
 
         if (corredoresFrios == 1) {
             qtdCorredores.innerHTML = `${corredoresFrios} corredor frio.`
@@ -119,10 +119,10 @@
             qtdCorredores.innerHTML = `${corredoresFrios} corredores frios.`
         }
 
-        pctFaturamento.innerHTML = `${(faturamento / vendasRecuperadasComFlow)}%`
-        vendaAnual.innerHTML = `R$ ${vendasRecuperadasPorAno}`
+        pctFaturamento.innerHTML = `${(faturamento / vendasRecuperadasComFlow).toFixed(2)}%`
+        vendaAnual.innerHTML = `R$ ${vendasRecuperadasPorAno.toFixed(2)}`
 
-        returnOnInvestment.innerHTML = `O seu ROI é de ${roi.toFixed(2)}%. Isso significa que a cada R$ 1,00 que você investe no FlowIT, voltam R$ ${retornoBrasileiro} bruto para o seu bolso!`
+        returnOnInvestment.innerHTML = `O seu ROI é de ${roi.toFixed(2)}%. Isso significa que a cada R$ 1,00 que você investe no PontoDeVista, voltam R$ ${retornoBrasileiro} bruto para o seu bolso!`
 
 
         resultado.style.display = "block"

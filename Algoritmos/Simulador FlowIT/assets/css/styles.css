@@ -135,8 +135,13 @@ p.subtitle {
 .roiContainer{
     display: flex;
 }
+
 #returnOnInvestment {
    margin: 5% 5%;
     color: #656363;
+    text-align: center;
+}
+
+#monitor{
     text-align: center;
 }
