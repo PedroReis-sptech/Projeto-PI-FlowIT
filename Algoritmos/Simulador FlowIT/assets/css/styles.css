@@ -132,7 +132,11 @@ p.subtitle {
     margin: 15px 0;
 }
 
+.roiContainer{
+    display: flex;
+}
 #returnOnInvestment {
    margin: 5% 5%;
     color: #656363;
+    text-align: center;
 }
