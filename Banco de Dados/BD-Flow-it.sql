@@ -32,6 +32,14 @@ CONSTRAINT chfkEmpresa
 FOREIGN KEY (fkEmpresa) REFERENCES empresa (idEmpresa)
 );
 
+CREATE TABLE permissao (
+idPermisao 	INT PRIMARY KEY AUTO_INCREMENT,
+cargo 	VARCHAR(45),
+fkUsuario	INT,
+CONSTRAINT chfkUsuario FOREIGN KEY (fkUsuario) REFERENCES usuario (idUsuario),
+CONSTRAINT chfkCargo CHECK (cargo IN ('Gerente', 'Consultor'))
+);
+
 CREATE TABLE setor (
 idSetor INT PRIMARY KEY AUTO_INCREMENT,
 nomeSetor VARCHAR(45),
@@ -54,12 +62,10 @@ FOREIGN KEY (fkSetor) REFERENCES setor (idSetor)
 
 CREATE TABLE registroSensor (
 idRegistroSensor INT PRIMARY KEY AUTO_INCREMENT,
-leitura CHAR(1),
+leitura TINYINT,
 dataLeitura DATETIME,
 fkSensor INT,
 CONSTRAINT chfkSensor
-FOREIGN KEY (fkSensor) REFERENCES sensor (idSensor)
+FOREIGN KEY (fkSensor) REFERENCES sensor (idSensor),
+CONSTRAINT chfkLeitura CHECK (leitura IN ('0', '1'))
 );
-
-
-
