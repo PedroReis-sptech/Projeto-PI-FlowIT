@@ -14,8 +14,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5%;
-    background-color: #157fbb;
+    padding: 20px 50px;
+    box-sizing: border-box; /* Faz o menu não passar da largura da pag */
+    position: absolute;  /* Faz o menu flutuar sobre o banner */
+    top: 0;
+    left: 0;
+    width: 100%;        
 }
 
 .header a {
@@ -25,7 +29,17 @@
 }
 
 .header a:hover {
-    color: #013251;
+    color: #80c3ec;
+}
+
+.destaque {
+    border: 2px solid #ffffff;
+    padding: 8px 20px;
+    border-radius: 20px;
+}
+.destaque:hover {
+    background-color: #ffffff;
+    color: #80c3ec ;
 }
 
 .header_contas,
@@ -34,28 +48,34 @@
     gap: 20px;
 }
 
-.logo{
-    background-image: url('../assets/imagens/flowlogo.png');
-    width: 30px;
-    height: 30px;
+
+
+.logo img{
+    width: 111px;
+    height: 74px;
 }
 
 .banner {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
-    background-image: url('../assets/imagens/imagemBanner.png');
+    background-image: url('https://media.istockphoto.com/id/1382384615/photo/supermarket-grocery-store-aisle-and-shelves-blurred-background.jpg?s=612x612&w=0&k=20&c=1DkXai_5LnjVHHCys1RbDUxcditEd3lC9C9iu_IcILw=');
     background-size: cover;
     width: 100%;
-    height: 800px;
-    background-color: #092b6e80;
+    height: 650px;
+    background-color: #3d5a9897;
     background-blend-mode: multiply;
 
 }
 
-.banner_conteudo p{
+.banner_conteudo {
+    margin-bottom: 15px;
+}
+
+.banner_conteudo p {
     color: #ffffff;
     font-size: 34px;
     font-weight: 500;
@@ -64,14 +84,14 @@
 }
 
 
-.banner_direcionadores{
+.banner_direcionadores {
     display: flex;
     flex-direction: row;
     gap: 60px;
     margin-top: 2%;
 }
 
-.banner_direcionadores a{
+.banner_direcionadores a {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -84,12 +104,72 @@
     font-size: 20px;
 }
 
-.banner_direcionadores a:hover{
+.banner_direcionadores a:hover {
     background-color: #5b87def0;
     cursor: pointer;
 }
 
-.sobre{
+.sobre {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+    width: 100%;
+    height: 700px;
+    padding: 30px;
+    box-sizing: border-box;
+}
+
+.sobre_conteudo{
+    display: flex;
+    box-sizing: border-box;
+    height: 700px;
+    gap: 10px;
+}
+
+.sobre_conteudo_lado{
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+    gap: 10px;
+    box-sizing: border-box;
 }
+
+.card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid black;
+    border-radius: 16px;
+    padding: 16px;
+    height: 300px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.valores{
+    height: 610px;
+}
+
+.card h3 {
+    font-size: 40px;
+}
+
+.card p {
+    font-size: 18px;
+}
+
+.card img {
+    width: 100px;
+    height: 100px;
+}
+
+.outros{
+    height: 300px;
+}
+
+
+
