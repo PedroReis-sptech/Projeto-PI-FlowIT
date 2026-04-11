@@ -48,7 +48,9 @@
     gap: 20px;
 }
 
-
+.header_paginas{
+    margin-left: 75px;
+}
 
 .logo img{
     width: 111px;
