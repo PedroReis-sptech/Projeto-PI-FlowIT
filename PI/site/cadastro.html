@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="styleClaro.css">
+<title>Cadastro Flow</title>
+</head>
+<body>
+
+<div class="container">
+
+    <div class="esquerdo">
+        <div class="circulo-fundo"></div>
+
+        <h1>Flow</h1>
+        <h2>Junte-se a nós!</h2>
+        <hr>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.</p>
+        <br>
+        <p>Já tem uma conta? <a href="login.html">Vá para o login!</a></p>
+    </div>
+
+    <div class="direito">
+        <h1>CADASTRO</h1>
+
+        <div class="formulario">
+            <div class="input-group">
+                <input type="text" id="inputEmpresa" placeholder="Nome da empresa">
+            </div>
+
+            <div class="input-group">
+                <input type="text" id="inputEmail" placeholder="Email">
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="inputSenha" placeholder="Senha">
+            </div>
+
+            <div class="input-group">
+                <input type="password" id="inputConfirmacao" placeholder="Confirmação de senha">
+            </div>
+
+            <button onclick="cadastrar()">Próximo</button>
+
+            <div id="exibir" class="exibir"></div>
+           
+        </div>
+    </div>
+
+</div>
+</body>
+</html>
+
+<script>
+    function cadastrar() {
+        let nome = inputEmpresa.value;
+        let email = inputEmail.value;
+        let senhaInserida = inputSenha.value;
+        let confirmacao = inputConfirmacao.value;
+
+        let mensagem = "";
+        let temErro = false; 
+
+        if(nome == "" || email == "" || senhaInserida == "" || confirmacao == ""){
+            mensagem += `<p class="exibir erro">Todos os campos devem ser preenchidos</p>`;
+            temErro = true;
+        }
+
+        if(!email.includes('@') || !email.includes('.')){
+            mensagem += `<p class="exibir erro">Email deve conter @ e .</p>`;
+            temErro = true;
+        }
+
+        if(senhaInserida !== confirmacao){
+            mensagem += `<p class="exibir erro">Senhas divergentes</p>`;
+            temErro = true;
+        }
+
+        if(!temErro){
+            mensagem = `<p class="exibir sucesso">Cadastro confirmado!</p>`;
+        }
+
+        exibir.innerHTML = mensagem;
+    }
+</script>
