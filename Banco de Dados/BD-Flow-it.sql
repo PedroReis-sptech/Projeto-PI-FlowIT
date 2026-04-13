@@ -1,5 +1,4 @@
 CREATE DATABASE flow;
-
 USE flow;
 
 CREATE TABLE empresa (
