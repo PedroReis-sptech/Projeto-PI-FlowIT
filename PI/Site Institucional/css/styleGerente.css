@@ -3,16 +3,19 @@ body {
     font-family: Arial, sans-serif;
 }
 
+
 /* Menu */
 .cabecalho {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
+    background-color: #e3f2fd;
+    border-radius: 50px;
 }
 
 .logo {
-    width: 100px; 
+    width: 100px;
     height: auto;
 }
 
@@ -34,16 +37,22 @@ body {
     gap: 20px;
 }
 
-.quadrado-cadastro, .quadrado-lista {
+.quadrado-cadastro,
+.quadrado-lista {
     background-color: #e3f2fd;
     border-radius: 20px;
     padding: 20px;
 }
 
-.quadrado-cadastro { width: 30%; }
-.quadrado-lista { width: 70%; }
+.quadrado-cadastro {
+    width: 30%;
+}
 
-.botao-login, .botao-cadastro {
+.quadrado-lista {
+    width: 70%;
+}
+
+.botao-sair {
     border: 2px solid #2a2a8e;
     border-radius: 20px;
     padding: 5px 15px;
@@ -54,7 +63,8 @@ body {
 }
 
 /* Texto e botões */
-input, select {
+input,
+select {
     width: 90%;
     padding: 10px;
     margin-bottom: 15px;
