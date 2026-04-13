@@ -1,5 +1,5 @@
 * {
-    font-family: 'Segoe UI';
+    font-family: Arial, sans-serif;
 }
 
 body {
@@ -7,26 +7,38 @@ body {
     background-color: #f2f7fd;
 }
 
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+    background-color: #e3f2fd;
+    border-radius: 50px;
+}
+
 .layout {
     display: flex;
     min-height: 100vh;
+    gap: 15px;
+    padding: 20px;
+    flex-direction: column;
+    align-items: center;
 }
 
 .container-header {
     min-height: 100vh;
 }
 
+
 .header-left {
-    background-color: #11224f;
     color: white;
-    border-right: solid 3px rgba(2, 30, 85, 0.363);
-    height: 100vh;
+    height: 650px;
     width: 200px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: center;
     align-items: center;
-    padding: 20px;
+    padding-left: 100px;
 }
 
 .header-nav-bar button {
@@ -43,15 +55,16 @@ body {
 .main-content {
     flex: 1;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
 }
 
 
 .container-graf {
-    width: 90%;
+    width: 100%;
     display: flex;
     justify-content: center;
+
 }
 
 .graficos {
@@ -76,6 +89,7 @@ canvas {
     padding: 20px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 200px;
 
 }
 
@@ -84,12 +98,22 @@ canvas {
     display: flex;
     justify-content: center;
     margin-top: 40px;
+
 }
 
 .KPIs {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: 30px;
+}
+
+.quadrado-grafico {
+    background-color: #e3f2fd;
+    border-radius: 20px;
+    padding: 35px;
+    align-items: center;
+    display: flex;
+    width: auto;
 }
 
 .card {
@@ -104,3 +128,4 @@ canvas {
     flex-direction: column;
     align-items: center;
 }
+
