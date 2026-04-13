@@ -6,33 +6,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Flow</title>
     <link rel="stylesheet" href="dashboard-styles.css">
+    <link rel="stylesheet" href="telas/style.css">
 </head>
 
 <body>
-    <div class="layout">
-        <!-- Barra de Navegação (esquerda) -->
-        <div class="container-header">
-            <div class="header-left">
-                <h1>FLOW</h1>
-                <div class="saudacoes">
-                    <h3>Sejam bem-vindo, (usuário)!</h3>
-                </div>
-
-                <div class="header-nav-bar">
-                    <div class="pag-inicial">
-                        <a href="dashboard.html"><button>Página Inicial</button></a>
-                    </div>
-                    <div class="pag-gestao">
-                        <a href="dashboard-gestao.html"><button>Gestão</button></a>
-                    </div>
-                    <div class="btn-sair">
-                        <button>Sair</button>
-                    </div>
-                </div>
-            </div>
+    <div class="cabecalho">
+        <div id="div_flow" class="logo">
+            <img src="telas/flow-logo.png" alt="Descrição" style="width:100%;">
         </div>
+        <div class="links">
+            <a href="#">PÁGINA INICIAL</a>
+            <a href="#" class="link-ativo">DASHBOARD</a>
+            <a href="telas/tela_gerente.html">GESTÃO</a>
+        </div>
+        <div class="botoes-topo">
+            <button class="botao-sair">Sair</button>
+        </div>
+    </div>
+    <div class="layout">
+
         <!-- Espaço KPIs & Gráficos Chart-->
-        <div class="main-content">
+        <div class="saudacoes">
+            <h3>Seja bem-vindo, (usuário)!</h3>
+        </div>
+        <div class="main-content quadrado-grafico">
             <div class="container-kpi">
                 <div class="KPIs">
                     <div class="card">
@@ -54,20 +51,20 @@
                 </div>
             </div>
             <div class="container-graf">
-            <div class="graficos">
-                <div class="graficos-box1">
-                <canvas id="graf-linha"></canvas>
+                <div class="graficos">
+                    <div class="graficos-box1">
+                        <canvas id="graf-linha"></canvas>
+                    </div>
+                    <div class="graficos-box2">
+                        <canvas id="graf-pizza"></canvas>
+                    </div>
+                    <div class="graficos-box1">
+                        <canvas id="graf-barra"></canvas>
+                    </div>
+                    <div class="graficos-box2">
+                        <canvas id="graf-rosca"></canvas>
+                    </div>
                 </div>
-                <div class="graficos-box2">
-                <canvas id="graf-pizza"></canvas>
-                </div>
-                <div class="graficos-box1">
-                <canvas id="graf-barra"></canvas>
-                </div>
-                <div class="graficos-box2">
-                <canvas id="graf-rosca"></canvas>
-                </div>
-            </div>
             </div>
         </div>
     </div>
@@ -92,9 +89,9 @@
                 borderWidth: 2,
                 tension: 0.4
             }]
-            
+
         }
-        
+
     });
 
     new Chart(document.getElementById('graf-barra'), {
@@ -116,7 +113,7 @@
             labels: ['Setor A', 'Setor B', 'Setor C'],
             datasets: [{
                 data: [55, 35, 10],
-                backgroundColor : colors
+                backgroundColor: colors
             }]
         }
     });
@@ -127,7 +124,7 @@
             labels: ['Ativo', 'Inativo'],
             datasets: [{
                 data: [70, 30],
-                backgroundColor : colors
+                backgroundColor: colors
             }]
         }
     });
