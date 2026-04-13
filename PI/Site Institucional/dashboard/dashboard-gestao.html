@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Gestão</title>
+    <link rel="stylesheet" href="dashboard-gestao.css">
+</head>
+<body>
+    <div class="direito">
+    <div class="login">
+        <h2>Bem-vindo de volta!</h2>
+        <span>Por favor, forneça seu login de organizador para ter acesso.</span>
+    </div>
+    <div class="formulario">
+        <div class="input-group">
+        <input type="text" id="inputEmailGestao" placeholder="Email">
+        <input type="password" id="inputSenhaGestao" placeholder="Senha">
+    </div>
+    <div class="box-botao">
+    <button class="botao" onclick="logar()">ENTRAR</button>
+    </div>
+    </div>
+</div>
+    <div id="exibir" class="exibir"></div>
+</body>
+</html>
+
+<script>
+    function logar(){
+        let email = inputEmailGestao.value;
+        let senhaInserida = inputSenhaGestao.value;
+        let emailCorreto = "clara.salomao@gmail.com";
+        let senhaCorreta = "123";
+
+        let mensagem = "";
+        let acertosEmail = 0
+        let acertosSenha = 0
+
+        for(let i = 0; i < emailCorreto.length; i++) {
+            if(email[i] == emailCorreto[i]){
+              acertosEmail++;
+            }
+        }
+        for(let i = 0; i < senhaCorreta.length; i++){
+            if(senhaInserida[i] == senhaCorreta[i]){
+              acertosSenha++;
+            }
+        }
+
+        if(acertosEmail == emailCorreto.length && email.length == emailCorreto.length &&
+        acertosSenha == senhaCorreta.length && senhaInserida.length == senhaCorreta.length){
+          mensagem = `<p class="exibir sucesso">Que bom te ver de novo! Redirecionando...</p>`;
+
+          setTimeout(function () {
+                        window.location.href = "telas/tela_gerente.html";
+                    }, 1000);
+        }else{
+          mensagem = `<p class="exibir erro">Senha e/ou Email inválidos.</p>`;
+        }
+
+        exibir.innerHTML = mensagem;
+    }
+</script>

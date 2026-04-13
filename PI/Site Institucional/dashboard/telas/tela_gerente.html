@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Tela de Gerente - Flow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="cabecalho">
+        <div id="div_flow" class="logo">
+            <img src="flow-logo.png" alt="Descrição" style="width:100%;">
+        </div>
+        <div class="links">
+            <a href="#">HOME</a>
+            <a href="#">SOBRE NÓS</a>
+            <a href="#">CALCULADORA</a>
+            <a href="#" class="link-ativo">GESTÃO</a>
+        </div>
+        <div class="botoes-topo">
+            <button class="botao-login">Login</button>
+            <button class="botao-cadastro">Cadastre-se</button>
+        </div>
+    </div>
+
+    <div class="corpo-da-pagina">
+        
+        <div class="quadrado-cadastro">
+            <h3>AÇÕES DE EQUIPE</h3>
+            
+            <input type="text" id="campoNome" placeholder="NOME DO FUNCIONÁRIO">
+            <input type="email" id="campoEmail" placeholder="E-MAIL">
+            
+            <select id="campoFuncao">
+                <option value="" selected disabled>ESCOLHA UMA FUNÇÃO</option>
+                <option value="Gerente">Gerente</option>
+                <option value="Consultor">Consultor</option>
+            </select>
+
+            <button onclick="adicionarFuncionario()" class="botao-add"> + ADICIONAR COLABORADOR </button>
+        </div>
+
+        <div class="quadrado-lista">
+            <h3>LISTA DE COLABORADORES</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>NOME</th>
+                        <th>E-MAIL</th>
+                        <th>FUNÇÃO</th>
+                        <th>AÇÃO</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelaFuncionarios">
+                    </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</body>
+</html>
+
+<script>
+let listaDeEquipe = [];
+
+function adicionarFuncionario() {
+    let nome = campoNome.value;
+    let email = campoEmail.value;
+    let funcao = campoFuncao.value;
+
+    if (nome == "" || email == "" || funcao == "") {
+        alert("Por favor, preencha todos os campos!");
+        return;
+    }
+
+    let novo = {
+        nomeFunc: nome,
+        emailFunc: email,
+        funcaoFunc: funcao
+    };
+
+    listaDeEquipe.push(novo);
+
+    campoNome.value = "";
+    campoEmail.value = "";
+    campoFuncao.value = "";
+
+    mostrarNaTela();
+}
+
+function mostrarNaTela() {
+    let tabela = tabelaFuncionarios;
+    tabela.innerHTML = "";
+
+    for (let i = 0; i < listaDeEquipe.length; i++) {
+        let funcionario = listaDeEquipe[i];
+
+        tabela.innerHTML += `
+            <tr>
+                <td>${funcionario.nomeFunc}</td>
+                <td>${funcionario.emailFunc}</td>
+                <td>${funcionario.funcaoFunc}</td>
+                <td>
+                    <button class="botao-excluir" onclick="remover(${i})">Excluir</button>
+                </td>
+            </tr>
+        `;
+    }
+}
+
+function remover(posicao) {
+    listaDeEquipe.splice(posicao, 1);
+    mostrarNaTela();
+}
+</script>

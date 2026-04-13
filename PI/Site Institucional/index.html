@@ -17,13 +17,12 @@
 
             <div class="header">
                 <div class="logo">
-                    <img src="assets/imagens/flowlogo.png" alt="">
+                    <a href="index.html">FlowIT</a>
                 </div>
                 <div class="header_paginas">
 
                     <a href="#sobre">Sobre Nós</a>
-                    <a href="Simulador FlowIT/simulador.html">Simulador Financeiro</a>
-                    <a href="tela_gerente.html">Gerente</a>
+                    <a href="#simulador">Simulador Financeiro</a>
                 </div>
                 <div class="header_contas">
                     <a href="login.html" class="destaque">Login</a>
@@ -75,6 +74,77 @@
         </div>
 
 
+        <div class="section_simulador">
+            <h2>Simulador FlowIT</h2>
+
+            <div class="simulador_financeiro" id="simulador">
+
+                <p class="subtitle">Descubra quanto a falta de monitoramento está custando para a sua loja.</p>
+
+                <div class="formulario">
+                    <label for="iAluguel">Valor do Aluguel Mensal Total (R$):</label>
+                    <input type="number" id="iAluguel" placeholder="Ex: 30000">
+                </div>
+
+                <div class="formulario">
+                    <label for="iCorredores">Quantidade Total de Corredores (Setores):</label>
+                    <input type="number" id="iCorredores" placeholder="Ex: 15">
+                </div>
+
+                <div class="formulario">
+                    <label for="iFaturamento">Faturamento Mensal da Loja (R$):</label>
+                    <input type="number" id="iFaturamento" placeholder="Ex: 600000">
+                </div>
+
+                <button onclick="calcularROI()">Calcular Oportunidade Oculta</button>
+
+                <div id="resultado" class="resultado">
+
+                    <div class="card perdas">
+                        <h3 class="txtRed">Você está perdendo demais com Zonas Frias!</h3>
+                        <p>Estimamos com base no TradeMarketing que <b id="qtdFrios"></b> dos seus corredores tenham
+                            fluxo
+                            abaixo do ideal.</p>
+                        <p>Você gasta <span class="destaque txtRed " id="aluguelPerdido"></span> todo mês de aluguel
+                            apenas
+                            para manter esses espaços ociosos.</p>
+                        <span class="sinalizador sinalizadorRed txtRed">Isso representa <span id="pctAluguel"></span> do
+                            seu
+                            aluguel total jogado
+                            fora!</span>
+
+                    </div>
+
+                    <div class="card ganhos">
+                        <h3 class="txtGreen">Potencial de Recuperação com o PontoDeVista!</h3>
+                        <p id="monitor">Ao monitorar o fluxo e otimizar o layout, você pode recuperar: <br> <span
+                                class="destaque txtGreen" id="vendaMensal"></span> em vendas adicionais <b>por mês</b>.
+                        </p>
+
+                        <span class="sinalizador sinalizadorGreen txtGreen">Crescimento de <span
+                                id="pctFaturamento"></span>
+                            no
+                            seu faturamento
+                            atual! Considerando APENAS <span id="qtdCorredores"></span></span>
+                        <p>Isso representa um impacto projetado de <span class="destaque txtGreen"
+                                id="retornoAnual"></span>
+                            em 12 meses!</p>
+                        <hr>
+
+                        <span><i>Para esta simulação foi considerado um aumento conservador de 10%.
+                                Estimativa baseada em práticas de Trade Marketing que indicam que melhorias em
+                                exposição de produtos e layout de loja podem aumentar vendas entre 5% e 15%.</i></span>
+
+                    </div>
+
+                    <div class="roiContainer">
+                        <span id="returnOnInvestment"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
 
 
@@ -84,3 +154,58 @@
 </body>
 
 </html>
+
+<script>
+    function calcularROI() {
+
+        let aluguel = Number(iAluguel.value);
+        let corredores = Number(iCorredores.value);
+        let faturamento = Number(iFaturamento.value);
+
+        if (aluguel == '' || faturamento == '' || corredores == '' || corredores <= 0) {
+            alert(`Por favor preencha todos os campos com valores válidos!`)
+        }
+
+        let corredoresFrios = corredores * 0.1;
+        corredoresFrios -= (corredoresFrios % 1);
+
+        if (corredoresFrios <= 1) {
+            corredoresFrios = 1;
+        }
+
+        let custoPorCorredor = aluguel / corredores;
+        let desperdicioDeAluguel = custoPorCorredor * corredoresFrios;
+        let faturamentoPorCorredor = faturamento / corredores;
+
+        let vendasRecuperadasComFlow = faturamentoPorCorredor * corredoresFrios;
+        let vendasRecuperadasPorAno = vendasRecuperadasComFlow * 12;
+
+        let pontoDeVista = 7000;
+        let roi = (vendasRecuperadasPorAno - pontoDeVista) / pontoDeVista * 100;
+        let payback = pontoDeVista / (vendasRecuperadasComFlow / 30)
+
+        let retornoBruto = roi / 100;
+        let retornoBrasileiro = retornoBruto.toFixed(2).replaceAll('.', ',')
+        // alert(`O seu ROI é de ${roi.toFixed(2)}%. Isso significa que a cada R$ 1,00 que você investe no FlowIT, voltam R$ ${retornoBrasileiro} bruto para o seu bolso!`);
+
+        qtdFrios.innerHTML = `${corredoresFrios}`
+        aluguelPerdido.innerHTML = `RS ${desperdicioDeAluguel.toFixed(2)}`
+        pctAluguel.innerHTML = ` ${((desperdicioDeAluguel / aluguel) * 100).toFixed(2)}%  `
+
+        vendaMensal.innerHTML = `R$ ${vendasRecuperadasComFlow.toFixed(2)}`
+
+        if (corredoresFrios == 1) {
+            qtdCorredores.innerHTML = `${corredoresFrios} corredor frio.`
+        } else {
+            qtdCorredores.innerHTML = `${corredoresFrios} corredores frios.`
+        }
+
+        pctFaturamento.innerHTML = `${(faturamento / vendasRecuperadasComFlow).toFixed(2)}%`
+        retornoAnual.innerHTML = `R$ ${(vendasRecuperadasPorAno + (desperdicioDeAluguel * 12)).toFixed(2)}`
+
+        returnOnInvestment.innerHTML = `O seu ROI é de ${roi.toFixed(2)}%. Isso significa que a cada R$ 1,00 que você investe no PontoDeVista, voltam R$ ${retornoBrasileiro} bruto para o seu bolso!`
+
+
+        resultado.style.display = "block"
+    }
+</script>
