@@ -102,7 +102,7 @@ INSERT INTO sensor (numeroSerie, statusOperacional, dataInstalacao, ultimaManute
 CREATE TABLE registroSensor (
 idRegistroSensor INT PRIMARY KEY AUTO_INCREMENT,
 leitura TINYINT,
-dataLeitura DATETIME,
+dataLeitura DATETIME DEFAULT CURRENT_TIMESTAMP,
 fkSensor INT,
 CONSTRAINT chfkSensor
 FOREIGN KEY (fkSensor) REFERENCES sensor (idSensor),
