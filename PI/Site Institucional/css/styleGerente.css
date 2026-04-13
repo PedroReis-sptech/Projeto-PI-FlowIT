@@ -1,0 +1,98 @@
+body {
+    background-color: #cbdbe6;
+    font-family: Arial, sans-serif;
+}
+
+/* Menu */
+.cabecalho {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 50px;
+}
+
+.logo {
+    width: 100px; 
+    height: auto;
+}
+
+.links a {
+    margin: 10px;
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+}
+
+.link-ativo {
+    border-bottom: 3px solid #2a2a8e;
+}
+
+/* Cards */
+.corpo-da-pagina {
+    display: flex;
+    padding: 40px;
+    gap: 20px;
+}
+
+.quadrado-cadastro, .quadrado-lista {
+    background-color: #e3f2fd;
+    border-radius: 20px;
+    padding: 20px;
+}
+
+.quadrado-cadastro { width: 30%; }
+.quadrado-lista { width: 70%; }
+
+.botao-login, .botao-cadastro {
+    border: 2px solid #2a2a8e;
+    border-radius: 20px;
+    padding: 5px 15px;
+    background: transparent;
+    font-weight: bold;
+    cursor: pointer;
+
+}
+
+/* Texto e botões */
+input, select {
+    width: 90%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+}
+
+.botao-add {
+    background-color: #2a2a8e;
+    color: white;
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.botao-excluir {
+    background-color: #4a4ae1;
+    color: white;
+    border: none;
+    padding: 5px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+/* Tabela */
+table {
+    width: 100%;
+    text-align: left;
+}
+
+th {
+    border-bottom: 2px solid #2a2a8e;
+    padding: 10px;
+}
+
+td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}

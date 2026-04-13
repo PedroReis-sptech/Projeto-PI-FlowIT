@@ -1,0 +1,142 @@
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+button {
+    width: 100%;
+    padding: 15px;
+    background-color: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #004494;
+}
+
+h2 {
+    color: #0056b3;
+    text-align: center;
+    margin-bottom: 5px;
+}
+
+p.subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 25px;
+    font-size: 14px;
+}
+
+.container {
+    background: #fff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+
+.formulario {
+    margin-bottom: 15px;
+}
+
+.resultado {
+    display: none;
+}
+
+.card {
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+    padding: 3%;
+    gap: 8px;
+}
+
+.perdas {
+    background-color: #ffe6e6;
+    border-left: 5px solid #ff4d4d;
+    border-radius: 16px;
+}
+
+.card h3,
+.card p {
+    margin: 0;
+}
+
+.txtRed {
+    color: #cc0000;
+    font-weight: bold;
+}
+
+.sinalizador {
+    display: inline-block;
+    padding: 8px;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 5px;
+}
+
+.destaque {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.sinalizadorRed {
+    background-color: #ffcccc;
+}
+
+.sinalizadorGreen {
+    background-color: #ccffcc;
+}
+
+.ganhos {
+    background-color: #e6ffe6;
+    border-left: 5px solid #2eb82e;
+    border-radius: 16px;
+}
+
+.txtGreen {
+    color: #1f7a1f;
+    font-weight: bold;
+}
+
+.ganhos hr {
+    border: 0;
+    border-top: 1px solid #ccc;
+    margin: 15px 0;
+}
+
+.roiContainer{
+    display: flex;
+}
+
+#returnOnInvestment {
+   margin: 5% 5%;
+    color: #656363;
+    text-align: center;
+}
+
+#monitor{
+    text-align: center;
+}
+
+
+
