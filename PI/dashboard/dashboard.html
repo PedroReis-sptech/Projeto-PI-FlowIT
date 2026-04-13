@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Flow</title>
+    <link rel="stylesheet" href="dashboard-styles.css">
+</head>
+
+<body>
+    <div class="layout">
+        <!-- Barra de Navegação (esquerda) -->
+        <div class="container-header">
+            <div class="header-left">
+                <h1>FLOW</h1>
+                <div class="saudacoes">
+                    <h3>Sejam bem-vindo, (usuário)!</h3>
+                </div>
+
+                <div class="header-nav-bar">
+                    <div class="pag-inicial">
+                        <a href="dashboard.html"><button>Página Inicial</button></a>
+                    </div>
+                    <div class="pag-gestao">
+                        <a href="dashboard-gestao.html"><button>Gestão</button></a>
+                    </div>
+                    <div class="btn-sair">
+                        <button>Sair</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Espaço KPIs & Gráficos Chart-->
+        <div class="main-content">
+            <div class="container-kpi">
+                <div class="KPIs">
+                    <div class="card">
+                        <span>KPI 1</span>
+                        <span>...</span>
+                    </div>
+                    <div class="card">
+                        <span>KPI 2</span>
+                        <span>...</span>
+                    </div>
+                    <div class="card">
+                        <span>KPI 3</span>
+                        <span>...</span>
+                    </div>
+                    <div class="card">
+                        <span>KPI 4</span>
+                        <span>...</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container-graf">
+            <div class="graficos">
+                <div class="graficos-box1">
+                <canvas id="graf-linha"></canvas>
+                </div>
+                <div class="graficos-box2">
+                <canvas id="graf-pizza"></canvas>
+                </div>
+                <div class="graficos-box1">
+                <canvas id="graf-barra"></canvas>
+                </div>
+                <div class="graficos-box2">
+                <canvas id="graf-rosca"></canvas>
+                </div>
+            </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<!-- Importando biblioteca Chart.js -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    const colors = ["#cbdffe", "#2041a3", "#ffffff"]
+
+    new Chart(document.getElementById('graf-linha'), {
+        type: 'line',
+        data: {
+            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+            datasets: [{
+                label: 'Ativações',
+                data: [120, 190, 300, 250, 220, 310],
+                backgroundColor: "gray",
+                borderWidth: 2,
+                tension: 0.4
+            }]
+            
+        }
+        
+    });
+
+    new Chart(document.getElementById('graf-barra'), {
+        type: 'bar',
+        data: {
+            labels: ['Produto A', 'Produto B', 'Produto C', 'Produto D'],
+            datasets: [{
+                label: 'Vendas',
+                data: [50, 75, 100, 60],
+                backgroundColor: "rgb(32, 65, 163, 0.5)",
+                borderWidth: 1
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('graf-pizza'), {
+        type: 'pie',
+        data: {
+            labels: ['Setor A', 'Setor B', 'Setor C'],
+            datasets: [{
+                data: [55, 35, 10],
+                backgroundColor : colors
+            }]
+        }
+    });
+
+    new Chart(document.getElementById('graf-rosca'), {
+        type: 'doughnut',
+        data: {
+            labels: ['Ativo', 'Inativo'],
+            datasets: [{
+                data: [70, 30],
+                backgroundColor : colors
+            }]
+        }
+    });
+</script>
