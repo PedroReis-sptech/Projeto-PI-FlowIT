@@ -33,20 +33,23 @@
             <div class="container-kpi">
                 <div class="KPIs">
                     <div class="card">
-                        <span>KPI 1</span>
-                        <span>...</span>
+                        <span><b>Setor com menos fluxo</b></span>
+                        <span>Diferente da semana anterior, o setor com o menor fluxo atualmente é: Vestuário</span>
                     </div>
                     <div class="card">
-                        <span>KPI 2</span>
-                        <span>...</span>
+                        <span><b>Nivel de fluxo em relação a semana anterior</b></span>
+                        <span>Terça-feira</span>
+                        <span>Falta 30% para atingirmos o fluxo da semana passada. ou Passou 10% do fluxo da semana passada. </span>
                     </div>
                     <div class="card">
-                        <span>KPI 3</span>
-                        <span>...</span>
+                        <span><b>Nivel de fluxo em relação ao dia anterior</b></span>
+                        <span>Terça-feira</span>
+                        <span>Falta 30% para atingirmos o fluxo do dia anterior. ou Passou 10% do fluxo do dia anterior.</span>
                     </div>
                     <div class="card">
-                        <span>KPI 4</span>
-                        <span>...</span>
+                        <span><b>Setor destaque</b></span>
+                        <span>Eletrônicos</span>
+                        <span>O setor de Eletrônicos tem apresentado um aumento significativo no fluxo, com um crescimento de 20% em comparação à semana anterior.</span>
                     </div>
                 </div>
             </div>
@@ -76,16 +79,16 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
-    const colors = ["#cbdffe", "#2041a3", "#ffffff"]
+    const colors = ["#058DF3", "#005FB1", "#051B32", "#6AD2F5", "#5B94B1", "#1852FE", "#659FFF"];
 
     new Chart(document.getElementById('graf-linha'), {
         type: 'line',
         data: {
-            labels: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun'],
+            labels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
             datasets: [{
-                label: 'Ativações',
-                data: [120, 190, 300, 250, 220, 310],
-                backgroundColor: "gray",
+                label: 'Fluxo dos Caixas',
+                data: [0, 2, 4, 6, 9, 13, 12, 8, 7, 9, 11, 11, 8],
+                backgroundColor: colors,
                 borderWidth: 2,
                 tension: 0.4
             }]
@@ -97,11 +100,11 @@
     new Chart(document.getElementById('graf-barra'), {
         type: 'bar',
         data: {
-            labels: ['Produto A', 'Produto B', 'Produto C', 'Produto D'],
+            labels: ['Alimentício', 'Vestuário', 'Eletrodomésticos', 'Eletrônicos', 'Papelaria', 'Brinquedos', 'Utencílios', 'Livraria', 'Higiene'],
             datasets: [{
                 label: 'Vendas',
-                data: [50, 75, 100, 60],
-                backgroundColor: "rgb(32, 65, 163, 0.5)",
+                data: [18, 8, 12, 8, 10, 17, 10, 7, 10],
+                backgroundColor: colors,
                 borderWidth: 1
             }]
         }
@@ -109,10 +112,22 @@
 
     new Chart(document.getElementById('graf-pizza'), {
         type: 'pie',
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Movimento por turno - Caixas',
+                    font: {
+                        size: 18
+                    }
+                },
+            }
+        },
         data: {
-            labels: ['Setor A', 'Setor B', 'Setor C'],
+
+            labels: ['08:00-12:00', '12:00-16:00', '16:00-20:00'],
             datasets: [{
-                data: [55, 35, 10],
+                data: [21, 40, 39],
                 backgroundColor: colors
             }]
         }
@@ -120,10 +135,24 @@
 
     new Chart(document.getElementById('graf-rosca'), {
         type: 'doughnut',
+        options: {
+            plugins: {
+                title: {
+                    display: true,
+                    text: 'Fluxo por dia da semana',
+                    font: {
+                        size: 18
+                    }
+                },
+                legend: {
+                    position: 'right'
+                }
+            }
+        },
         data: {
-            labels: ['Ativo', 'Inativo'],
+            labels: ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'],
             datasets: [{
-                data: [70, 30],
+                data: [15, 15, 15, 15, 15, 15, 10],
                 backgroundColor: colors
             }]
         }
