@@ -1,5 +1,5 @@
 body {
-    background-color: #cbdbe6;
+    background-color: #ffffff;
     font-family: Arial, sans-serif;
 }
 
@@ -10,7 +10,7 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
-    background-color: #e3f2fd;
+    background-color: #257cfd;
     border-radius: 50px;
 }
 
@@ -39,7 +39,7 @@ body {
 
 .quadrado-cadastro,
 .quadrado-lista {
-    background-color: #e3f2fd;
+    background-color: #257cfd;
     border-radius: 20px;
     padding: 20px;
 }
@@ -53,13 +53,18 @@ body {
 }
 
 .botao-sair {
-    border: 2px solid #2a2a8e;
+    border: 2px solid white;
     border-radius: 20px;
-    padding: 5px 15px;
+    padding: 5px 20px;
     background: transparent;
     font-weight: bold;
     cursor: pointer;
+    color: white;
 
+}
+
+.botao-sair:hover {
+    background-color: #1954ad;
 }
 
 /* Texto e botões */
