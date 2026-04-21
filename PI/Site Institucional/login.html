@@ -69,10 +69,13 @@
         if(acertosEmail == emailCorreto.length && email.length == emailCorreto.length &&
         acertosSenha == senhaCorreta.length && senhaInserida.length == senhaCorreta.length){
           mensagem = `<p class="exibir sucesso">Login confirmado!</p>`;
+          exibir.innerHTML = mensagem;
+          setTimeout(() => {
+            window.location.href = "tela_gerente.html";
+          }, 1000);
         }else{
           mensagem = `<p class="exibir erro">Senha e/ou Email inválidos.</p>`;
+          exibir.innerHTML = mensagem;
         }
-
-        exibir.innerHTML = mensagem;
     }
 </script>
