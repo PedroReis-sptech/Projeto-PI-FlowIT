@@ -78,8 +78,10 @@
 
         if(!temErro){
             mensagem = `<p class="exibir sucesso">Cadastro confirmado!</p>`;
+            exibir.innerHTML = mensagem;
+            setTimeout(() => {
+            window.location.href = "index.html";
+            }, 1000);
         }
-
-        exibir.innerHTML = mensagem;
     }
 </script>
