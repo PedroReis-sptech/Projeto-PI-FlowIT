@@ -1,160 +1,188 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Flow</title>
-    <link rel="stylesheet" href="dashboard-styles.css">
     <link rel="stylesheet" href="telas/style.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
     <div class="cabecalho">
         <div id="div_flow" class="logo">
-            <img src="telas/flow-logo.png" alt="Descrição" style="width:100%;">
+            <img src="telas/flow-logo.png" alt="Logo Flow" style="width:100%;">
         </div>
         <div class="links">
-            <a href="#">PÁGINA INICIAL</a>
+            <a href="../index.html">PÁGINA INICIAL</a>
             <a href="#" class="link-ativo">DASHBOARD</a>
-            <a href="telas/tela_gerente.html">GESTÃO</a>
+            <a href="../tela_gerente.html">GESTÃO</a>
         </div>
         <div class="botoes-topo">
-            <button class="botao-sair">Sair</button>
+            <button class="botao-sair" onclick="sairTela()">Sair</button>
         </div>
     </div>
-    <div class="layout">
 
-        <!-- Espaço KPIs & Gráficos Chart-->
+    <div class="layout">
         <div class="saudacoes">
-            <h3>Seja bem-vindo, (usuário)!</h3>
+            <center>
+                <h3>Seja bem-vindo, Fernando Brandão!</h3>
+            </center>
         </div>
+
         <div class="main-content quadrado-grafico">
             <div class="container-kpi">
                 <div class="KPIs">
                     <div class="card">
                         <span><b>Setor com menos fluxo</b></span>
-                        <span>Diferente da semana anterior, o setor com o menor fluxo atualmente é: Vestuário</span>
+                        <span class="setor">Livraria <span class="seta-icon t-1">▼</span></span>
+                        <span class="card-descritivo">Diferente da semana anterior este é o setor com o menor
+                            fluxo.</span>
                     </div>
                     <div class="card">
-                        <span><b>Nivel de fluxo em relação a semana anterior</b></span>
-                        <span>Terça-feira</span>
-                        <span>Falta 30% para atingirmos o fluxo da semana passada. ou Passou 10% do fluxo da semana passada. </span>
+                        <span><b>Nivel de fluxo</b></span>
+                        <span class="setor">Terça-feira <span class="seta-icon c">○</span></span>
+                        <span class="card-descritivo">Falta 30% para atingirmos o fluxo da semana passada.</span>
                     </div>
                     <div class="card">
-                        <span><b>Nivel de fluxo em relação ao dia anterior</b></span>
-                        <span>Terça-feira</span>
-                        <span>Falta 30% para atingirmos o fluxo do dia anterior. ou Passou 10% do fluxo do dia anterior.</span>
+                        <span><b>Variação de fluxo</b></span>
+                        <span class="setor">Terça-feira <span class="seta-icon c">○</span></span>
+                        <span class="card-descritivo">Passou 10% do fluxo do dia anterior.</span>
                     </div>
                     <div class="card">
                         <span><b>Setor destaque</b></span>
-                        <span>Eletrônicos</span>
-                        <span>O setor de Eletrônicos tem apresentado um aumento significativo no fluxo, com um crescimento de 20% em comparação à semana anterior.</span>
+                        <span class="setor">Eletrônicos <span class="seta-icon t-2">▲</span></span>
+                        <span class="card-descritivo">Crescimento de 20% em comparação à semana anterior.</span>
                     </div>
                 </div>
             </div>
-            <div class="container-graf">
-                <div class="graficos">
-                    <div class="graficos-box1">
-                        <canvas id="graf-linha"></canvas>
-                    </div>
-                    <div class="graficos-box2">
-                        <canvas id="graf-pizza"></canvas>
-                    </div>
-                    <div class="graficos-box1">
-                        <canvas id="graf-barra"></canvas>
-                    </div>
-                    <div class="graficos-box2">
-                        <canvas id="graf-rosca"></canvas>
+
+            <div class="conteudo-principal">
+                <div class="container-select">
+                    <label for="select-setor"><b>Selecionar Setor:</b></label>
+                    <select id="select-setor" class="select-setor">
+                        <option value="geral">Geral</option>
+                        <option value="caixa">Caixa</option>
+                        <option value="alimenticio">Alimentício</option>
+                        <option value="vestuario">Vestuário</option>
+                        <option value="eletrodomesticos">Eletrodomésticos</option>
+                        <option value="eletronicos">Eletrônicos</option>
+                        <option value="papelaria">Papelaria</option>
+                        <option value="brinquedos">Brinquedos</option>
+                        <option value="utencilios">Utencílios</option>
+                        <option value="livraria">Livraria</option>
+                        <option value="higiene">Higiene</option>
+                    </select>
+                </div>
+
+                <div class="container-graf">
+                    <div class="graficos">
+                        <div class="graficos-box1">
+                            <canvas id="graf-linha"></canvas>
+                        </div>
+                        <div class="graficos-box2">
+                            <canvas id="graf-pizza"></canvas>
+                        </div>
+                        <div class="graficos-box1">
+                            <canvas id="graf-barra"></canvas>
+                        </div>
+                        <div class="graficos-box2">
+                            <canvas id="graf-rosca"></canvas>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 </body>
 
 </html>
 
-<!-- Importando biblioteca Chart.js -->
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 <script>
+    // ... (Mantenha o seu script JavaScript original aqui, ele continuará funcionando normalmente)
     const colors = ["#058DF3", "#005FB1", "#051B32", "#6AD2F5", "#5B94B1", "#1852FE", "#659FFF"];
+    const dadosSetores = { /* Seus dados originais */
+        geral: { linha: [0, 5, 10, 15, 25, 35, 32, 22, 20, 25, 30, 32, 28], pizza: [70, 130, 130], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [50, 50, 50, 50, 50, 50, 40], label: 'Fluxo Geral', pizzaTitle: 'Movimento por turno - Geral', linhaTitle: 'Fluxo Geral por hora - Geral' },
+        caixa: { linha: [0, 2, 4, 6, 9, 13, 12, 8, 7, 9, 11, 11, 8], pizza: [21, 40, 39], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [15, 15, 15, 15, 15, 15, 10], label: 'Fluxo dos Caixas', pizzaTitle: 'Movimento por turno - Caixas', linhaTitle: 'Fluxo por hora - Caixas' },
+        alimenticio: { linha: [0, 1, 2, 3, 4, 5, 4, 3, 3, 4, 4, 4, 3], pizza: [6, 10, 8], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [3, 3, 3, 3, 3, 3, 2], label: 'Fluxo Alimentício', pizzaTitle: 'Movimento por turno - Alimentício', linhaTitle: 'Fluxo por hora - Alimentício' },
+        vestuario: { linha: [0, 0.5, 1, 1.5, 2, 2.5, 2, 1.5, 1.5, 2, 2, 2, 1.5], pizza: [3, 5, 4], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1], label: 'Fluxo Vestuário', pizzaTitle: 'Movimento por turno - Vestuário', linhaTitle: 'Fluxo por hora - Vestuário' },
+        eletrodomesticos: { linha: [0, 0.8, 1.5, 2, 3, 4, 3.5, 2.5, 2.5, 3, 3.5, 3.5, 3], pizza: [4, 8, 8], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [3, 3, 3, 3, 3, 3, 2.5], label: 'Fluxo Eletrodomésticos', pizzaTitle: 'Movimento por turno - Eletrodomésticos', linhaTitle: 'Fluxo por hora - Eletrodomésticos' },
+        eletronicos: { linha: [0, 0.7, 1.3, 2, 3.5, 5, 4.5, 3, 2.8, 3.5, 4, 4, 3.5], pizza: [5, 10, 10], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [4, 4, 4, 4, 4, 4, 3], label: 'Fluxo Eletrônicos', pizzaTitle: 'Movimento por turno - Eletrônicos', linhaTitle: 'Fluxo por hora - Eletrônicos' },
+        papelaria: { linha: [0, 0.6, 1.2, 1.8, 2.5, 3.5, 3, 2, 2, 2.5, 3, 3, 2.5], pizza: [4, 7, 6], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [2.5, 2.5, 2.5, 2.5, 2.5, 2.5, 2], label: 'Fluxo Papelaria', pizzaTitle: 'Movimento por turno - Papelaria', linhaTitle: 'Fluxo por hora - Papelaria' },
+        brinquedos: { linha: [0, 1, 2, 2.5, 3.5, 5, 4.5, 3.5, 3, 3.5, 4, 4, 3.5], pizza: [5, 10, 9], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [4, 4, 4, 4, 4, 4, 3.5], label: 'Fluxo Brinquedos', pizzaTitle: 'Movimento por turno - Brinquedos', linhaTitle: 'Fluxo por hora - Brinquedos' },
+        utencilios: { linha: [0, 0.5, 1, 1.5, 2, 2.8, 2.5, 1.8, 1.5, 2, 2.5, 2.5, 2], pizza: [3, 6, 5], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [2, 2, 2, 2, 2, 2, 1.5], label: 'Fluxo Utencílios', pizzaTitle: 'Movimento por turno - Utencílios', linhaTitle: 'Fluxo por hora - Utencílios' },
+        livraria: { linha: [0, 0.4, 0.8, 1.2, 1.8, 2.3, 2, 1.3, 1.2, 1.8, 2, 2, 1.8], pizza: [2, 4, 3], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [1.5, 1.5, 1.5, 1.5, 1.5, 1.5, 1], label: 'Fluxo Livraria', pizzaTitle: 'Movimento por turno - Livraria', linhaTitle: 'Fluxo por hora - Livraria' },
+        higiene: { linha: [0, 0.6, 1.2, 1.8, 2.5, 3.5, 3.2, 2.2, 2, 2.5, 3, 3, 2.5], pizza: [4, 8, 7], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [3, 3, 3, 3, 3, 3, 2.5], label: 'Fluxo Higiene', pizzaTitle: 'Movimento por turno - Higiene', linhaTitle: 'Fluxo por hora - Higiene' }
+    };
 
-    new Chart(document.getElementById('graf-linha'), {
-        type: 'line',
-        data: {
-            labels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
-            datasets: [{
-                label: 'Fluxo dos Caixas',
-                data: [0, 2, 4, 6, 9, 13, 12, 8, 7, 9, 11, 11, 8],
-                backgroundColor: colors,
-                borderWidth: 2,
-                tension: 0.4
-            }]
+    let chartLinha, chartBarra, chartPizza, chartRosca;
 
-        }
+    function inicializarGraficos() {
+        const setor = document.getElementById('select-setor').value;
+        const dados = dadosSetores[setor];
 
-    });
-
-    new Chart(document.getElementById('graf-barra'), {
-        type: 'bar',
-        data: {
-            labels: ['Alimentício', 'Vestuário', 'Eletrodomésticos', 'Eletrônicos', 'Papelaria', 'Brinquedos', 'Utencílios', 'Livraria', 'Higiene'],
-            datasets: [{
-                label: 'Vendas',
-                data: [18, 8, 12, 8, 10, 17, 10, 7, 10],
-                backgroundColor: colors,
-                borderWidth: 1
-            }]
-        }
-    });
-
-    new Chart(document.getElementById('graf-pizza'), {
-        type: 'pie',
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Movimento por turno - Caixas',
-                    font: {
-                        size: 18
-                    }
-                },
+        chartLinha = new Chart(document.getElementById('graf-linha'), {
+            type: 'line',
+            options: { plugins: { title: { display: true, text: dados.linhaTitle, font: { size: 18 } } } },
+            data: {
+                labels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
+                datasets: [{ label: dados.label, data: dados.linha, backgroundColor: colors, borderWidth: 8, tension: 0.4, fill: true }]
             }
-        },
-        data: {
+        });
 
-            labels: ['08:00-12:00', '12:00-16:00', '16:00-20:00'],
-            datasets: [{
-                data: [21, 40, 39],
-                backgroundColor: colors
-            }]
-        }
-    });
-
-    new Chart(document.getElementById('graf-rosca'), {
-        type: 'doughnut',
-        options: {
-            plugins: {
-                title: {
-                    display: true,
-                    text: 'Fluxo por dia da semana',
-                    font: {
-                        size: 18
-                    }
-                },
-                legend: {
-                    position: 'right'
-                }
+        chartBarra = new Chart(document.getElementById('graf-barra'), {
+            type: 'bar',
+            options: { plugins: { title: { display: true, text: 'Fluxo por setor - Geral', font: { size: 18 } } } },
+            data: {
+                labels: ['Alimentício', 'Vestuário', 'Eletrodomésticos', 'Eletrônicos', 'Papelaria', 'Brinquedos', 'Utencílios', 'Livraria', 'Higiene'],
+                datasets: [{ label: 'Fluxo', data: dados.barra, backgroundColor: colors, borderWidth: 1 }]
             }
-        },
-        data: {
-            labels: ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'],
-            datasets: [{
-                data: [15, 15, 15, 15, 15, 15, 10],
-                backgroundColor: colors
-            }]
+        });
+
+        chartPizza = new Chart(document.getElementById('graf-pizza'), {
+            type: 'pie',
+            options: { plugins: { title: { display: true, text: dados.pizzaTitle, font: { size: 18 } } } },
+            data: {
+                labels: ['08:00-12:00', '12:00-16:00', '16:00-20:00'],
+                datasets: [{ data: dados.pizza, backgroundColor: colors }]
+            }
+        });
+
+        chartRosca = new Chart(document.getElementById('graf-rosca'), {
+            type: 'polarArea',
+            options: { plugins: { title: { display: true, text: 'Fluxo por dia da semana', font: { size: 18 } }, legend: { position: 'right' } } },
+            data: {
+                labels: ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'],
+                datasets: [{ data: dados.rosca, backgroundColor: colors }]
+            }
+        });
+    }
+
+    function atualizarGraficos() {
+        const setor = document.getElementById('select-setor').value;
+        const dados = dadosSetores[setor];
+        chartLinha.options.plugins.title.text = dados.linhaTitle;
+        chartLinha.data.datasets[0].label = dados.label;
+        chartLinha.data.datasets[0].data = dados.linha;
+        chartLinha.update();
+        chartBarra.data.datasets[0].data = dados.barra;
+        chartBarra.update();
+        chartPizza.options.plugins.title.text = dados.pizzaTitle;
+        chartPizza.data.datasets[0].data = dados.pizza;
+        chartPizza.update();
+        chartRosca.data.datasets[0].data = dados.rosca;
+        chartRosca.update();
+    }
+
+    function sairTela() {
+        if (confirm("Deseja sair desta tela?")) {
+            window.location.href = "../index.html";
         }
-    });
+    }
+
+    inicializarGraficos();
+    document.getElementById('select-setor').addEventListener('change', atualizarGraficos);
 </script>
