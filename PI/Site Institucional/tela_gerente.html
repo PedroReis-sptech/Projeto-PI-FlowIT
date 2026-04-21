@@ -3,20 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>Tela de Gerente - Flow</title>
-    <link rel="stylesheet" href="styleGerente.css">
+    <link rel="stylesheet" href="css/styleGerente.css">
 </head>
 <body>
 
     <div class="cabecalho">
         <div id="div_flow" class="logo">
-            <img src="flow-logo.png" alt="Descrição" style="width:100%;">
+            <img src="dashboard/telas/flow-logo.png" alt="Descrição" style="width:100%;">
         </div>
         <div class="links">
-            <a href="../dashboard.html">DASHBOARD</a>
+            <a href="../Site Institucional/index.html">PÁGINA INICIAL</a>
+            <a href="dashboard/dashboard.html">DASHBOARD</a>
             <a href="#" class="link-ativo">GESTÃO</a>
         </div>
         <div class="botoes-topo">
-            <button class="botao-sair">Sair</button>
+            <button class="botao-sair" onclick="sairTela()">Sair</button>
         </div>
     </div>
 
@@ -104,6 +105,12 @@ function mostrarNaTela() {
             </tr>
         `;
     }
+}
+
+function sairTela() {
+    if (confirm("Deseja sair desta tela?")) {
+    window.location.href = "../Site Institucional/index.html";
+} 
 }
 
 function remover(posicao) {
