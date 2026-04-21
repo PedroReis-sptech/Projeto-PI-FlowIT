@@ -1,10 +1,10 @@
 * {
     font-family: Arial, sans-serif;
+    box-sizing: border-box;
 }
 
 body {
-    margin: 0;
-    background-color: #f2f7fd;
+    background-color: #ffffff;
 }
 
 .cabecalho {
@@ -12,124 +12,130 @@ body {
     justify-content: space-between;
     align-items: center;
     padding: 20px 50px;
-    background-color: #e3f2fd;
+    background-color: #257cfd;
     border-radius: 50px;
 }
 
-.layout {
-    min-height: 10vh;
-    gap: 15px;
-    padding: 20px;
-    flex-direction: column;
-    align-items: center;
-}
-
-.container-header {
-    min-height: 100vh;
-}
-
-.header-nav-bar {
-    margin-bottom: 20px;
-    background-color: #2041a3;
-    color: #fcfdff;
-    width: 100px;
-    height: 30px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-}
-
-.botao-sair {
-    border: 2px solid #2a2a8e;
-    border-radius: 20px;
-    padding: 5px 15px;
-    background: transparent;
+.links a {
+    margin: 10px;
+    text-decoration: none;
+    color: black;
     font-weight: bold;
-    cursor: pointer;
-
 }
 
-.main-content {
-    flex: 1;
+.layout {
+    padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
+.saudacoes {
+    margin-bottom: 20px;
+}
 
-.container-graf {
-    width: 1000px;
+.quadrado-grafico {
+    background-color: #257cfd;
+    border-radius: 20px;
+    padding: 35px;
     display: flex;
-    justify-content: center;
-    
+    flex-direction: row; /* Coloca KPIs e Gráficos lado a lado */
+    align-items: flex-start;
+    gap: 40px;
+    width: 95%;
+    max-width: 1400px;
 }
 
-.graficos {
-    width: 100%; 
-    display: grid;
-    gap: 5%;
-    grid-template-columns: 2fr 1fr;
-    margin-top: 40px;
-    align-items: center;
-}
-
-.graficos-box1 {
-    padding: 15px;
-    width: 100%;
-    height: auto;
-}
-
-.graficos-box2 {
-    max-height: 300px;
-    padding: 15px;
-    width: 100%;
-}
-
-canvas {
-    padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    width: 100% !important;
-    max-height: 350px !important;
-    background-color: white;
-}
-
+/* COLUNA DE KPIs */
 .container-kpi {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin-top: 40px;
-
+    width: auto;
 }
 
 .KPIs {
     display: flex;
-    flex-direction: line;
-    gap: 30px;
-    flex-wrap: wrap ;
-}
-
-.quadrado-grafico {
-    background-color: #e3f2fd;
-    border-radius: 20px;
-    padding: 35px;
-    align-items: center;
-    display: flex;
-    width: auto;
+    flex-direction: column;
+    gap: 20px;
+    height: auto;
+    justify-content: space-between;
 }
 
 .card {
     background-color: #11224f;
     color: white;
     padding: 15px;
-    width: 200px;
-    height: 100px;
+    width: 220px;
+    height: 120px;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center; 
     justify-content: space-between;
+    font-size: 0.85rem;
 }
 
+/* BLOCO DA DIREITA */
+.conteudo-principal {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.container-select {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.select-setor {
+    padding: 10px 15px;
+    border: 2px solid #11224f;
+    border-radius: 8px;
+    background-color: white;
+    color: #11224f;
+    font-weight: bold;
+    min-width: 250px;
+}
+
+.container-graf {
+    width: 100%;
+}
+
+.graficos {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr; /* Proporção dos gráficos */
+    gap: 20px;
+    width: 100%;
+}
+
+canvas {
+    background-color: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 100% !important;
+    max-height: 300px !important;
+}
+
+/* ESTILOS DE ÍCONES E BOTÕES */
+.seta-icon { font-size: 20px; }
+.t-1 { color: #ff4d4d; }
+.t-2 { color: #40ff40; }
+.c { color: #ffff40; }
+
+.botao-sair {
+    border: 2px solid white;
+    border-radius: 20px;
+    padding: 5px 20px;
+    background: transparent;
+    font-weight: bold;
+    cursor: pointer;
+    color: white;
+}
+.botao-sair:hover {
+    background-color: #1954ad;
+}
