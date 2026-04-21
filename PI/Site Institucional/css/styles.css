@@ -31,18 +31,21 @@
 }
 
 .header a:hover {
-    color: #80c3ec;
+    color: #1954ad;
 }
 
 .destaque {
-    border: 2px solid #ffffff;
-    padding: 8px 20px;
+    border: 2px solid white;
     border-radius: 20px;
+    padding: 5px 20px;
+    background: transparent;
+    font-weight: bold;
+    cursor: pointer;
+    color: white !important;
 }
 
 .destaque:hover {
-    background-color: #ffffff;
-    color: #80c3ec;
+    background-color: #1954ad;
 }
 
 .header_contas,
