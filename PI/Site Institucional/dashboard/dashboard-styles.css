@@ -20,7 +20,7 @@ body {
     align-items: center;
     gap: 120px;
     padding: 20px 50px;
-    background-color: #2F4E7C;
+    background-color: #11224f;
     width: 20%;
     color: #FFFFFF;
 }
@@ -32,6 +32,11 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.link-ativo{
+    border-bottom: 3px solid #ffffff;
+}
+
 .links a {
     margin: 10px;
     text-decoration: none;
@@ -51,6 +56,7 @@ body {
 
 .saudacoes {
     margin-bottom: 20px;
+    text-align: center;
 }
 
 .quadrado-grafico {
@@ -77,12 +83,20 @@ body {
     justify-content: space-between;
 }
 
+.info-kpi {
+    display: flex;
+    justify-self: flex-end;
+    color: gray;
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
 .card {
     background-color: #11224f;
     color: white;
     padding: 15px;
-    width: 220px;
-    height: 120px;
+    width: 240px;
+    height: 140px;
     border-radius: 12px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     display: flex;
@@ -91,6 +105,15 @@ body {
     text-align: center; 
     justify-content: space-between;
     font-size: 0.85rem;
+}
+
+.card b {
+    font-size: 19px;
+}
+
+.setor {
+    font-size: 16px;
+    font-weight: bold;
 }
 
 /* BLOCO DA DIREITA */
@@ -117,6 +140,7 @@ body {
     background-color: white;
     color: #11224f;
     font-weight: bold;
+    cursor: pointer;
     width: 800px;
 }
 
