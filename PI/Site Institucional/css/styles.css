@@ -16,7 +16,9 @@
     align-items: center;
     padding: 20px 50px;
     box-sizing: border-box;
+    /* Faz o menu não passar da largura da pag */
     position: absolute;
+    /* Faz o menu flutuar sobre o banner */
     top: 0;
     left: 0;
     width: 100%;
@@ -29,21 +31,18 @@
 }
 
 .header a:hover {
-    color: #1954ad;
+    color: #80c3ec;
 }
 
 .destaque {
-    border: 2px solid white;
+    border: 2px solid #ffffff;
+    padding: 8px 20px;
     border-radius: 20px;
-    padding: 5px 20px;
-    background: transparent;
-    font-weight: bold;
-    cursor: pointer;
-    color: white !important;
 }
 
 .destaque:hover {
-    background-color: #1954ad;
+    background-color: #ffffff;
+    color: #80c3ec;
 }
 
 .header_contas,
@@ -116,6 +115,7 @@
 }
 
 .sobre {
+    background-color: #8ba8c6;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -125,19 +125,22 @@
     height: 700px;
     padding: 30px;
     box-sizing: border-box;
+    
 }
 
 .sobre_conteudo {
     display: flex;
+    flex-direction: column;
     box-sizing: border-box;
     height: 700px;
-    gap: 10px;
+    gap: 15px;
+    
 }
 
 .sobre_conteudo_lado {
     display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
+    flex-direction: row;
+    /* flex-wrap: wrap; */
     gap: 10px;
     box-sizing: border-box;
 }
@@ -145,26 +148,44 @@
 .card {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    border: 1px solid black;
     border-radius: 16px;
-    padding: 16px;
+    padding:25px;
+    padding-top: 20px;
     height: 300px;
     width: 100%;
     box-sizing: border-box;
+    background-color: #080632d1;
 }
 
 .valores {
-    height: 610px;
+    height: 320px;
+    
+    
+
+}
+
+.valores p{
+    line-height: 3;
+    overflow-wrap: break-word;
+    
+
 }
 
 .card h3 {
-    font-size: 40px;
+    
+    font-size: 50px;
+    color: white;
+    
 }
 
 .card p {
-    font-size: 18px;
+    font-size: 22px;
+    color: white;
+    padding-top: 25px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
 }
 
 .card img {
@@ -173,8 +194,12 @@
 }
 
 .outros {
+    padding-top: 0%;
     height: 300px;
+    line-height: 1.8;
 }
+
+
 
 .simulador_financeiro {
     background-color: red;
@@ -326,5 +351,7 @@ p.subtitle {
 
 .section_simulador {
     margin-top: 20px;
+    /* border-top: 2px solid black; */
+    /* background-color: #c6ccef; */
     padding: 2%;
 }
