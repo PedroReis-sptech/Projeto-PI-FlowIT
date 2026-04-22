@@ -40,7 +40,7 @@
     box-shadow:0 42px 100px rgba(42, 72, 140, 0.12);
     border-radius:32px;
     height: 500px;
-    width: 700px;
+    width: 600px;
     margin-top: 150px;
 }
 
@@ -71,6 +71,9 @@
 }
 
 input{
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
     width:100%;
     padding:16px 30px;
     background:#f8fbff;
@@ -87,7 +90,6 @@ input{
 
 .botao{
     width: 20rem;
-    margin-top: -20px;
     padding:16px 19px;
     border-radius:15px;
     background:linear-gradient(135deg, #2143a8, #16327e);
@@ -96,6 +98,19 @@ input{
     font-size:16px;
     cursor:pointer;
     
+}
+
+#voltar {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+    margin-top: 20px;
+}
+
+#voltar a{
+    color: #2041a3;
+    font-weight: 500;
 }
 
 .exibir {

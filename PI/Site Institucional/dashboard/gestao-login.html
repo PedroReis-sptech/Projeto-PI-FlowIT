@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Gestão</title>
-    <link rel="stylesheet" href="dashboard-gestao.css">
+    <title>Verificação Acesso de Gestão</title>
+    <link rel="stylesheet" href="gestao-login.css">
 </head>
 <body>
     <div class="direito">
     <div class="login">
-        <h2>Bem-vindo de volta!</h2>
+        <h2>Acesso de Organizador</h2>
         <span>Por favor, forneça seu login de organizador para ter acesso.</span>
     </div>
     <div class="formulario">
@@ -20,6 +20,7 @@
     <div class="box-botao">
     <button class="botao" onclick="logar()">ENTRAR</button>
     </div>
+    <span id="voltar">Mudou de ideia? <a href="dashboard.html">Voltar</a></span>
     </div>
 </div>
     <div id="exibir" class="exibir"></div>
@@ -53,7 +54,7 @@
           mensagem = `<p class="exibir sucesso">Que bom te ver de novo! Redirecionando...</p>`;
 
           setTimeout(function () {
-                        window.location.href = "telas/tela_gerente.html";
+                        window.location.href = "../tela_gerente.html";
                     }, 1000);
         }else{
           mensagem = `<p class="exibir erro">Senha e/ou Email inválidos.</p>`;

@@ -77,7 +77,7 @@ body{
     backdrop-filter:blur(10px);
     border-radius:32px;
     margin:32px;
-    height: 95%;
+    height: 100%;
 }
 
 .direito h1{
