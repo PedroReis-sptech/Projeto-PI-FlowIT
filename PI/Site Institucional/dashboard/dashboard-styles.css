@@ -1,4 +1,6 @@
 * {
+    margin: 0;
+    padding: 0;
     font-family: Arial, sans-serif;
     box-sizing: border-box;
 }
@@ -6,28 +8,45 @@
 body {
     background-color: #ffffff;
 }
+.dash__content{
+    display: flex;
+    flex-direction: row;
+}
 
 .cabecalho {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: flex-start;
     align-items: center;
+    gap: 120px;
     padding: 20px 50px;
-    background-color: #257cfd;
-    border-radius: 50px;
+    background-color: #2F4E7C;
+    width: 20%;
+    color: #FFFFFF;
 }
 
+.box__graficos{
+    width: 80%;
+}
+.links{
+    display: flex;
+    flex-direction: column;
+}
 .links a {
     margin: 10px;
     text-decoration: none;
-    color: black;
+    color: #FFFFFF;
     font-weight: bold;
 }
 
 .layout {
+    display: flex;
+    flex-direction: column;
     padding: 20px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    box-sizing: border-box;
 }
 
 .saudacoes {
@@ -35,11 +54,10 @@ body {
 }
 
 .quadrado-grafico {
-    background-color: #257cfd;
     border-radius: 20px;
     padding: 35px;
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     align-items: flex-start;
     gap: 40px;
     width: 95%;
@@ -53,7 +71,7 @@ body {
 
 .KPIs {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 20px;
     height: auto;
     justify-content: space-between;
@@ -82,6 +100,7 @@ body {
     flex-direction: column;
     align-items: center;
     width: 100%;
+    box-sizing: border-box;
 }
 
 .container-select {
@@ -98,7 +117,7 @@ body {
     background-color: white;
     color: #11224f;
     font-weight: bold;
-    min-width: 250px;
+    width: 800px;
 }
 
 .container-graf {

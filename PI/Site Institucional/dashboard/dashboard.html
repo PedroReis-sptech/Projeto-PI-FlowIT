@@ -11,98 +11,109 @@
 </head>
 
 <body>
-    <div class="cabecalho">
-        <div id="div_flow" class="logo">
-            <img src="telas/flow-logo.png" alt="Logo Flow" style="width:100%;">
-        </div>
-        <div class="links">
-            <a href="../index.html">PÁGINA INICIAL</a>
-            <a href="#" class="link-ativo">DASHBOARD</a>
-            <a href="gestao-login.html">GESTÃO</a>
-        </div>
-        <div class="botoes-topo">
-            <button class="botao-sair" onclick="sairTela()">Sair</button>
-        </div>
-    </div>
+    <div class="dash__content">
+        <div class="cabecalho">
+            <div id="div_flow" class="logo">
+                <img src="telas/flow-logo.png" alt="Logo Flow" style="width:100%;">
+            </div>
 
-    <div class="layout">
-        <div class="saudacoes">
-            <center>
-                <h3>Seja bem-vindo, Fernando Brandão!</h3>
-            </center>
+            <div class="saudacoes">
+                <center>
+                    <h3>Seja bem-vindo, Fernando Brandão!</h3>
+                </center>
+            </div>
+
+            <div class="links">
+                <a href="../index.html">PÁGINA INICIAL</a>
+                <a href="#" class="link-ativo">DASHBOARD</a>
+                <a href="gestao-login.html">GESTÃO</a>
+            </div>
+            <div class="botoes-topo">
+                <button class="botao-sair" onclick="sairTela()">Sair</button>
+            </div>
         </div>
 
-        <div class="main-content quadrado-grafico">
-            <div class="container-kpi">
-                <div class="KPIs">
-                    <div class="card">
-                        <span><b>Setor com menos fluxo</b></span>
-                        <span class="setor">Livraria <span class="seta-icon t-1">▼</span></span>
-                        <span class="card-descritivo">Diferente da semana anterior este é o setor com o menor
-                            fluxo.</span>
+        <div class="box__graficos">
+            <div class="layout">
+
+
+                <div class="main-content quadrado-grafico">
+                    <div class="container-kpi">
+                        <div class="KPIs">
+                            <div class="card">
+                                <span><b>Setor com menos fluxo</b></span>
+                                <span class="setor">Livraria <span class="seta-icon t-1">▼</span></span>
+                                <span class="card-descritivo">Diferente da semana anterior este é o setor com o menor
+                                    fluxo.</span>
+                            </div>
+                            <div class="card">
+                                <span><b>Nivel de fluxo</b></span>
+                                <span class="setor">Terça-feira <span class="seta-icon c">○</span></span>
+                                <span class="card-descritivo">Falta 30% para atingirmos o fluxo da semana
+                                    passada.</span>
+                            </div>
+                            <div class="card">
+                                <span><b>Variação de fluxo</b></span>
+                                <span class="setor">Terça-feira <span class="seta-icon c">○</span></span>
+                                <span class="card-descritivo">Passou 10% do fluxo do dia anterior.</span>
+                            </div>
+                            <div class="card">
+                                <span><b>Setor destaque</b></span>
+                                <span class="setor">Eletrônicos <span class="seta-icon t-2">▲</span></span>
+                                <span class="card-descritivo">Crescimento de 20% em comparação à semana anterior.</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card">
-                        <span><b>Nivel de fluxo</b></span>
-                        <span class="setor">Terça-feira <span class="seta-icon c">○</span></span>
-                        <span class="card-descritivo">Falta 30% para atingirmos o fluxo da semana passada.</span>
-                    </div>
-                    <div class="card">
-                        <span><b>Variação de fluxo</b></span>
-                        <span class="setor">Terça-feira <span class="seta-icon c">○</span></span>
-                        <span class="card-descritivo">Passou 10% do fluxo do dia anterior.</span>
-                    </div>
-                    <div class="card">
-                        <span><b>Setor destaque</b></span>
-                        <span class="setor">Eletrônicos <span class="seta-icon t-2">▲</span></span>
-                        <span class="card-descritivo">Crescimento de 20% em comparação à semana anterior.</span>
+
+                    <div class="conteudo-principal">
+                        <div class="container-select">
+                            <select id="select-setor" class="select-setor">
+                                <option value="geral" selected>Selecionar Setor</option>
+                                <option value="geral">Geral</option>
+                                <option value="caixa">Caixa</option>
+                                <option value="alimenticio">Alimentício</option>
+                                <option value="vestuario">Vestuário</option>
+                                <option value="eletrodomesticos">Eletrodomésticos</option>
+                                <option value="eletronicos">Eletrônicos</option>
+                                <option value="papelaria">Papelaria</option>
+                                <option value="brinquedos">Brinquedos</option>
+                                <option value="utencilios">Utencílios</option>
+                                <option value="livraria">Livraria</option>
+                                <option value="higiene">Higiene</option>
+                            </select>
+                        </div>
+
+                        <div class="container-graf">
+                            <div class="graficos">
+                                <div class="graficos-box1">
+                                    <canvas id="graf-linha"></canvas>
+                                </div>
+                                <div class="graficos-box2">
+                                    <canvas id="graf-pizza"></canvas>
+                                </div>
+                                <div class="graficos-box1">
+                                    <canvas id="graf-barra"></canvas>
+                                </div>
+                                <div class="graficos-box2">
+                                    <canvas id="graf-rosca"></canvas>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-
-            <div class="conteudo-principal">
-                <div class="container-select">
-                    <label for="select-setor"><b>Selecionar Setor:</b></label>
-                    <select id="select-setor" class="select-setor">
-                        <option value="geral">Geral</option>
-                        <option value="caixa">Caixa</option>
-                        <option value="alimenticio">Alimentício</option>
-                        <option value="vestuario">Vestuário</option>
-                        <option value="eletrodomesticos">Eletrodomésticos</option>
-                        <option value="eletronicos">Eletrônicos</option>
-                        <option value="papelaria">Papelaria</option>
-                        <option value="brinquedos">Brinquedos</option>
-                        <option value="utencilios">Utencílios</option>
-                        <option value="livraria">Livraria</option>
-                        <option value="higiene">Higiene</option>
-                    </select>
-                </div>
-
-                <div class="container-graf">
-                    <div class="graficos">
-                        <div class="graficos-box1">
-                            <canvas id="graf-linha"></canvas>
-                        </div>
-                        <div class="graficos-box2">
-                            <canvas id="graf-pizza"></canvas>
-                        </div>
-                        <div class="graficos-box1">
-                            <canvas id="graf-barra"></canvas>
-                        </div>
-                        <div class="graficos-box2">
-                            <canvas id="graf-rosca"></canvas>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
-    </div>
 
+
+
+
+    </div>
 </body>
 
 </html>
 
 <script>
-    const colors = ["#058DF3", "#005FB1", "#051B32", "#6AD2F5", "#5B94B1", "#1852FE", "#659FFF"];
+    const colors = ["#058df3a8", "#005fb1d1", "#051b32d4", "#6AD2F5", "#5B94B1", "#1852FE", "#659FFF"];
     const dadosSetores = { /* Seus dados originais */
         geral: { linha: [0, 5, 10, 15, 25, 35, 32, 22, 20, 25, 30, 32, 28], pizza: [70, 130, 130], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [50, 50, 50, 50, 50, 50, 40], label: 'Fluxo Geral', pizzaTitle: 'Movimento por turno - Geral', linhaTitle: 'Fluxo Geral por hora - Geral' },
         caixa: { linha: [0, 2, 4, 6, 9, 13, 12, 8, 7, 9, 11, 11, 8], pizza: [21, 40, 39], barra: [18, 8, 12, 8, 10, 17, 10, 7, 10], rosca: [15, 15, 15, 15, 15, 15, 10], label: 'Fluxo dos Caixas', pizzaTitle: 'Movimento por turno - Caixas', linhaTitle: 'Fluxo por hora - Caixas' },
@@ -128,7 +139,7 @@
             options: { plugins: { title: { display: true, text: dados.linhaTitle, font: { size: 18 } } } },
             data: {
                 labels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
-                datasets: [{ label: dados.label, data: dados.linha, backgroundColor: colors, borderWidth: 8, tension: 0.4, fill: true }]
+                datasets: [{ label: dados.label, data: dados.linha, backgroundColor: '#163460cf', borderWidth: 8, tension: 0.4, fill: true }]
             }
         });
 
