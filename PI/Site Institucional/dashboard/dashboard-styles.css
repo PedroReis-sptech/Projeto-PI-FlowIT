@@ -39,7 +39,7 @@ body {
     border-radius: 20px;
     padding: 35px;
     display: flex;
-    flex-direction: row; /* Coloca KPIs e Gráficos lado a lado */
+    flex-direction: row;
     align-items: flex-start;
     gap: 40px;
     width: 95%;
@@ -107,7 +107,7 @@ body {
 
 .graficos {
     display: grid;
-    grid-template-columns: 1.5fr 1fr; /* Proporção dos gráficos */
+    grid-template-columns: 1.5fr 1fr;
     gap: 20px;
     width: 100%;
 }
