@@ -123,7 +123,7 @@
     height: 700px;
     padding: 30px;
     box-sizing: border-box;
-    
+
 }
 
 .sobre_conteudo {
@@ -149,7 +149,7 @@
     justify-content: flex-start;
     align-items: center;
     border-radius: 16px;
-    padding:25px;
+    padding: 25px;
     padding-top: 20px;
     height: 300px;
     width: 100%;
@@ -159,23 +159,18 @@
 
 .valores {
     height: 320px;
-    
-    
-
 }
 
-.valores p{
+.valores p {
     line-height: 3;
     overflow-wrap: break-word;
-    
-
 }
 
 .card h3 {
-    
+
     font-size: 50px;
     color: white;
-    
+
 }
 
 .card p {
@@ -197,8 +192,55 @@
     line-height: 1.8;
 }
 
+.produto {
+    display: flex;
+    flex-direction: row;
+    gap: 65px;
 
+    width: 80%;
+    height: 700px;
+    padding: 5% 10% 10%;
+}
 
+.produto__texto{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px   ;
+}
+
+.produto__texto h1{
+    font-size: 60px;
+}
+
+.produto__nome{
+    font-weight: bold;
+    color: #1666c2;
+}
+
+.produto__texto p{
+    font-size: 26px;
+    text-align: justify;
+    line-height: 2rem;
+}
+
+.produto__imagem img{
+    width: 600px;
+    height: 600px;
+    border-radius: 26px;
+}
+#produto__button{
+    background-color: #1666c2;
+    width: 400px;
+    height: 100px;
+    border-radius: 26px;
+    font-size: 25px;
+}
+
+#produto__button a{
+    color: #656363;
+    text-decoration: none;
+}
 .simulador_financeiro {
     background-color: red;
 }
