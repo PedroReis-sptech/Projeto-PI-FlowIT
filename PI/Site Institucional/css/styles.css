@@ -226,7 +226,7 @@
 
 .produto__imagem img{
     width: 600px;
-    height: 600px;
+    height: 630px;
     border-radius: 26px;
 }
 #produto__button{
@@ -238,7 +238,7 @@
 }
 
 #produto__button a{
-    color: #656363;
+    color: #FFFFFF;
     text-decoration: none;
 }
 .simulador_financeiro {
