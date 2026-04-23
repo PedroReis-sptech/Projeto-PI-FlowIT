@@ -75,8 +75,10 @@
             mensagem += `<p class="exibir erro">Senhas divergentes</p>`;
             temErro = true;
         }
-
-        if(!temErro){
+        
+        if(temErro){
+        exibir.innerHTML = mensagem;
+        } else{
             mensagem = `<p class="exibir sucesso">Cadastro confirmado!</p>`;
             exibir.innerHTML = mensagem;
             setTimeout(() => {
