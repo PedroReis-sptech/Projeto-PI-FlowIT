@@ -39,8 +39,8 @@
 }
 
 .destaque:hover {
-    background-color: #ffffff;
     color: #80c3ec;
+    border-color: #80c3ec;
 }
 
 .header_contas,
@@ -215,7 +215,11 @@
 
 .produto__nome{
     font-weight: bold;
+<<<<<<< HEAD
     color: #1666c2;
+=======
+    color: #080632d1;
+>>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
 }
 
 .produto__texto p{
@@ -230,7 +234,11 @@
     border-radius: 26px;
 }
 #produto__button{
+<<<<<<< HEAD
     background-color: #1666c2;
+=======
+    background-color: #080632d1;
+>>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
     width: 400px;
     height: 100px;
     border-radius: 26px;
@@ -348,7 +356,7 @@ input {
 button {
     width: 100%;
     padding: 15px;
-    background-color: #0056b3;
+    background-color: #080632d1;
     color: white;
     border: none;
     border-radius: 5px;
@@ -359,11 +367,11 @@ button {
 }
 
 button:hover {
-    background-color: #004494;
+    background-color: #100b6db7;
 }
 
 h2 {
-    color: #0056b3;
+    color: #080632d1;
     text-align: center;
     font-size: 45px;
     margin-bottom: 5px;
@@ -397,7 +405,11 @@ p.subtitle {
 }
 
 .footer{
+<<<<<<< HEAD
     background-color: #8ba8c6;
+=======
+    background-color: #080632d1;
+>>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
     display: flex;
     justify-content: space-around;
     text-align: center;
@@ -410,7 +422,11 @@ p.subtitle {
     flex-direction: column;
     margin-top: 15px;
     font-weight: 500;
+<<<<<<< HEAD
     color: #004494;
+=======
+    color: #fff;
+>>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
     font-size: 16px;
     opacity: 85%;
     margin-right: 30px;
@@ -421,11 +437,19 @@ p.subtitle {
     font-size: 16px;
     margin-top: 20px;
     font-weight: 500;
+<<<<<<< HEAD
     color: #004494;
 }
 
 .footer-redes h3 {
     color: #004494;
+=======
+    color: #fff;
+}
+
+.footer-redes h3 {
+    color: #fff;
+>>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
     margin-bottom: 5px;
 }
 
