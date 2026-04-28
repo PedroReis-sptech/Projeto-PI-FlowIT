@@ -16,7 +16,7 @@ input {
 button {
     width: 100%;
     padding: 15px;
-    background-color: #0056b3;
+    background-color: #080632d1;
     color: white;
     border: none;
     border-radius: 5px;
@@ -31,7 +31,7 @@ button:hover {
 }
 
 h2 {
-    color: #0056b3;
+    color: #080632d1;
     text-align: center;
     margin-bottom: 5px;
 }
