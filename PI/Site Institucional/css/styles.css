@@ -240,7 +240,7 @@ body {
     height: 630px;
     border-radius: 26px;
 }
-#produto__button{
+.produto__button{
     background-color: #353357;
     width: 400px;
     height: 100px;
@@ -248,7 +248,7 @@ body {
     font-size: 25px;
 }
 
-#produto__button a{
+.produto__button a{
     color: #FFFFFF;
     text-decoration: none;
 }
@@ -257,7 +257,8 @@ body {
 
 .EntreEmContato{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    gap: 50px;
     background-color: #080632d1;
     height: 700px;
     align-items: center;
@@ -270,6 +271,7 @@ body {
     width: 500px;
     height: 500px;
     background-color: #00000049;
+    box-shadow: 5px 5px 20px 10px #3126785c;
     padding: 50px;
     margin-right: 80px;
     border-radius: 15px;
@@ -466,7 +468,7 @@ button {
 }
 
 button:hover {
-    background-color: white;
+    background-color: #171937;
 }
 
 h2 {
@@ -492,7 +494,7 @@ p.subtitle {
     border-radius: 10px;
     max-width: 600px;
     width: 100%;
-    box-shadow: 5px 5px 40px 30px #0057b346;
+    box-shadow: 5px 5px 40px 30px #ffffff3c;
 }
 
 .section_simulador {
