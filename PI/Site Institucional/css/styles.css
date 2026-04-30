@@ -5,6 +5,10 @@
     text-decoration: none;
 }
 
+body {
+    background-color: #8ba8c6;
+}
+
 .container {
     width: 100%;
 }
@@ -39,7 +43,7 @@
 }
 
 .destaque:hover {
-    background-color: #ffffff;
+    border-color: #80c3ec;
     color: #80c3ec;
 }
 
@@ -64,7 +68,6 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     background-image: url('https://www.shutterstock.com/image-photo/blurred-image-shows-interior-supermarket-600nw-2645858227.jpg');
     background-size: cover;
     width: 100%;
@@ -76,6 +79,7 @@
 
 .banner_conteudo {
     margin-bottom: 15px;
+    transition: transform 2s ease;
 }
 
 .banner_conteudo p {
@@ -84,6 +88,10 @@
     font-weight: 500;
     text-align: center;
     margin-top: -15%;
+}
+
+.banner_conteudo:hover {
+    transform: scale(1.05);
 }
 
 
@@ -197,7 +205,7 @@
     display: flex;
     flex-direction: row;
     gap: 65px;
-
+    background-color: #080632;
     width: 80%;
     height: 600px;
     padding: 5% 10% 10%;
@@ -207,16 +215,18 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    color: white;
     gap: 30px   ;
 }
 
 .produto__texto h1{
     font-size: 60px;
+    color: white;
 }
 
 .produto__nome{
     font-weight: bold;
-    color: #1666c2;
+    color: white;
 }
 
 .produto__texto p{
@@ -231,7 +241,7 @@
     border-radius: 26px;
 }
 #produto__button{
-    background-color: #1666c2;
+    background-color: #353357;
     width: 400px;
     height: 100px;
     border-radius: 26px;
@@ -248,10 +258,10 @@
 .EntreEmContato{
     display: flex;
     justify-content: space-between;
-    background-color: #004494;
+    background-color: #080632d1;
     height: 700px;
     align-items: center;
-    
+    color: white;
 }
 
 .box-contato{
@@ -259,7 +269,7 @@
    flex-direction: column;
     width: 500px;
     height: 500px;
-    background-color: #8ba8c6;
+    background-color: #00000049;
     padding: 50px;
     margin-right: 80px;
     border-radius: 15px;
@@ -281,6 +291,7 @@
 }
 
 .box-contato h1{
+    color: white;
     margin-top: 0px;
     margin-bottom: 50px;
     display: flex;
@@ -290,12 +301,12 @@
 
 .box-contato button{
     border-radius: 15px;
-    background-color: #004494;
+    background-color: #353357;
     margin-top: 40px;
 }
 .box-contato button:hover{
     border-radius: 15px;
-    background-color: #012752;
+    background-color: #00000058;
     color: white;
     
    
@@ -444,7 +455,7 @@ input {
 button {
     width: 100%;
     padding: 15px;
-    background-color: #0056b3;
+    background-color: #080632d1;
     color: white;
     border: none;
     border-radius: 5px;
@@ -455,11 +466,11 @@ button {
 }
 
 button:hover {
-    background-color: #004494;
+    background-color: white;
 }
 
 h2 {
-    color: #0056b3;
+    color: #080632d1;
     text-align: center;
     font-size: 45px;
     margin-bottom: 5px;
@@ -475,7 +486,6 @@ p.subtitle {
 .simulador_financeiro {
     display: flex;
     flex-direction: column;
-
     margin: 5% auto;
     background-color: #ffffff;
     padding: 30px;
@@ -486,18 +496,19 @@ p.subtitle {
 }
 
 .section_simulador {
-    margin-top: 50px;
-    background-color: white; 
+    padding: 50px;
+    background-color: #8ba8c6; 
     padding: 2%;
 }
 
 .footer{
-    background-color: #004494;
+    background-color: #080632;
     display: flex;
     justify-content: space-around;
     text-align: center;
     flex-direction: row;
     padding: 20px;
+    color: #c7c7c79b;
 }
 
 .footer-ctt{
@@ -505,7 +516,6 @@ p.subtitle {
     flex-direction: column;
     margin-top: 15px;
     font-weight: 500;
-    color: #8ba8c6;
     font-size: 16px;
     opacity: 85%;
     margin-right: 30px;
@@ -516,11 +526,11 @@ p.subtitle {
     font-size: 16px;
     margin-top: 20px;
     font-weight: 500;
-    color: #8ba8c6;
+    color: #c7c7c79b;
 }
 
 .footer-redes h3 {
-    color: #8ba8c6;
+    color: #c7c7c79b;
     margin-bottom: 5px;
 }
 
