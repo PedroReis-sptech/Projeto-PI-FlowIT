@@ -39,8 +39,8 @@
 }
 
 .destaque:hover {
+    background-color: #ffffff;
     color: #80c3ec;
-    border-color: #80c3ec;
 }
 
 .header_contas,
@@ -192,13 +192,14 @@
     line-height: 1.8;
 }
 
+/* Produto*/
 .produto {
     display: flex;
     flex-direction: row;
     gap: 65px;
 
     width: 80%;
-    height: 700px;
+    height: 600px;
     padding: 5% 10% 10%;
 }
 
@@ -215,11 +216,7 @@
 
 .produto__nome{
     font-weight: bold;
-<<<<<<< HEAD
     color: #1666c2;
-=======
-    color: #080632d1;
->>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
 }
 
 .produto__texto p{
@@ -234,11 +231,7 @@
     border-radius: 26px;
 }
 #produto__button{
-<<<<<<< HEAD
     background-color: #1666c2;
-=======
-    background-color: #080632d1;
->>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
     width: 400px;
     height: 100px;
     border-radius: 26px;
@@ -249,6 +242,99 @@
     color: #FFFFFF;
     text-decoration: none;
 }
+
+/* entre em contato*/
+
+.EntreEmContato{
+    display: flex;
+    justify-content: space-between;
+    background-color: #004494;
+    height: 700px;
+    align-items: center;
+    
+}
+
+.box-contato{
+   display: flex;
+   flex-direction: column;
+    width: 500px;
+    height: 500px;
+    background-color: #8ba8c6;
+    padding: 50px;
+    margin-right: 80px;
+    border-radius: 15px;
+    margin-bottom: 0%;
+    
+}
+
+.box-contato input{
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    
+}
+
+.box-contato .mensagem{
+    height: 100px;
+    border-radius: 5px;
+}
+
+.box-contato h1{
+    margin-top: 0px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-contato button{
+    border-radius: 15px;
+    background-color: #004494;
+    margin-top: 40px;
+}
+.box-contato button:hover{
+    border-radius: 15px;
+    background-color: #012752;
+    color: white;
+    
+   
+}
+
+.box-informacoes{
+    height: 500px;
+    width: 500px;
+    height: 500px;
+    background-color:transparent;
+    padding: 0px;
+    margin-left: 50px;
+    border-radius: 15px;
+    margin-bottom: 0%;
+    margin-top: 100px;
+    color: white;
+}
+
+.box-informacoes h1{
+    font-size: 50px;
+    white-space: nowrap;
+    margin-bottom: 20px;
+    
+    
+}
+.box-informacoes p{
+    font-size: 30px;
+    margin-bottom: 40px;
+    white-space: nowrap;
+
+}
+.box-informacoes span{
+    font-size: 40px;
+    
+}
+
+
+/* Simulador financeiro*/
+
 .simulador_financeiro {
     background-color: red;
 }
@@ -318,6 +404,7 @@
 
 .formulario {
     margin-bottom: 15px;
+    
 }
 
 .resultado {
@@ -330,6 +417,7 @@
     margin-top: 5%;
     padding: 3%;
     gap: 8px;
+    background-color: #2eb82e;
 }
 
 .perdas {
@@ -356,7 +444,7 @@ input {
 button {
     width: 100%;
     padding: 15px;
-    background-color: #080632d1;
+    background-color: #0056b3;
     color: white;
     border: none;
     border-radius: 5px;
@@ -367,11 +455,11 @@ button {
 }
 
 button:hover {
-    background-color: #100b6db7;
+    background-color: #004494;
 }
 
 h2 {
-    color: #080632d1;
+    color: #0056b3;
     text-align: center;
     font-size: 45px;
     margin-bottom: 5px;
@@ -398,18 +486,13 @@ p.subtitle {
 }
 
 .section_simulador {
-    margin-top: 20px;
-    /* border-top: 2px solid black; */
-    /* background-color: #c6ccef; */
+    margin-top: 50px;
+    background-color: white; 
     padding: 2%;
 }
 
 .footer{
-<<<<<<< HEAD
-    background-color: #8ba8c6;
-=======
-    background-color: #080632d1;
->>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
+    background-color: #004494;
     display: flex;
     justify-content: space-around;
     text-align: center;
@@ -422,11 +505,7 @@ p.subtitle {
     flex-direction: column;
     margin-top: 15px;
     font-weight: 500;
-<<<<<<< HEAD
-    color: #004494;
-=======
-    color: #fff;
->>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
+    color: #8ba8c6;
     font-size: 16px;
     opacity: 85%;
     margin-right: 30px;
@@ -437,19 +516,11 @@ p.subtitle {
     font-size: 16px;
     margin-top: 20px;
     font-weight: 500;
-<<<<<<< HEAD
-    color: #004494;
+    color: #8ba8c6;
 }
 
 .footer-redes h3 {
-    color: #004494;
-=======
-    color: #fff;
-}
-
-.footer-redes h3 {
-    color: #fff;
->>>>>>> 5566a53338231b29073038f2f13acab49e4854c5
+    color: #8ba8c6;
     margin-bottom: 5px;
 }
 
@@ -462,3 +533,7 @@ p.subtitle {
     width: 20px;
     padding: 1px;
 }
+
+
+
+
