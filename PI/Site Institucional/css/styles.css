@@ -1,3 +1,6 @@
+/* ===================================================== */
+/* ======================== RESET ======================= */
+/* ===================================================== */
 * {
     margin: 0;
     padding: 0;
@@ -9,10 +12,18 @@ body {
     background-color: #8ba8c6;
 }
 
+
+/* ===================================================== */
+/* ===================== CONTAINER ====================== */
+/* ===================================================== */
 .container {
     width: 100%;
 }
 
+
+/* ===================================================== */
+/* ======================= HEADER ======================= */
+/* ===================================================== */
 .header {
     display: flex;
     flex-direction: row;
@@ -36,6 +47,16 @@ body {
     color: #80c3ec;
 }
 
+.header_contas,
+.header_paginas {
+    display: flex;
+    gap: 20px;
+}
+
+.header_paginas {
+    margin-left: 75px;
+}
+
 .destaque {
     border: 2px solid #ffffff;
     padding: 8px 20px;
@@ -47,21 +68,15 @@ body {
     color: #80c3ec;
 }
 
-.header_contas,
-.header_paginas {
-    display: flex;
-    gap: 20px;
-}
-
-.header_paginas {
-    margin-left: 75px;
-}
-
 .logo img {
     width: 111px;
     height: 74px;
 }
 
+
+/* ===================================================== */
+/* ======================= BANNER ======================= */
+/* ===================================================== */
 .banner {
     position: relative;
     display: flex;
@@ -74,7 +89,6 @@ body {
     height: 650px;
     background-color: #3d5a9897;
     background-blend-mode: multiply;
-
 }
 
 .banner_conteudo {
@@ -93,7 +107,6 @@ body {
 .banner_conteudo:hover {
     transform: scale(1.05);
 }
-
 
 .banner_direcionadores {
     display: flex;
@@ -120,6 +133,66 @@ body {
     cursor: pointer;
 }
 
+
+/* ===================================================== */
+/* ======================= PRODUTO ====================== */
+/* ===================================================== */
+.produto {
+    display: flex;
+    flex-direction: row;
+    gap: 65px;
+    background-color: #080632;
+    width: 80%;
+    height: 600px;
+    padding: 5% 10% 10%;
+}
+
+.produto_texto {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: white;
+    gap: 30px;
+}
+
+.produto_texto h1 {
+    font-size: 60px;
+    color: white;
+}
+
+.produto_nome {
+    font-weight: bold;
+    color: white;
+}
+
+.produto_texto p {
+    font-size: 26px;
+    text-align: justify;
+    line-height: 2rem;
+}
+
+.produto_imagem img {
+    width: 600px;
+    height: 630px;
+    border-radius: 26px;
+}
+
+.produto_button {
+    background-color: #353357;
+    width: 400px;
+    height: 100px;
+    border-radius: 26px;
+    font-size: 25px;
+}
+
+.produto_button button:hover {
+    background-color: #2a2f72;
+}
+
+
+/* ===================================================== */
+/* ======================== SOBRE ======================= */
+/* ===================================================== */
 .sobre {
     background-color: #8ba8c6;
     display: flex;
@@ -131,7 +204,6 @@ body {
     height: 700px;
     padding: 30px;
     box-sizing: border-box;
-
 }
 
 .sobre_conteudo {
@@ -140,13 +212,11 @@ body {
     box-sizing: border-box;
     height: 700px;
     gap: 15px;
-    
 }
 
 .sobre_conteudo_lado {
     display: flex;
     flex-direction: row;
-    /* flex-wrap: wrap; */
     gap: 10px;
     box-sizing: border-box;
 }
@@ -165,20 +235,9 @@ body {
     background-color: #080632d1;
 }
 
-.valores {
-    height: 320px;
-}
-
-.valores p {
-    line-height: 3;
-    overflow-wrap: break-word;
-}
-
 .card h3 {
-
     font-size: 50px;
     color: white;
-
 }
 
 .card p {
@@ -186,7 +245,6 @@ body {
     color: white;
     padding-top: 25px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    
 }
 
 .card img {
@@ -200,154 +258,19 @@ body {
     line-height: 1.8;
 }
 
-/* Produto*/
-.produto {
-    display: flex;
-    flex-direction: row;
-    gap: 65px;
-    background-color: #080632;
-    width: 80%;
-    height: 600px;
-    padding: 5% 10% 10%;
+.valores {
+    height: 320px;
 }
 
-.produto__texto{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    color: white;
-    gap: 30px   ;
-}
-
-.produto__texto h1{
-    font-size: 60px;
-    color: white;
-}
-
-.produto__nome{
-    font-weight: bold;
-    color: white;
-}
-
-.produto__texto p{
-    font-size: 26px;
-    text-align: justify;
-    line-height: 2rem;
-}
-
-.produto__imagem img{
-    width: 600px;
-    height: 630px;
-    border-radius: 26px;
-}
-.produto__button{
-    background-color: #353357;
-    width: 400px;
-    height: 100px;
-    border-radius: 26px;
-    font-size: 25px;
-}
-
-.produto__button a{
-    color: #FFFFFF;
-    text-decoration: none;
-}
-
-/* entre em contato*/
-
-.EntreEmContato{
-    display: flex;
-    justify-content: space-around;
-    gap: 50px;
-    background-color: #080632d1;
-    height: 700px;
-    align-items: center;
-    color: white;
-}
-
-.box-contato{
-   display: flex;
-   flex-direction: column;
-    width: 500px;
-    height: 500px;
-    background-color: #00000049;
-    box-shadow: 5px 5px 20px 10px #3126785c;
-    padding: 50px;
-    margin-right: 80px;
-    border-radius: 15px;
-    margin-bottom: 0%;
-    
-}
-
-.box-contato input{
-    display: flex;
-    align-items: center;
-    border-radius: 15px;
-    margin-bottom: 20px;
-    
-}
-
-.box-contato .mensagem{
-    height: 100px;
-    border-radius: 5px;
-}
-
-.box-contato h1{
-    color: white;
-    margin-top: 0px;
-    margin-bottom: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.box-contato button{
-    border-radius: 15px;
-    background-color: #353357;
-    margin-top: 40px;
-}
-.box-contato button:hover{
-    border-radius: 15px;
-    background-color: #00000058;
-    color: white;
-    
-   
-}
-
-.box-informacoes{
-    height: 500px;
-    width: 500px;
-    height: 500px;
-    background-color:transparent;
-    padding: 0px;
-    margin-left: 50px;
-    border-radius: 15px;
-    margin-bottom: 0%;
-    margin-top: 100px;
-    color: white;
-}
-
-.box-informacoes h1{
-    font-size: 50px;
-    white-space: nowrap;
-    margin-bottom: 20px;
-    
-    
-}
-.box-informacoes p{
-    font-size: 30px;
-    margin-bottom: 40px;
-    white-space: nowrap;
-
-}
-.box-informacoes span{
-    font-size: 40px;
-    
+.valores p {
+    line-height: 3;
+    overflow-wrap: break-word;
 }
 
 
-/* Simulador financeiro*/
-
+/* ===================================================== */
+/* ===================== SIMULADOR ====================== */
+/* ===================================================== */
 .simulador_financeiro {
     background-color: red;
 }
@@ -417,7 +340,6 @@ body {
 
 .formulario {
     margin-bottom: 15px;
-    
 }
 
 .resultado {
@@ -457,7 +379,7 @@ input {
 button {
     width: 100%;
     padding: 15px;
-    background-color: #080632d1;
+    background-color: #2a2f72;
     color: white;
     border: none;
     border-radius: 5px;
@@ -467,8 +389,8 @@ button {
     margin-top: 10px;
 }
 
-button:hover {
-    background-color: #171937;
+.simulador_financeiro button:hover {
+    background-color: #080632d1;
 }
 
 h2 {
@@ -489,21 +411,113 @@ p.subtitle {
     display: flex;
     flex-direction: column;
     margin: 5% auto;
-    background-color: #ffffff;
+    background-color: #e5f1ff;
     padding: 30px;
     border-radius: 10px;
     max-width: 600px;
     width: 100%;
-    box-shadow: 5px 5px 40px 30px #ffffff3c;
+    box-shadow: 5px 5px 40px 30px #abcdf484;
 }
 
 .section_simulador {
     padding: 50px;
-    background-color: #8ba8c6; 
+    background-color: #8ba8c6;
     padding: 2%;
 }
 
-.footer{
+
+/* ===================================================== */
+/* ================== ENTRE EM CONTATO ================== */
+/* ===================================================== */
+.EntreEmContato {
+    display: flex;
+    justify-content: space-around;
+    gap: 50px;
+    background-color: #080632d1;
+    height: 700px;
+    align-items: center;
+    color: white;
+}
+
+.box-contato {
+    display: flex;
+    flex-direction: column;
+    width: 500px;
+    height: 500px;
+    background-color: #00000049;
+    box-shadow: 5px 5px 20px 10px #3126785c;
+    padding: 50px;
+    margin-right: 80px;
+    border-radius: 15px;
+    margin-bottom: 0%;
+}
+
+.box-contato input {
+    display: flex;
+    align-items: center;
+    border-radius: 15px;
+    margin-bottom: 20px;
+}
+
+.box-contato .mensagem {
+    height: 100px;
+    border-radius: 5px;
+}
+
+.box-contato h1 {
+    color: white;
+    margin-top: 0px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.box-contato button {
+    border-radius: 15px;
+    background-color: #353357;
+    margin-top: 40px;
+}
+
+.box-contato button:hover {
+    border-radius: 15px;
+    background-color: #00000058;
+    color: white;
+}
+
+.box-informacoes {
+    height: 500px;
+    width: 500px;
+    background-color: transparent;
+    padding: 0px;
+    margin-left: 50px;
+    border-radius: 15px;
+    margin-bottom: 0%;
+    margin-top: 100px;
+    color: white;
+}
+
+.box-informacoes h1 {
+    font-size: 50px;
+    white-space: nowrap;
+    margin-bottom: 20px;
+}
+
+.box-informacoes p {
+    font-size: 30px;
+    margin-bottom: 40px;
+    white-space: nowrap;
+}
+
+.box-informacoes span {
+    font-size: 40px;
+}
+
+
+/* ===================================================== */
+/* ======================= FOOTER ======================= */
+/* ===================================================== */
+.footer {
     background-color: #080632;
     display: flex;
     justify-content: space-around;
@@ -513,7 +527,22 @@ p.subtitle {
     color: #c7c7c79b;
 }
 
-.footer-ctt{
+.footer-redes {
+    margin-top: 5px;
+    margin-left: 30px;
+}
+
+.footer-redes h3 {
+    color: #c7c7c79b;
+    margin-bottom: 5px;
+}
+
+.icons img {
+    width: 20px;
+    padding: 1px;
+}
+
+.footer-ctt {
     display: flex;
     flex-direction: column;
     margin-top: 15px;
@@ -521,7 +550,6 @@ p.subtitle {
     font-size: 16px;
     opacity: 85%;
     margin-right: 30px;
-
 }
 
 .copyright-msg {
@@ -530,22 +558,3 @@ p.subtitle {
     font-weight: 500;
     color: #c7c7c79b;
 }
-
-.footer-redes h3 {
-    color: #c7c7c79b;
-    margin-bottom: 5px;
-}
-
-.footer-redes {
-    margin-top: 5px;
-    margin-left: 30px;
-}
-
-.icons img{
-    width: 20px;
-    padding: 1px;
-}
-
-
-
-
