@@ -110,6 +110,12 @@ body {
     font-size: 0.85rem;
 }
 
+.cardRuim{
+    background-color: #741212;
+}
+.cardBom{
+    background-color: #118011;
+}
 .card b {
     font-size: 19px;
 }
