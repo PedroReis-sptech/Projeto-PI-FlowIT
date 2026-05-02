@@ -18,15 +18,18 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    gap: 120px;
+    gap: 80px;
     padding: 20px 50px;
     background-color: #11224f;
     width: 20%;
+    height: 100%;
     color: #FFFFFF;
+    position: fixed;
 }
 
 .box__graficos{
     width: 80%;
+    margin-left: 250px;
 }
 .links{
     display: flex;
