@@ -235,6 +235,11 @@ body {
     height: 100%;
     width: 420px;
     background-color: #080632d1;
+    transition: transform 2s ease;
+}
+
+.card:hover {
+    transform: scale(1.05);
 }
 
 .card h3 {
