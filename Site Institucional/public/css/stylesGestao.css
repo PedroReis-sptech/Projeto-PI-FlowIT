@@ -96,10 +96,10 @@ select {
 }
 
 .botao-excluir {
-    background-color: #4a4ae1;
+    background-color: #4848f1;
     color: white;
     border: none;
-    padding: 5px;
+    padding: 8px;
     border-radius: 5px;
     cursor: pointer;
 }

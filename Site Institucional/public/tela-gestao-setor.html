@@ -13,8 +13,8 @@
         </div>
         <div class="links">
             <a href="dashboard/dashboard.html">DASHBOARD</a>
-            <a href="#" class="link-ativo">GESTÃO DE USUÁRIO</a>
-            <a href="tela-gestao-setor.html">GESTÃO DE SETOR</a>
+            <a href="tela-gestao.html">GESTÃO DE USUÁRIO</a>
+            <a href="#" class="link-ativo">GESTÃO DE SETOR</a>
         </div>
         <div class="botoes-topo">
             <button class="botao-sair" onclick="sairTela()">Sair</button>
@@ -24,32 +24,27 @@
     <div class="corpo-da-pagina">
         
         <div class="quadrado-cadastro">
-            <h3>AÇÕES DE EQUIPE</h3>
+            <h3>ADICIONAR SETOR</h3>
             
-            <input type="text" id="campoNome" placeholder="NOME DO FUNCIONÁRIO">
-            <input type="email" id="campoEmail" placeholder="E-MAIL">
-            
-            <select id="campoFuncao">
-                <option value="" selected disabled>ESCOLHA UMA FUNÇÃO</option>
-                <option value="Gerente">Gerente</option>
-                <option value="Consultor">Consultor</option>
-            </select>
+            <input type="text" id="campoSetor" placeholder="NOME DO SETOR">
+            <input type="corredor" id="campoCorredor" placeholder="Corredor">
+            <input type="corredor" id="campoMeta" placeholder="Meta do setor">
 
-            <button onclick="adicionarFuncionario()" class="botao-add"> + ADICIONAR COLABORADOR </button>
+            <button onclick="adicionarSetor()" class="botao-add"> + ADICIONAR SETOR </button>
         </div>
 
         <div class="quadrado-lista">
-            <h3>LISTA DE COLABORADORES</h3>
+            <h3>LISTA DE SETORES ADICIONADOS</h3>
             <table>
                 <thead>
                     <tr>
                         <th>NOME</th>
-                        <th>E-MAIL</th>
-                        <th>FUNÇÃO</th>
-                        <th>AÇÃO</th>
+                        <th>CORREDOR</th>
+                        <th>META</th>
+                        <th>DESEJA DELETAR?</th>
                     </tr>
                 </thead>
-                <tbody id="tabelaFuncionarios">
+                <tbody id="tabelaSetores">
                     </tbody>
             </table>
         </div>
@@ -60,45 +55,45 @@
 </html>
 
 <script>
-let listaDeEquipe = [];
+let listaDeSetor = [];
 
-function adicionarFuncionario() {
-    let nome = campoNome.value;
-    let email = campoEmail.value;
-    let funcao = campoFuncao.value;
+function adicionarSetor() {
+    let nome = campoSetor.value;
+    let corredor = campoCorredor.value;
+    let meta = campoMeta.value;
 
-    if (nome == "" || email == "" || funcao == "") {
+    if (nome == "" || corredor == "" || meta == "") {
         alert("Por favor, preencha todos os campos!");
         return;
     }
 
     let novo = {
         nomeFunc: nome,
-        emailFunc: email,
-        funcaoFunc: funcao
+        corredorFunc: corredor,
+        metaFunc: meta
     };
 
-    listaDeEquipe.push(novo);
+    listaDeSetor.push(novo);
 
-    campoNome.value = "";
-    campoEmail.value = "";
-    campoFuncao.value = "";
+    campoSetor.value = "";
+    campoCorredor.value = "";
+    campoMeta.value = "";
 
     mostrarNaTela();
 }
 
 function mostrarNaTela() {
-    let tabela = tabelaFuncionarios;
+    let tabela = tabelaSetores;
     tabela.innerHTML = "";
 
-    for (let i = 0; i < listaDeEquipe.length; i++) {
-        let funcionario = listaDeEquipe[i];
+    for (let i = 0; i < listaDeSetor.length; i++) {
+        let setor = listaDeSetor[i];
 
         tabela.innerHTML += `
             <tr>
-                <td>${funcionario.nomeFunc}</td>
-                <td>${funcionario.emailFunc}</td>
-                <td>${funcionario.funcaoFunc}</td>
+                <td>${setor.nomeFunc}</td>
+                <td>${setor.corredorFunc}</td>
+                <td>${setor.metaFunc}</td>
                 <td>
                     <button class="botao-excluir" onclick="remover(${i})">Excluir</button>
                 </td>
@@ -114,7 +109,7 @@ function sairTela() {
 }
 
 function remover(posicao) {
-    listaDeEquipe.splice(posicao, 1);
+    listaDeSetor.splice(posicao, 1);
     mostrarNaTela();
 }
 </script>
