@@ -33,8 +33,21 @@ INSERT INTO endereco (cep, logradouro, numero, estado, cidade, regiao, fkloja) V
 ('20040-020', 'Rua do Ouvidor', '120', 'RJ', 'Rio de Janeiro', 'Sudeste', 3),
 ('30140-110', 'Av Afonso Pena', '900', 'MG', 'Belo Horizonte', 'Sudeste', 4);
 
+CREATE TABLE permissao (
+idPermissao 	INT PRIMARY KEY AUTO_INCREMENT,
+cargo 	VARCHAR(45),
+CONSTRAINT chfkCargo CHECK (cargo IN ('Gerente', 'Consultor'))
+);
+
+INSERT INTO permissao (cargo) VALUES
+('Gerente'),
+('Consultor'),
+('Gerente'),
+('Consultor'); 
+
 CREATE TABLE usuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+codigoVerificacao CHAR(4) UNIQUE,
 nomeUsuario VARCHAR(45),
 email VARCHAR(45),
 senha VARCHAR(45),
@@ -50,18 +63,6 @@ INSERT INTO usuario (nomeUsuario, email, senha, fkloja) VALUES
 ('Fernanda Lima', 'fernanda@casasbahia.com', '123456', 3),
 ('Bruno Rocha', 'bruno@ponto.com', '123456', 4);
 
-CREATE TABLE permissao (
-idPermisao 	INT PRIMARY KEY AUTO_INCREMENT,
-cargo 	VARCHAR(45),
-CONSTRAINT chfkCargo CHECK (cargo IN ('Gerente', 'Consultor'))
-);
-
-INSERT INTO permissao (cargo, fkUsuario) VALUES
-('Gerente', 1),
-('Consultor', 2),
-('Gerente', 3),
-('Consultor', 4);
-
 CREATE TABLE setor (
 idSetor INT PRIMARY KEY AUTO_INCREMENT,
 nomeSetor VARCHAR(45),
@@ -71,15 +72,15 @@ CONSTRAINT fklojaSetor
 FOREIGN KEY (fkloja) REFERENCES loja (idloja)
 );
 
-INSERT INTO setor (nomeSetor, descricao, fkloja) VALUES
-('Alimentício', 'Corredor 1 - Produtos alimentícios', 1),
-('Vestuário', 'Corredor 2 - Roupas e acessórios', 1),
-('Doceria', 'Corredor 3 - Doces e chocolates', 2),
-('Eletrodomésticos', 'Corredor 4 - Produtos eletrônicos', 2),
-('Alimentício', 'Corredor 1 - Produtos alimentícios', 3),
-('Vestuário', 'Corredor 5 - Moda geral', 3),
-('Doceria', 'Corredor 2 - Área de doces', 4),
-('Eletrodomésticos', 'Corredor 6 - eletrodomésticos e eletrônicos', 4);
+INSERT INTO setor (nomeSetor, fkloja) VALUES
+('Alimentício', 1),
+('Vestuário', 1),
+('Doceria', 2),
+('Eletrodomésticos', 2),
+('Alimentício', 3),
+('Vestuário', 3),
+('Doceria', 4),
+('Eletrodomésticos', 4);
 
 CREATE TABLE corredor (
 idCorredor INT PRIMARY KEY AUTO_INCREMENT,

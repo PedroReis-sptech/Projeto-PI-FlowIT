@@ -1,0 +1,6 @@
+# Dependências (Essa pasta é gerada localmente e é muito pesada)
+node_modules/
+
+# Variáveis de ambiente (Contêm dados sensíveis como senhas do MySQL)
+.env
+.env.dev

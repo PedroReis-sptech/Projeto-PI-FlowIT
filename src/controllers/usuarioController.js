@@ -24,7 +24,8 @@ function autenticar(req, res) {
                             id: resultadoAutenticar[0].idUsuario,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nomeUsuario,
-                            senha: resultadoAutenticar[0].senha
+                            senha: resultadoAutenticar[0].senha,
+                            codigo: resultadoAutenticar[0].codigoVerificacao
                                 });
                     } else if (resultadoAutenticar.length == 0) {
                         res.status(403).send("Email e/ou senha inválido(s)");
@@ -45,6 +46,7 @@ function autenticar(req, res) {
 
 function cadastrar(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var codigo = req.body.codigoServer;
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
@@ -59,7 +61,7 @@ function cadastrar(req, res) {
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha)
+        usuarioModel.cadastrar(nome, email, senha, codigo)
             .then(
                 function (resultado) {
                     res.json(resultado);

@@ -1,83 +1,91 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="stylesheet" href="css/stylesCad-Log.css">
-<title>Cadastro Flow</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/stylesCad-Log.css">
+  <title>Cadastro Flow</title>
 </head>
+
 <body>
 
-<div class="container">
+  <div class="container">
 
     <div class="esquerdo">
 
-        <h1>Flow</h1>
-        <h2>Junte-se a nós!</h2>
-        <hr>
-        <p>Comece a organizar sua loja de forma inteligente. Crie sua conta e leve seu fluxo para o próximo nível.</p>
-        <br>
-        <p>Já tem uma conta? <a href="login.html" class="link">Vá para o login!</a></p>
+      <h1>Flow</h1>
+      <h2>Junte-se a nós!</h2>
+      <hr>
+      <p>Comece a organizar sua loja de forma inteligente. Crie sua conta e leve seu fluxo para o próximo nível.</p>
+      <br>
+      <p>Já tem uma conta? <a href="login.html" class="link">Vá para o login!</a></p>
     </div>
 
     <div class="direito">
-        <h1>CADASTRO</h1>
+      <h1>CADASTRO</h1>
 
-        <div class="formulario">
-            <div class="input-group">
-                <input type="text" id="inputEmpresa" placeholder="Nome da empresa">
-            </div>
-
-            <div class="input-group">
-                <input type="text" id="inputEmail" placeholder="Email">
-            </div>
-            <div class="input-group">
-                <input type="password" id="inputSenha" placeholder="Senha">
-            </div>
-            
-            <div class="input-group">
-                <input type="password" id="inputConfirmacao" placeholder="Confirmação de senha">
-            </div>
-
-            <button onclick="cadastrar()">Próximo</button>
-
-            <div id="exibir" class="exibir"></div>
-           
+      <div class="formulario">
+        <div class="input-group">
+          <input type="text" id="inputCodigo" placeholder="Código de verificação">
         </div>
+
+        <div class="input-group">
+          <input type="text" id="inputEmpresa" placeholder="Nome da empresa">
+        </div>
+
+        <div class="input-group">
+          <input type="text" id="inputEmail" placeholder="Email">
+        </div>
+        <div class="input-group">
+          <input type="password" id="inputSenha" placeholder="Senha">
+        </div>
+
+        <div class="input-group">
+          <input type="password" id="inputConfirmacao" placeholder="Confirmação de senha">
+        </div>
+
+        <button onclick="cadastrar()">Próximo</button>
+
+        <div id="exibir" class="exibir"></div>
+
+      </div>
     </div>
 
-</div>
+  </div>
 </body>
+
 </html>
 
 <script>
-    function cadastrar() {
-        var nome = inputEmpresa.value;
-        var email = inputEmail.value;
-        var senhaInserida = inputSenha.value;
-        var confirmacao = inputConfirmacao.value;
+  function cadastrar() {
+    var codigo = inputCodigo.value
+    var nome = inputEmpresa.value;
+    var email = inputEmail.value;
+    var senhaInserida = inputSenha.value;
+    var confirmacao = inputConfirmacao.value;
 
-        let temErro = false; 
+    let temErro = false;
 
-        if(nome == "" || email == "" || senhaInserida == "" || confirmacao == ""){
-            exibir.innerHTML += `<p class="exibir erro">Todos os campos devem ser preenchidos</p>`;
-            
-            return false;
-        }
+    if (nome == "" || email == "" || senhaInserida == "" || confirmacao == "") {
+      exibir.innerHTML += `<p class="exibir erro">Todos os campos devem ser preenchidos</p>`;
 
-        if(!email.includes('@') || !email.includes('.')){
-            exibir.innerHTML += `<p class="exibir erro">Email deve conter @ e .</p>`;
-            
-            return false;
-        }
+      return false;
+    }
 
-        if(senhaInserida !== confirmacao){
-            exibir.innerHTML += `<p class="exibir erro">Senhas divergentes</p>`;
-            
-            return false;
-        }
+    if (!email.includes('@') || !email.includes('.')) {
+      exibir.innerHTML += `<p class="exibir erro">Email deve conter @ e .</p>`;
 
-        fetch("/usuarios/cadastrar", {
+      return false;
+    }
+
+    if (senhaInserida !== confirmacao) {
+      exibir.innerHTML += `<p class="exibir erro">Senhas divergentes</p>`;
+
+      return false;
+    }
+
+    fetch("/usuarios/cadastrar", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -85,6 +93,7 @@
       body: JSON.stringify({
         // crie um atributo que recebe o valor recuperado aqui
         // Agora vá para o arquivo routes/usuario.js
+        codigoServer: codigo,
         nomeServer: nome,
         emailServer: email,
         senhaServer: senhaInserida
@@ -101,7 +110,7 @@
           }, "2000");
 
           limparFormulario();
-          
+
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
@@ -112,5 +121,5 @@
 
     return false;
 
-    }
+  }
 </script>
