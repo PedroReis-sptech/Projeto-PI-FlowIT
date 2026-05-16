@@ -46,82 +46,57 @@
 
 <script>
     function logar() {
-        var email = inputEmail.value;
-        var senhaInserida = inputSenha.value;
-        var emailCorreto = "fernando.brandao@sptech.school";
-        var senhaCorreta = "123";
+       function logar() {
+    var email = inputEmail.value;
+    var senha = inputSenha.value;
 
-        let mensagem = "";
-        let acertosEmail = 0
-        let acertosSenha = 0
+    exibir.innerHTML = "";
 
-        for(let i = 0; i < emailCorreto.length; i++) {
-            if(email[i] == emailCorreto[i]){
-              acertosEmail++;
-            }
-        }
-        for(let i = 0; i < senhaCorreta.length; i++){
-            if(senhaInserida[i] == senhaCorreta[i]){
-              acertosSenha++;
-            }
-        }
-
-        if(acertosEmail == emailCorreto.length && email.length == emailCorreto.length &&
-        acertosSenha == senhaCorreta.length && senhaInserida.length == senhaCorreta.length){
-          mensagem = `<p class="exibir sucesso">Login confirmado!</p>`;
-          exibir.innerHTML = mensagem;
-          setTimeout(() => {
-            window.location.href = "dashboard/dashboard.html";
-          }, 1000);
-        }else{
-          mensagem = `<p class="exibir erro">Senha e/ou Email inválidos.</p>`;
-          exibir.innerHTML = mensagem;
-        }
-
-         console.log("FORM LOGIN: ", email);
-        console.log("FORM SENHA: ", senhaInserida);
-
-        fetch("/usuarios/autenticar", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({
-                emailServer: email,
-                senhaServer: senhaInserida
-            })
-        }).then(function (resposta) {
-            console.log("ESTOU NO THEN DO entrar()!")
-
-            if (resposta.ok) {
-                console.log(resposta);
-
-                resposta.json().then(json => {
-                    console.log(json);
-                    console.log(JSON.stringify(json));
-                    sessionStorage.EMAIL_USUARIO = json.email;
-                    sessionStorage.NOME_USUARIO = json.nomeUsuario;
-                    sessionStorage.ID_USUARIO = json.idUsuario;
-
-                    setTimeout(function () {
-                        window.location = "./dashboard/dashboard_gerente.html";
-                    }, 1000); // apenas para exibir o loading
-
-                });
-
-            } else {
-
-                console.log("Houve um erro ao tentar realizar o login!");
-
-                resposta.text().then(texto => {
-                    console.error(texto);
-                });
-            }
-
-        }).catch(function (erro) {
-            console.log(erro);
-        })
-
+    if (email == "" || senha == "") {
+        exibir.innerHTML = `<p class="exibir erro">Preencha todos os campos.</p>`;
         return false;
+    }
+
+    fetch("/usuarios/autenticar", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            emailServer: email,
+            senhaServer: senha
+        })
+    })
+    .then(function (resposta) {
+        if (resposta.ok) {
+            resposta.json().then(function (json) {
+                sessionStorage.setItem("ID_USUARIO",    json.id);
+                sessionStorage.setItem("EMAIL_USUARIO", json.email);
+                sessionStorage.setItem("NOME_USUARIO",  json.nome);
+                sessionStorage.setItem("CODIGO_USUARIO", json.codigo);
+
+                exibir.innerHTML = `<p class="exibir sucesso">Login confirmado! Redirecionando...</p>`;
+
+                setTimeout(function () {
+                    if (json.cargo === "Gerente") {
+                        window.location.href = "dashboard/dashboard_gerente.html";
+                    } else {
+                        window.location.href = "dashboard/dashboard_consultor.html";
+                    }
+                }, 1000);
+            });
+        } else if (resposta.status === 403) {
+            exibir.innerHTML = `<p class="exibir erro">Email e/ou senha inválidos.</p>`;
+        } else {
+            exibir.innerHTML = `<p class="exibir erro">Erro no servidor. Tente novamente.</p>`;
+        }
+    })
+    .catch(function (erro) {
+        console.error("Erro na requisição:", erro);
+        exibir.innerHTML = `<p class="exibir erro">Não foi possível conectar ao servidor.</p>`;
+    });
+
+    return false;
+}
     }
 </script>
