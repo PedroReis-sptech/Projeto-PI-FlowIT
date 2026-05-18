@@ -10,10 +10,10 @@ codigoVerificacao CHAR(4) UNIQUE
 );
 
 INSERT INTO loja VALUES
-(DEFAULT, '33401443000144', 'Lojas Americanas', 'Lojas Americanas S.A.'),
-(DEFAULT,'33001467000101', 'Magazine Luiza', 'Magazine Luiza S.A.'),
-(DEFAULT,'59109165000149', 'Casas Bahia', 'Via Varejo S.A.'),
-(DEFAULT,'27865757000102', 'Ponto', 'Ponto Frio Comércio Eletrônico S.A.');
+(DEFAULT, '33401443000144', 'Lojas Americanas', 'Lojas Americanas S.A.', 'ABC1'),
+(DEFAULT,'33001467000101', 'Magazine Luiza', 'Magazine Luiza S.A.', 'GAT4'),
+(DEFAULT,'59109165000149', 'Casas Bahia', 'Via Varejo S.A.', 'LFN9'),
+(DEFAULT,'27865757000102', 'Ponto', 'Ponto Frio Comércio Eletrônico S.A.', '4H6S');
 
 CREATE TABLE endereco (
 idEndereco INT PRIMARY KEY AUTO_INCREMENT,
@@ -42,9 +42,7 @@ CONSTRAINT chfkCargo CHECK (cargo IN ('Gerente', 'Consultor'))
 
 INSERT INTO permissao (cargo) VALUES
 ('Gerente'),
-('Consultor'),
-('Gerente'),
-('Consultor'); 
+('Consultor');
 
 CREATE TABLE usuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -57,11 +55,11 @@ CONSTRAINT fklojaUsuario FOREIGN KEY (fkloja) REFERENCES loja (idLoja),
 CONSTRAINT chfkPermissao FOREIGN KEY (fkPermissao) REFERENCES permissao (idPermissao)
 );
 
-INSERT INTO usuario (nomeUsuario, email, senha, fkloja) VALUES
-('Ana Silva', 'ana@americanas.com', '123456', 1),
-('Carlos Souza', 'carlos@magalu.com', '123456', 2),
-('Fernanda Lima', 'fernanda@casasbahia.com', '123456', 3),
-('Bruno Rocha', 'bruno@ponto.com', '123456', 4);
+INSERT INTO usuario (nomeUsuario, email, senha, fkloja, fkPermissao) VALUES
+('Ana Silva', 'ana@americanas.com', '123456', 1, 1),
+('Carlos Souza', 'carlos@magalu.com', '123456', 2, 2),
+('Fernanda Lima', 'fernanda@casasbahia.com', '123456', 3, 2),
+('Bruno Rocha', 'bruno@ponto.com', '123456', 4, 1);
 
 CREATE TABLE setor (
 idSetor INT PRIMARY KEY AUTO_INCREMENT,
