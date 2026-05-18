@@ -47,12 +47,9 @@ body {
     padding: 20px;
 }
 
-.quadrado-cadastro {
-    width: 30%;
-}
 
 .quadrado-lista {
-    width: 70%;
+    width: 100%;
 }
 
 .botao-sair {
