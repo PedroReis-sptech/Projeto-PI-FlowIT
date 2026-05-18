@@ -6,7 +6,7 @@ idLoja INT PRIMARY KEY AUTO_INCREMENT,
 cnpj CHAR(14),
 nomeFantasia VARCHAR(45),
 razaoSocial VARCHAR(45),
-codigoVerificacao CHAR(4) UNIQUE,
+codigoVerificacao CHAR(4) UNIQUE
 );
 
 INSERT INTO loja VALUES
