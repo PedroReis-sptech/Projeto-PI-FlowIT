@@ -2,5 +2,3 @@
 node_modules/
 
 # Variáveis de ambiente (Contêm dados sensíveis como senhas do MySQL)
-.env
-.env.dev
