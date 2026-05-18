@@ -5,7 +5,8 @@ CREATE TABLE loja (
 idLoja INT PRIMARY KEY AUTO_INCREMENT,
 cnpj CHAR(14),
 nomeFantasia VARCHAR(45),
-razaoSocial VARCHAR(45)
+razaoSocial VARCHAR(45),
+codigoVerificacao CHAR(4) UNIQUE,
 );
 
 INSERT INTO loja VALUES
@@ -47,7 +48,6 @@ INSERT INTO permissao (cargo) VALUES
 
 CREATE TABLE usuario (
 idUsuario INT PRIMARY KEY AUTO_INCREMENT,
-codigoVerificacao CHAR(4) UNIQUE,
 nomeUsuario VARCHAR(45),
 email VARCHAR(45),
 senha VARCHAR(45),
