@@ -30,7 +30,7 @@
         <input type="password" id="inputSenha" placeholder="Senha">
       </div>
 
-      <button class="botao" onclick="logar()">ENTRAR</button>
+      <button class="botao" onclick="autenticar()">ENTRAR</button>
 
       <div class="link">
         Ainda não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
@@ -45,8 +45,7 @@
 </html>
 
 <script>
-    function logar() {
-       function logar() {
+    function autenticar() {
     var email = inputEmail.value;
     var senha = inputSenha.value;
 
@@ -73,7 +72,6 @@
                 sessionStorage.setItem("ID_USUARIO",    json.id);
                 sessionStorage.setItem("EMAIL_USUARIO", json.email);
                 sessionStorage.setItem("NOME_USUARIO",  json.nome);
-                sessionStorage.setItem("CODIGO_USUARIO", json.codigo);
 
                 exibir.innerHTML = `<p class="exibir sucesso">Login confirmado! Redirecionando...</p>`;
 
@@ -98,5 +96,4 @@
 
     return false;
 }
-    }
 </script>

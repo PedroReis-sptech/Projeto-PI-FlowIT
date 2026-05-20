@@ -2,39 +2,37 @@ var database = require("../database/config")
 
 function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
+    
     var instrucaoSql = `
-        SELECT idUsuario, codigoVerificacao, nomeUsuario, email FROM usuario WHERE email = '${email}' AND senha = '${senha}';`;
+        SELECT usuario.idUsuario, usuario.codigoVerificacao, 
+        usuario.nomeUsuario, usuario.email, permissao.cargo
+        FROM usuario
+        JOIN permissao ON usuario.fkPermissao = permissao.idPermissao
+        WHERE usuario.email = '${email}' AND usuario.senha = '${senha}';`;
+
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
 // CORRIGIDO: Adicionado o parâmetro 'codigo' que estava faltando na assinatura da função
 function cadastrar(nome, email, senha, codigo) {
-    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():", nome, email, senha, codigo); 
-     var codigosql = `
-        SELECT codigoVerificacao FROM loja;
-    `;
-    let resultado = database.executar(codigosql);
-    console.log(resultado);
-    let codigoCerto = false;
-    
-    for(let i = 0; i < resultado.length; i++){
-        if(resultado[i] == codigo){
-            codigoCerto = true
+
+    var pegarLoja = `SELECT idLoja FROM loja WHERE codigoVerificacao = '${codigo}'`;
+    return database.executar(pegarLoja).then(function(resultado) {
+
+        if (resultado.length === 0) {
+            console.log('Código de verificação inválido');
+            return null;
         }
-    }
-    if(codigoCerto){
-        console.log('oi')
+
+        var idLoja = resultado[0].idLoja;
+
         var instrucaoSql = `
-        INSERT INTO usuario (nomeUsuario, email, senha) VALUES ('${nome}', '${email}', '${senha}');
-    `;
-    return;
-    }else {
-        console.log('Erro do código de verificação')
-    }
-    
-    console.log("Executando a instrução SQL: \n" + instrucaoSql);
-    return database.executar(instrucaoSql);
+            INSERT INTO usuario (nomeUsuario, email, senha, fkLoja, fkPermissao) 
+            VALUES ('${nome}', '${email}', '${senha}', ${idLoja}, 1)`;
+
+        return database.executar(instrucaoSql);
+    });
 }
 
 module.exports = {
