@@ -64,7 +64,7 @@ INSERT INTO usuario (nomeUsuario, email, senha, fkloja, fkPermissao) VALUES
 CREATE TABLE setor (
 idSetor INT PRIMARY KEY AUTO_INCREMENT,
 nomeSetor VARCHAR(45),
-meta INT,
+meta_diaria INT,
 fkloja INT,
 CONSTRAINT fklojaSetor
 FOREIGN KEY (fkloja) REFERENCES loja (idloja)
