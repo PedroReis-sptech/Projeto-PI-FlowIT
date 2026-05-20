@@ -52,21 +52,66 @@ const serial = async (
         console.log(data);
         const valores = data.split(';');
         const sensorBloqueio = valores[0];
-        // const sensorAnalogico = parseFloat(valores[1]);
-        
-        // armazena os valores dos sensores nos arrays correspondentes
-        // valoresSensorAnalogico.push(sensorAnalogico);
+
+        // 0 = Alimenticio        // 3 = Vestuario 
+        // 1 = Eletronicos        // 4 = Higiene
+        // 2 = Utencilios         // 5 = Caixa
+
+        let leituraSetores = [];
+
+        for (let i = 0; i <= 5; i++) {
+            let inserido;
+            let dado = sensorBloqueio + Math.floor(Math.random() * 9)
+            if (i == 0) {
+                if (dado >= 1) {
+                    inserido = 1;
+                } else {
+                    inserido = 0;
+                }
+                leituraSetores.push(inserido)
+            } else if (i == 1) {
+                if (dado >= 3) {
+                    inserido = 1;
+                } else {
+                    inserido = 0;
+                }
+                leituraSetores.push(inserido)
+            } else if (i == 2) {
+                if (dado >= 5) {
+                    inserido = 1;
+                } else {
+                    inserido = 0;
+                }
+                leituraSetores.push(inserido)
+            } else if (i == 3) {
+                if (dado >= 7) {
+                    inserido = 1;
+                } else {
+                    inserido = 0;
+                }
+                leituraSetores.push(inserido)
+            } else if (i == 4) {
+                if (dado >= 9) {
+                    inserido = 1;
+                } else {
+                    inserido = 0;
+                }
+                leituraSetores.push(inserido)
+            }
+        }
+
         valoresSensorBloqueio.push(sensorBloqueio);
 
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
-
-            // este insert irá inserir os dados na tabela "medida"
-            await poolBancoDados.execute(
-                'INSERT INTO registroSensor (leitura, fkSensor) VALUES (?, ?)',
-                [sensorBloqueio, 1]
-            );
-
+            for (let i = 0; i < leituraSetores.length; i++) {
+                if (leituraSetores[i] = 1) {
+                    await poolBancoDados.execute(
+                        'INSERT INTO registroSensor (leitura, fkSensor) VALUES (?, ?)',
+                        [leituraSetores[i], i]
+                    );
+                }
+            }
         }
 
     });
