@@ -62,7 +62,7 @@
                             <div class="card cardBom">
                                 <span><b>Setor com maior
                                         crescimento</b></span>
-                                <span class="setor">Livraria<span class="seta-icon t-2">▲</span></span>
+                                <span class="setor" id="spanSetorCrescimento"><span class="seta-icon t-2">▲</span></span>
                                 <span class="card-descritivo">Crescimento de
                                     20% em comparação à semana
                                     anterior.</span>
@@ -373,7 +373,7 @@
             });
     }
 
-    function compararParaVerQualSetor() {
+    function compararParaVerQualSetorDiminuiu() {
         fetchAtivacaoSemanaAnterior().then(function () {
             fetchAtivacaoAteODia().then(function () {
                 console.log(`Semana Anterior: ${JSON.stringify(resultadoAtivacaoSemanaAnterior)}`)
@@ -402,26 +402,25 @@
 
                 if (diferencaAlimenticio > maiorQueda) {
                     maiorQueda = diferencaAlimenticio;
-                    nomeSetor = "setorAlimenticio";
+                    nomeSetor = "Setor Alimenticio";
                 }
 
                 if (diferencaVestuario > maiorQueda) {
                     maiorQueda = diferencaVestuario;
-                    nomeSetor = "setorVestuario";
-
+                    nomeSetor = "Setor Vestuário";
                 }
 
                 if (diferencaUtensilio > maiorQueda) {
                     maiorQueda = diferencaUtensilio;
-                    nomeSetor = "setorUtencilio";
+                    nomeSetor = "Setor Utensílio";
                 }
                 if (diferencaEletronico > maiorQueda) {
                     maiorQueda = diferencaEletronico;
-                    nomeSetor = "setorEletrônico";
+                    nomeSetor = "Setor Eletrônico";
                 }
                 if (diferencaHigiene > maiorQueda) {
                     maiorQueda = diferencaHigiene;
-                    nomeSetor = "setorHigiene";
+                    nomeSetor = "Setor Higiene";
                 }
 
                 console.log(`setor com maior queda é: ${nomeSetor}`)
@@ -429,6 +428,64 @@
 
 
 
+
+
+            })
+        })
+    }
+
+    function compararParaVerQualSetorCresceu() {
+        fetchAtivacaoSemanaAnterior().then(function () {
+            fetchAtivacaoAteODia().then(function () {
+                console.log(`Semana Anterior: ${JSON.stringify(resultadoAtivacaoSemanaAnterior)}`)
+                console.log(`Ate o dia: ${JSON.stringify(resultadoAtivacaoAteODia)}`)
+
+                let ultimosSeteAlimenticio = resultadoAtivacaoSemanaAnterior[0].quantidade;
+                let ultimosSeteVestuario = resultadoAtivacaoSemanaAnterior[1].quantidade;
+                let ultimosSeteUtensilio = resultadoAtivacaoSemanaAnterior[2].quantidade;
+                let ultimosSeteEletronico = resultadoAtivacaoSemanaAnterior[3].quantidade;
+                let ultimosSeteHigiene = resultadoAtivacaoSemanaAnterior[4].quantidade;
+
+                let ativacoesAteHojeAlimenticio = resultadoAtivacaoAteODia[0].quantidade;
+                let ativacoesAteHojeVestuario = resultadoAtivacaoAteODia[1].quantidade;
+                let ativacoesAteHojeUtensilio = resultadoAtivacaoAteODia[2].quantidade;
+                let ativacoesAteHojeEletronico = resultadoAtivacaoAteODia[3].quantidade;
+                let ativacoesAteHojeHigiene = resultadoAtivacaoAteODia[4].quantidade;
+
+                let diferencaAlimenticio = Number(ultimosSeteAlimenticio) - Number(ativacoesAteHojeAlimenticio)
+                let diferencaVestuario = Number(ultimosSeteVestuario) - Number(ativacoesAteHojeVestuario)
+                let diferencaUtensilio = Number(ultimosSeteUtensilio) - Number(ativacoesAteHojeUtensilio)
+                let diferencaEletronico = Number(ultimosSeteEletronico) - Number(ativacoesAteHojeEletronico)
+                let diferencaHigiene = Number(ultimosSeteHigiene) - Number(ativacoesAteHojeHigiene)
+
+                var maiorCrescimento = 0;
+                var nomeSetorCres = "";
+
+                if (diferencaAlimenticio < maiorCrescimento) {
+                    maiorCrescimento = diferencaAlimenticio;
+                    nomeSetorCres = "Setor Alimenticio";
+                }
+
+                if (diferencaVestuario < maiorCrescimento) {
+                    maiorCrescimento = diferencaVestuario;
+                    nomeSetorCres = "Setor Vestuário";
+                }
+
+                if (diferencaUtensilio < maiorCrescimento) {
+                    maiorCrescimento = diferencaUtensilio;
+                    nomeSetorCres = "Setor Utensílio";
+                }
+                if (diferencaEletronico < maiorCrescimento) {
+                    maiorCrescimento = diferencaEletronico;
+                    nomeSetorCres = "Setor Eletrônico";
+                }
+                if (diferencaHigiene < maiorCrescimento) {
+                    maiorCrescimento = diferencaHigiene;
+                    nomeSetorCres = "Setor Higiene";
+                }
+
+                console.log(`setor com maior queda é: ${nomeSetorCres}`)
+                spanSetorCrescimento.innerHTML = nomeSetorCres
 
 
             })
