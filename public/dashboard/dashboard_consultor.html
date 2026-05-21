@@ -319,3 +319,29 @@
     inicializarGraficos();
     document.getElementById('select-setor').addEventListener('change', atualizarGraficos);
 </script>
+
+<script>
+   
+
+        fetch(`/kpis/ativacaoSemanaAnterior`, { cache: 'no-store' }).then(function (response) {
+            if (response.ok) {
+                response.json().then(function (resposta) {
+                    console.log(`Dados recebidos Ativacao Semana Anterior: ${JSON.stringify(resposta)}`);
+                    resposta.reverse();
+
+                });
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+            });
+
+    function refreshKpiTotalInvestido(resposta) {
+        let kpiData = resultTotalInvested[0].TotalInvestido;
+        console.log(kpiData)
+
+        totalInvested.innerHTML = kpiData;
+    }
+</script>

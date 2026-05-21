@@ -3,11 +3,11 @@ var router = express.Router();
 
 var kpisController = require("../controllers/kpisController");
 
-router.get("/ativacaoSemanaAnterior/:idLoja", function (req, res) {
+router.get("/ativacaoSemanaAnterior/", function (req, res) {
     kpisController.buscarAtivacoesPorSetorDaSemanaAnterior(req, res);
 });
 
-router.get("/ativacaoAteConsulta/:idLoja", function (req, res) {
+router.get("/ativacaoAteConsulta/", function (req, res) {
     kpisController.buscarAtivacoesPorSetorAteODiaDaConsulta(req, res);
 });
 
