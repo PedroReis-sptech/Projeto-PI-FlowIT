@@ -57,6 +57,8 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
+    }else if(codigo == undefined){
+        res.status(400).send("Seu codigo está indefinido")
     } else {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
