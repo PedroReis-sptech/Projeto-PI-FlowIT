@@ -12,4 +12,8 @@ router.post("/autenticar", function (req, res) {
     usuarioController.autenticar(req, res);
 });
 
+router.get("/gerenciar/:codigo", function (req, res) {
+    usuarioController.gerenciar(req, res);
+});
+
 module.exports = router;

@@ -35,7 +35,21 @@ function cadastrar(nome, email, senha, codigo) {
     });
 }
 
+function gerenciar(codigo){
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente.")
+
+    var instrucaoSql = `SELECT nomeUsuario, email, permissao.cargo
+        FROM usuario
+        JOIN permissao ON usuario.fkPermissao = permissao.idPermissao
+        JOIN loja ON usuario.fkLoja = loja.idLoja
+        WHERE loja.codigoVerificacao = '${codigo}'`
+
+    console.log("Executando a instrução SQL: \n" + instrucaoSql);
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    gerenciar
 };

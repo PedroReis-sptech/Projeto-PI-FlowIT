@@ -78,7 +78,21 @@ function cadastrar(req, res) {
     }
 }
 
+function gerenciar(req, res){
+    var codigoLoja = req.params.codigo;
+
+    usuarioModel.gerenciar(codigoLoja)
+        .then(function(resultado) {
+            res.json(resultado); 
+        })
+        .catch(function(erro) {
+            console.log(erro);
+            res.status(500).json(erro);
+        });
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    gerenciar
 }

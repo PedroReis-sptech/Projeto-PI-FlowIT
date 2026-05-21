@@ -35,7 +35,8 @@
                         <th>AÇÃO</th>
                     </tr>
                 </thead>
-                <tbody id="tabelaFuncionarios">
+                <div class="tabelaU"></div>
+                <tbody id="tabeladados">
                     </tbody>
             </table>
         </div>
@@ -50,25 +51,49 @@ let listaDeEquipe = [];
 
 window.onload = exibirFunc();
 
-function exibirFunc() {
-    let tabela = tabelaFuncionarios;
+    function gerenciar() {
+            var codigoLoja = sessionStorage.codigo;
 
+            // busca os atributos
+            fetch(`/usuarios/gerenciar/${codigoLoja}`, { cache: 'no-store' })
+                .then(function(resposta) {
+                    if (resposta.ok) {
+                        resposta.json().then(function(dado) {
+                            console.log(`Dados recebidos: ${JSON.stringify(dado)}`);
+                            exibirTabela(dado);
+                        });
+                    } else {
+                        console.error('Nenhum dado encontrado ou erro na API');
+                    }
+                })
+                .catch(function(erro) {
+                    console.error(`Erro na obtenção do tipo dominante: ${erro.message}`);
+                });
+        }   
 
-        tabela.innerHTML += `
-            <tr>
-                <td>${funcionario.nomeFunc}</td>
-                <td>${funcionario.emailFunc}</td>
-                <td>${funcionario.funcaoFunc}</td>
-                <td>
-                    <button class="botao-excluir" onclick="remover(${i})">Excluir</button>
-                </td>
-            </tr>
-        `;
-    }
+    function exibirTabela(dado) {
+
+        var container = document.getElementById("tabelaU");
+            container.innerHTML = ""; // limpa antes de renderizar
+            dado.forEach(function(usuario) {
+                container.innerHTML += `
+                    <div class="dado-item">
+                    <tr>
+                            <td>${usuario.nomeUsuario}</td>
+                            <td>${usuario.email}</td>
+                            <td>${usuario.cargo}</td>
+                            <td>
+                                <button class="botao-excluir" onclick="remover(${i})">Excluir</button>
+                            </td>
+                        </tr>
+                    </div>
+                `;
+            });
+        }
 
 function sairTela() {
     if (confirm("Deseja sair desta tela?")) {
-    window.location.href = "../Site Institucional/index.html";
+    window.location.href = "../index.html";
 } 
 }
 
