@@ -460,26 +460,26 @@
                 let diferencaHigiene = Number(ativacoesAteHojeHigiene) - Number(ultimosSeteHigiene)
 
                 var maiorCrescimento = diferencaAlimenticio;
-                var nomeSetorCres = "Setor Alimentício";
+                var nomeSetorCres = "";
 
-                if (diferencaEletronico < maiorCrescimento) {
+                if (diferencaEletronico > maiorCrescimento) {
                     maiorCrescimento = diferencaEletronico;
-                    nomeSetor = "Eletrônico";
+                    nomeSetorCres = "Setor Eletrônico";
                 }
 
-                if (diferencaUtensilio < maiorCrescimento) {
+                if (diferencaUtensilio > maiorCrescimento) {
                     maiorCrescimento = diferencaUtensilio;
-                    nomeSetor = "Utensílio";
+                    nomeSetorCres = "Setor Utensílio";
                 }
 
-                if (diferencaVestuario < maiorCrescimento) {
+                if (diferencaVestuario > maiorCrescimento) {
                     maiorCrescimento = diferencaVestuario;
-                    nomeSetor = "Vestuário";
+                    nomeSetorCres = "Setor Vestuário";
                 }
 
-                if (diferencaHigiene < maiorCrescimento) {
+                if (diferencaHigiene > maiorCrescimento) {
                     maiorCrescimento = diferencaHigiene;
-                    nomeSetor = "Higiene";
+                    nomeSetorCres = "Setor Higiene";
                 }
 
                 
