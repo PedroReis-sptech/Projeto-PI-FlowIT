@@ -248,10 +248,15 @@ WHERE ss.idSensor
 GROUP BY st.nomeSetor
 LIMIT 0, 1000;
 
--- META DIARIA
+-- META DIARIA KPI 2 e 3
 SELECT SUM(meta) AS 'META DIARIA'
 FROM setor
 GROUP BY meta;
+
+-- Fazer Select soma de registros de todos os setores juntos do dia da consulta apenas --
+SELECT COUNT(registroSensor.idRegistroSensor) AS Quant_Registros_Dia FROM registroSensor
+WHERE dataLeitura = CURDATE();
+
 
 -- SELECT DA SOMA DOS REGISTROS ATE A DATA DA CONSULTA DA LOJA
 SELECT 

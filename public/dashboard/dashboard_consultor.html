@@ -62,7 +62,8 @@
                             <div class="card cardBom">
                                 <span><b>Setor com maior
                                         crescimento</b></span>
-                                <span class="setor" id="spanSetorCrescimento"><span class="seta-icon t-2">▲</span></span>
+                                <span class="setor" id="spanSetorCrescimento"><span
+                                        class="seta-icon t-2">▲</span></span>
                                 <span class="card-descritivo">Crescimento de
                                     20% em comparação à semana
                                     anterior.</span>
@@ -452,39 +453,37 @@
                 let ativacoesAteHojeEletronico = resultadoAtivacaoAteODia[3].quantidade;
                 let ativacoesAteHojeHigiene = resultadoAtivacaoAteODia[4].quantidade;
 
-                let diferencaAlimenticio = Number(ultimosSeteAlimenticio) - Number(ativacoesAteHojeAlimenticio)
-                let diferencaVestuario = Number(ultimosSeteVestuario) - Number(ativacoesAteHojeVestuario)
-                let diferencaUtensilio = Number(ultimosSeteUtensilio) - Number(ativacoesAteHojeUtensilio)
-                let diferencaEletronico = Number(ultimosSeteEletronico) - Number(ativacoesAteHojeEletronico)
-                let diferencaHigiene = Number(ultimosSeteHigiene) - Number(ativacoesAteHojeHigiene)
+                let diferencaAlimenticio = Number(ativacoesAteHojeAlimenticio) - Number(ultimosSeteAlimenticio)
+                let diferencaVestuario = Number(ativacoesAteHojeVestuario) - Number(ultimosSeteVestuario)
+                let diferencaUtensilio = Number(ativacoesAteHojeUtensilio) - Number(ultimosSeteUtensilio)
+                let diferencaEletronico = Number(ativacoesAteHojeEletronico) - Number(ultimosSeteEletronico)
+                let diferencaHigiene = Number(ativacoesAteHojeHigiene) - Number(ultimosSeteHigiene)
 
-                var maiorCrescimento = 0;
-                var nomeSetorCres = "";
+                var maiorCrescimento = diferencaAlimenticio;
+                var nomeSetorCres = "Setor Alimentício";
 
-                if (diferencaAlimenticio < maiorCrescimento) {
-                    maiorCrescimento = diferencaAlimenticio;
-                    nomeSetorCres = "Setor Alimenticio";
-                }
-
-                if (diferencaVestuario < maiorCrescimento) {
-                    maiorCrescimento = diferencaVestuario;
-                    nomeSetorCres = "Setor Vestuário";
+                if (diferencaEletronico < maiorCrescimento) {
+                    maiorCrescimento = diferencaEletronico;
+                    nomeSetor = "Eletrônico";
                 }
 
                 if (diferencaUtensilio < maiorCrescimento) {
                     maiorCrescimento = diferencaUtensilio;
-                    nomeSetorCres = "Setor Utensílio";
-                }
-                if (diferencaEletronico < maiorCrescimento) {
-                    maiorCrescimento = diferencaEletronico;
-                    nomeSetorCres = "Setor Eletrônico";
-                }
-                if (diferencaHigiene < maiorCrescimento) {
-                    maiorCrescimento = diferencaHigiene;
-                    nomeSetorCres = "Setor Higiene";
+                    nomeSetor = "Utensílio";
                 }
 
-                console.log(`setor com maior queda é: ${nomeSetorCres}`)
+                if (diferencaVestuario < maiorCrescimento) {
+                    maiorCrescimento = diferencaVestuario;
+                    nomeSetor = "Vestuário";
+                }
+
+                if (diferencaHigiene < maiorCrescimento) {
+                    maiorCrescimento = diferencaHigiene;
+                    nomeSetor = "Higiene";
+                }
+
+                
+                console.log(`setor com maior cresc é: ${nomeSetorCres}`)
                 spanSetorCrescimento.innerHTML = nomeSetorCres
 
 
@@ -494,5 +493,5 @@
 </script>
 
 <script>
-    compararParaVerQualSetor()
+    compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu()
 </script>
