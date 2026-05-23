@@ -332,6 +332,7 @@
     let resultadoAtivacaoSemanaAnterior;
     let resultadoAtivacaoAteODia;
     let metaDiaria;
+    let quantRegistrosDia;
 
     function fetchAtivacaoSemanaAnterior() {
         return fetch(`/kpis/ativacaoSemanaAnterior`, { cache: 'no-store' })
@@ -377,6 +378,9 @@
 
     // para pegar a meta diaria eh so chamar fetchMetaDiaria()
     // o resultado puro pode ser encontrado em metaDiaria[0].metaDiaria depois de chamar o fetchMetaDiaria()
+
+    // OBS: segue a estrutura de chamar o fetch e usar o .then igual ta nas funcoes das KPIs 1 e 4
+    // fetchMetaDiaria().then(function () {coloca o codigo da funcao aqui}
     function fetchMetaDiaria() {
         return fetch(`/kpis/metaDiaria`, { cache: 'no-store' })
             .then(function (response) {
@@ -394,6 +398,34 @@
             })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados Meta Diaria: ${error.message}`);
+                return null;
+            });
+    }
+
+    // para pegar a Soma de registros de todos os setores juntos do dia da consulta apenas
+    // eh so chamar fetchSomaDosRegistrosDosSetoresNoDia()
+
+    // o resultado puro pode ser encontrado em quantRegistrosDia[0].Quant_Registros_Dia 
+    //  depois de chamar o fetchMetaDiaria()
+    // OBS: segue a estrutura de chamar o fetch e usar o .then igual ta nas funcoes das KPIs 1 e 4
+    // fetchSomaDosRegistrosDosSetoresNoDia().then(function () {coloca o codigo da funcao aqui}
+    function fetchSomaDosRegistrosDosSetoresNoDia() {
+        return fetch(`/kpis/somaDosRegistrosSetoresDiario`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Soma de registros de todos os setores juntos do dia da consulta apenas: ${JSON.stringify(resultado)}`);
+
+                        quantRegistrosDia = resultado
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados Soma dos Setores: ${error.message}`);
                 return null;
             });
     }
@@ -517,5 +549,6 @@
 </script>
 
 <script>
-    compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu() ; fetchMetaDiaria()
+    compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu() ; fetchMetaDiaria();
+    fetchSomaDosRegistrosDosSetoresNoDia()
 </script>

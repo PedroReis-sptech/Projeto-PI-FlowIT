@@ -15,5 +15,9 @@ router.get("/metaDiaria/", function (req, res) {
     kpisController.buscarMetaDiaria(req, res);
 });
 
+router.get("/somaDosRegistrosSetoresDiario/", function (req, res) {
+    kpisController.buscarSomaDosRegistrosDosSetoresNoDia(req, res);
+});
+
 
 module.exports = router;

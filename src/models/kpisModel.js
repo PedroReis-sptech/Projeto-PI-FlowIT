@@ -8,6 +8,9 @@ var database = require("../database/config");
 
 // }
 
+// ====================================================================================================
+
+
 function buscarAtivacoesPorSetorDaSemanaAnterior() {
 
   var instrucaoSql = `SELECT 
@@ -28,6 +31,8 @@ function buscarAtivacoesPorSetorDaSemanaAnterior() {
   return database.executar(instrucaoSql);
 }
 
+// ====================================================================================================
+
 function buscarAtivacoesPorSetorAteODiaDaConsulta(){
   var instrucaoSql = `SELECT 
       st.nomeSetor, 
@@ -47,6 +52,8 @@ function buscarAtivacoesPorSetorAteODiaDaConsulta(){
   return database.executar(instrucaoSql);
 }
 
+// ====================================================================================================
+
 function buscarMetaDiaria(){
   var instrucaoSql = `SELECT 
         SUM(meta) AS metaDiaria
@@ -61,8 +68,23 @@ function buscarMetaDiaria(){
 // ====================================================================================================
 
 
+function buscarSomaDosRegistrosDosSetoresNoDia(){
+  var instrucaoSql = `SELECT 
+          COUNT(registroSensor.idRegistroSensor) AS Quant_Registros_Dia 
+          FROM registroSensor
+          WHERE dataLeitura = CURDATE();
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
+// ====================================================================================================
+
+
 module.exports = {
   buscarAtivacoesPorSetorDaSemanaAnterior,
   buscarAtivacoesPorSetorAteODiaDaConsulta, 
-  buscarMetaDiaria
+  buscarMetaDiaria,
+  buscarSomaDosRegistrosDosSetoresNoDia
 }
