@@ -20,10 +20,10 @@ const serial = async (
     let poolBancoDados = mysql.createPool(
         {
             host: '127.0.0.1',
-            user: 'inserter',
-            password: 'Insert#2024',
+            user: 'root',
+            password: 'root',
             database: 'flow',
-            port: 3307
+            port: 3306
         }
     ).promise();
 
@@ -104,8 +104,8 @@ const serial = async (
 
         // insere os dados no banco de dados (se habilitado)
         if (HABILITAR_OPERACAO_INSERIR) {
-            for (let i = 0; i < leituraSetores.length; i++) {
-                if (leituraSetores[i] = 1) {
+            for (let i = 1; i <= leituraSetores.length; i++) {
+                if (leituraSetores[i] == 1) {
                     await poolBancoDados.execute(
                         'INSERT INTO registroSensor (leitura, fkSensor) VALUES (?, ?)',
                         [leituraSetores[i], i]
