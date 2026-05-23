@@ -11,5 +11,9 @@ router.get("/ativacaoAteConsulta/", function (req, res) {
     kpisController.buscarAtivacoesPorSetorAteODiaDaConsulta(req, res);
 });
 
+router.get("/metaDiaria/", function (req, res) {
+    kpisController.buscarMetaDiaria(req, res);
+});
+
 
 module.exports = router;

@@ -47,10 +47,22 @@ function buscarAtivacoesPorSetorAteODiaDaConsulta(){
   return database.executar(instrucaoSql);
 }
 
+function buscarMetaDiaria(){
+  var instrucaoSql = `SELECT 
+        SUM(meta) AS metaDiaria
+        FROM setor
+        GROUP BY meta;
+  `;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
+
 // ====================================================================================================
 
 
 module.exports = {
   buscarAtivacoesPorSetorDaSemanaAnterior,
-  buscarAtivacoesPorSetorAteODiaDaConsulta
+  buscarAtivacoesPorSetorAteODiaDaConsulta, 
+  buscarMetaDiaria
 }

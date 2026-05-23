@@ -331,13 +331,14 @@
 <script>
     let resultadoAtivacaoSemanaAnterior;
     let resultadoAtivacaoAteODia;
+    let metaDiaria;
 
     function fetchAtivacaoSemanaAnterior() {
         return fetch(`/kpis/ativacaoSemanaAnterior`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
-                        console.log(`Dados recebidos Ativacao Semana Anterior: ${JSON.stringify(resultado)}`);
+                        // console.log(`Dados recebidos Ativacao Semana Anterior: ${JSON.stringify(resultado)}`);
 
                         resultadoAtivacaoSemanaAnterior = resultado
                         return resultado;
@@ -358,7 +359,7 @@
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
-                        console.log(`Dados recebidos Ativacao Ate o Dia: ${JSON.stringify(resultado)}`);
+                        // console.log(`Dados recebidos Ativacao Ate o Dia: ${JSON.stringify(resultado)}`);
 
                         resultadoAtivacaoAteODia = resultado
                         return resultado;
@@ -374,11 +375,34 @@
             });
     }
 
+    // para pegar a meta diaria eh so chamar fetchMetaDiaria()
+    // o resultado puro pode ser encontrado em metaDiaria[0].metaDiaria depois de chamar o fetchMetaDiaria()
+    function fetchMetaDiaria() {
+        return fetch(`/kpis/metaDiaria`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Dados recebidos de Meta Diaria: ${JSON.stringify(resultado)}`);
+
+                        metaDiaria = resultado
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados Meta Diaria: ${error.message}`);
+                return null;
+            });
+    }
+
     function compararParaVerQualSetorDiminuiu() {
         fetchAtivacaoSemanaAnterior().then(function () {
             fetchAtivacaoAteODia().then(function () {
-                console.log(`Semana Anterior: ${JSON.stringify(resultadoAtivacaoSemanaAnterior)}`)
-                console.log(`Ate o dia: ${JSON.stringify(resultadoAtivacaoAteODia)}`)
+                // console.log(`Semana Anterior: ${JSON.stringify(resultadoAtivacaoSemanaAnterior)}`)
+                // console.log(`Ate o dia: ${JSON.stringify(resultadoAtivacaoAteODia)}`)
 
                 let ultimosSeteAlimenticio = resultadoAtivacaoSemanaAnterior[0].quantidade;
                 let ultimosSeteVestuario = resultadoAtivacaoSemanaAnterior[1].quantidade;
@@ -438,8 +462,8 @@
     function compararParaVerQualSetorCresceu() {
         fetchAtivacaoSemanaAnterior().then(function () {
             fetchAtivacaoAteODia().then(function () {
-                console.log(`Semana Anterior: ${JSON.stringify(resultadoAtivacaoSemanaAnterior)}`)
-                console.log(`Ate o dia: ${JSON.stringify(resultadoAtivacaoAteODia)}`)
+                // console.log(`Semana Anterior: ${JSON.stringify(resultadoAtivacaoSemanaAnterior)}`)
+                // console.log(`Ate o dia: ${JSON.stringify(resultadoAtivacaoAteODia)}`)
 
                 let ultimosSeteAlimenticio = resultadoAtivacaoSemanaAnterior[0].quantidade;
                 let ultimosSeteVestuario = resultadoAtivacaoSemanaAnterior[1].quantidade;
@@ -493,5 +517,5 @@
 </script>
 
 <script>
-    compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu()
+    compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu() ; fetchMetaDiaria()
 </script>
