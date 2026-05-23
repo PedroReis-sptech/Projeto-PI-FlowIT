@@ -37,36 +37,27 @@
                                 04/05/2026 17:00</i></span>
                         <div class="KPIs">
                             <div class="card cardRuim">
-                                <span><b>Setor com maior queda</b></span>
-                                <span class="setor" id="spanSetorQueda"><span class="seta-icon t-1">▼</span></span>
-                                <span class="card-descritivo">Diferente da
-                                    semana anterior este é o setor com o
-                                    menor
-                                    fluxo.</span>
+                                <span ><b>Setor com maior queda</b></span><span class="seta-icon t-1">▼</span>
+                                <span class="setor" id="spanSetorQueda"></span>
+                                <span class="card-descritivo"></span>
                             </div>
                             <div class="card cardRuim">
-                                <span><b>Atingimento vs Semana
-                                        Anterior</b></span>
-                                <span class="setor">Segunda-feira <span class="seta-icon c">○</span></span>
-                                <span class="card-descritivo">Falta 80% para
-                                    atingirmos o fluxo da semana
-                                    passada.</span>
+                                <span><b>Ativações vs Meta Semanal</b></span><span class="seta-icon c">○</span>
+                                <span class="setor" id="spanQuantoFaltaMetaSemanal"></span>
+                                <!-- <span class="card-descritivo"></span> -->
                             </div>
                             <div class="card cardBom">
-                                <span><b>Atingimento vs Dia
-                                        Anterior</b></span>
-                                <span class="setor">Segunda-feira <span class="seta-icon c">○</span></span>
-                                <span class="card-descritivo">Passou 20% do
-                                    fluxo do dia anterior.</span>
+                                <span><b>Ativações vs Meta Diária</b></span><span class="seta-icon c">○</span></span>
+                                <span class="setor" id="spanQuantoFaltaMetaDiaria">
+                                <!-- <span class="card-descritivo">Passou 20% do
+                                    fluxo do dia anterior.</span> -->
                             </div>
                             <div class="card cardBom">
                                 <span><b>Setor com maior
-                                        crescimento</b></span>
-                                <span class="setor" id="spanSetorCrescimento"><span
-                                        class="seta-icon t-2">▲</span></span>
-                                <span class="card-descritivo">Crescimento de
-                                    20% em comparação à semana
-                                    anterior.</span>
+                                        crescimento</b></span><span
+                                        class="seta-icon t-2">▲</span>
+                                <span class="setor" id="spanSetorCrescimento"></span>
+                                <span class="card-descritivo"></span>
                             </div>
                         </div>
                     </div>
@@ -376,6 +367,32 @@
             });
     }
 
+    // KPI 3 função -> (meta diaria - quant de registros do dia)
+    function ativacoesParaMetaDiaria() {
+        fetchMetaDiaria().then(function () {
+            fetchSomaDosRegistrosDosSetoresNoDia().then(function () {
+
+                let metaDiariaNum = metaDiaria[0].metaDiaria;
+                let quantRegistrosDiaNum = quantRegistrosDia[0].Quant_Registros_Dia ;
+                
+
+                var quantoFaltaMetaDiaria = Number(metaDiariaNum) - Number(quantRegistrosDiaNum);
+                var quantoUltrapassouDiaria = Number(quantRegistrosDiaNum) - Number(metaDiariaNum);
+
+                if(metaDiariaNum <= quantRegistrosDiaNum){
+                    spanQuantoFaltaMetaDiaria.innerHTML =`Parabens! Meta Diária Atingida<br>Ultrapassou em ${quantoUltrapassouDiaria} ativações`
+                } else {
+                    console.log(`Quanto falta para meta diária: ${quantoFaltaMetaDiaria}`)
+                spanQuantoFaltaMetaDiaria.innerHTML = `Faltam ${quantoFaltaMetaDiaria} ativações`
+
+                }
+
+            })
+        })
+    }
+
+    
+
     // para pegar a meta diaria eh so chamar fetchMetaDiaria()
     // o resultado puro pode ser encontrado em metaDiaria[0].metaDiaria depois de chamar o fetchMetaDiaria()
 
@@ -409,6 +426,41 @@
     //  depois de chamar o fetchMetaDiaria()
     // OBS: segue a estrutura de chamar o fetch e usar o .then igual ta nas funcoes das KPIs 1 e 4
     // fetchSomaDosRegistrosDosSetoresNoDia().then(function () {coloca o codigo da funcao aqui}
+
+    // KPI 2
+     function ativacoesParaMetaSemanal() {
+        fetchMetaDiaria().then(function () {
+            fetchAtivacaoAteODia().then(function () {
+
+                let metaDiariaNum = metaDiaria[0].metaDiaria;
+                let metaSemanal = metaDiariaNum * 7;
+
+                let ativacoesAteHojeAlimenticio = resultadoAtivacaoAteODia[0].quantidade;
+                let ativacoesAteHojeVestuario = resultadoAtivacaoAteODia[1].quantidade;
+                let ativacoesAteHojeUtensilio = resultadoAtivacaoAteODia[2].quantidade;
+                let ativacoesAteHojeEletronico = resultadoAtivacaoAteODia[3].quantidade;
+                let ativacoesAteHojeHigiene = resultadoAtivacaoAteODia[4].quantidade;
+
+                let somaRegistrosSetoresAteHoje = ativacoesAteHojeAlimenticio + ativacoesAteHojeVestuario + ativacoesAteHojeUtensilio + ativacoesAteHojeEletronico + ativacoesAteHojeHigiene
+                
+
+                var quantoFaltaMetaSemanal = Number(metaSemanal) - Number(somaRegistrosSetoresAteHoje);
+                var quantoUltrapassouSemanal = Number(somaRegistrosSetoresAteHoje) - Number(metaSemanal);
+
+
+                if(metaSemanal <= somaRegistrosSetoresAteHoje){
+                    spanQuantoFaltaMetaDiaria.innerHTML =`Parabens! Meta Semanal Atingida<br>Ultrapassou em ${quantoUltrapassouSemanal} ativações`
+                } else {
+                    console.log(`Quanto falta para meta Semanal: ${quantoFaltaMetaSemanal}`)
+                spanQuantoFaltaMetaSemanal.innerHTML = `Faltam ${quantoFaltaMetaSemanal} ativações`
+
+                }
+            })
+        })
+    }
+
+
+
     function fetchSomaDosRegistrosDosSetoresNoDia() {
         return fetch(`/kpis/somaDosRegistrosSetoresDiario`, { cache: 'no-store' })
             .then(function (response) {
@@ -549,6 +601,5 @@
 </script>
 
 <script>
-    compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu() ; fetchMetaDiaria();
-    fetchSomaDosRegistrosDosSetoresNoDia()
+    compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal()
 </script>
