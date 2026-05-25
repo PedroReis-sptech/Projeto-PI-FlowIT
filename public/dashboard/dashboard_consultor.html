@@ -390,7 +390,7 @@
                 var quantoFaltaMetaDiaria = Number(metaDiariaNum) - Number(quantRegistrosDiaNum);
                 var quantoUltrapassouDiaria = Number(quantRegistrosDiaNum) - Number(metaDiariaNum);
 
-                if(metaDiariaNum <= quantRegistrosDiaNum){
+                if(metaDiariaNum <= Number(quantRegistrosDiaNum)){
                     spanQuantoFaltaMetaDiaria.innerHTML =`Parabens! Meta Diária Atingida<br>Ultrapassou em ${quantoUltrapassouDiaria} ativações`
                 } else {
                     console.log(`Quanto falta para meta diária: ${quantoFaltaMetaDiaria}`)
@@ -579,7 +579,7 @@
                 let diferencaHigiene = Number(ativacoesAteHojeHigiene) - Number(ultimosSeteHigiene)
 
                 var maiorCrescimento = diferencaAlimenticio;
-                var nomeSetorCres = "";
+                var nomeSetorCres = "Setor Alimentício";
 
                 if (diferencaEletronico > maiorCrescimento) {
                     maiorCrescimento = diferencaEletronico;
@@ -600,7 +600,6 @@
                     maiorCrescimento = diferencaHigiene;
                     nomeSetorCres = "Setor Higiene";
                 }
-
                 
                 console.log(`setor com maior cresc é: ${nomeSetorCres}`)
                 spanSetorCrescimento.innerHTML = nomeSetorCres
@@ -621,5 +620,7 @@
 </script>
 
 <script>
-    compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal()
+    setInterval(() => {
+            compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal()
+          }, "2000");
 </script>

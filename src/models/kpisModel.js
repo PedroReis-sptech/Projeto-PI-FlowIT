@@ -72,7 +72,7 @@ function buscarSomaDosRegistrosDosSetoresNoDia(){
   var instrucaoSql = `SELECT 
           COUNT(registroSensor.idRegistroSensor) AS Quant_Registros_Dia 
           FROM registroSensor
-          WHERE dataLeitura = CURDATE();
+          WHERE DAY(dataLeitura) = DAY(current_date()) AND MONTH(dataLeitura) = MONTH(current_date());
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
