@@ -3,17 +3,16 @@ var database = require("../database/config")
 function autenticar(email, senha) {
     console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function entrar(): ", email, senha)
     
-    var instrucaoSql = `
-        SELECT usuario.idUsuario, 
-        usuario.nomeUsuario, usuario.email
-        FROM usuario
-        WHERE usuario.email = '${email}' AND usuario.senha = '${senha}';`;
+     var instrucaoSql = `
+        SELECT u.idUsuario, u.nomeUsuario, u.email, u.senha, p.cargo
+         FROM usuario u
+         JOIN permissao p ON u.fkPermissao = p.idPermissao
+         WHERE u.email = "${email}" AND u.senha = "${senha}";`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
     return database.executar(instrucaoSql);
 }
 
-// CORRIGIDO: Adicionado o parâmetro 'codigo' que estava faltando na assinatura da função
 function cadastrar(nome, email, senha, codigo) {
 
     var pegarLoja = `SELECT idLoja FROM loja WHERE codigoVerificacao = '${codigo}'`;
@@ -28,7 +27,7 @@ function cadastrar(nome, email, senha, codigo) {
 
         var instrucaoSql = `
             INSERT INTO usuario (nomeUsuario, email, senha, fkLoja, fkPermissao) 
-            VALUES ('${nome}', '${email}', '${senha}', ${idLoja}, 1)`;
+            VALUES ('${nome}', '${email}', '${senha}', ${idLoja}, 2)`;
 
         return database.executar(instrucaoSql);
     });
