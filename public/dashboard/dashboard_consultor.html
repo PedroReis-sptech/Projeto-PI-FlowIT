@@ -25,6 +25,17 @@
             </div>
             <div class="botoes-topo">
                 <button class="botao-sair" onclick="sairTela()">Sair</button>
+                <div class="ajuda-container">
+                    <button class="botao-sair" onclick="menuAjuda()">Ajuda</button>
+                    <div id="menuAjuda" class="menu hidden">
+                        <div class="menu-header">
+                        <span class="element">Ajuda</span>
+                        <button class="close-btn" onclick="fecharMenu()">✕</button>
+                        </div>
+                        <a href="https://bandteccom-my.sharepoint.com/:w:/g/personal/pedro_dreis_sptech_school/IQB9tW28z9zjQZT5N5S37bIxAfaG_1Lv0UnatuWk2oYnR8o?e=whhO8F" target="_blank" class="element">Documentação</a>
+                        <a href="https://flow1t.atlassian.net/servicedesk/customer/portal/1" target="_blank" class="element">Central de ajuda</a>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -428,7 +439,7 @@
     // fetchSomaDosRegistrosDosSetoresNoDia().then(function () {coloca o codigo da funcao aqui}
 
     // KPI 2
-     function ativacoesParaMetaSemanal() {
+    function ativacoesParaMetaSemanal() {
         fetchMetaDiaria().then(function () {
             fetchAtivacaoAteODia().then(function () {
 
@@ -597,6 +608,15 @@
 
             })
         })
+    }
+
+    function menuAjuda(){
+        const menu = document.getElementById("menuAjuda");
+        menu.classList.toggle("hidden");
+    }
+
+    function fecharMenu() {
+    document.getElementById("menuAjuda").classList.add("hidden");
     }
 </script>
 

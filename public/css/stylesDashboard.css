@@ -180,6 +180,9 @@ canvas {
 .c { color: #ffff40; }
 
 .botao-sair {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
     border: 2px solid white;
     border-radius: 20px;
     padding: 5px 20px;
@@ -191,3 +194,68 @@ canvas {
 .botao-sair:hover {
     background-color: #1954ad;
 }
+
+.menu {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #00103779;
+    border: 1px solid #001037a7;
+    border-radius: 30px;
+    padding: 10px;
+    width: 180px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.295);
+    }
+
+    .hidden {
+    display: none;
+    }
+
+    .ajuda-container {
+    position: relative;
+    display: inline-block;
+    }
+
+    .menu-header {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    align-items: center;
+    font-weight: bold;
+    margin-bottom: 5px;
+    }
+
+    .menu-header span {
+    margin-left: 10px;
+    }
+
+    .close-btn {
+    background: none;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    color: white;
+    display: flex;
+
+    }
+
+    .close-btn:hover {
+    color: red;
+    }
+
+    .element {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    color: white;
+    font-size: 18px;
+    }
+
+    .ajuda-container a:hover{
+    color: #1954ad;
+    }
