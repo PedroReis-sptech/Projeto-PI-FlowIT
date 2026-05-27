@@ -32,9 +32,9 @@ function buscarDadosGraficoPizzaGeral(req, res) {
   });
 }
 
-function buscarDadosGraficoLinha(req, res) {
+function buscarDadosGraficoLinhaGeral(req, res) {
 
-  graficosModel.buscarDadosGraficoLinha().then((resultado) => {
+  graficosModel.buscarDadosGraficoLinhaGeral().then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -47,9 +47,9 @@ function buscarDadosGraficoLinha(req, res) {
   });
 }
 
-function buscarDadosGraficoRadar(req, res) {
+function buscarDadosGraficoRadarGeral(req, res) {
 
-  graficosModel.buscarDadosGraficoRadar().then((resultado) => {
+  graficosModel.buscarDadosGraficoRadarGeral().then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -66,6 +66,6 @@ function buscarDadosGraficoRadar(req, res) {
 module.exports = {
   buscarDadosGraficoBarras,
   buscarDadosGraficoPizzaGeral,
-  buscarDadosGraficoLinha,
-  buscarDadosGraficoRadar
+  buscarDadosGraficoLinhaGeral,
+  buscarDadosGraficoRadarGeral
 }

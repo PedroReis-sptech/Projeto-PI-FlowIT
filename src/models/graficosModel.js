@@ -43,8 +43,18 @@ GROUP BY turno;`;
 
 // ====================================================================================================
 
-function buscarDadosGraficoLinha() {
-  var instrucaoSql = ``;
+function buscarDadosGraficoLinhaGeral() {
+  var instrucaoSql = `SELECT 
+    HOUR(rs.dataLeitura) AS hora,
+    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
+FROM setor st
+JOIN corredor       c   ON st.idSetor   = c.fkSetor
+JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
+JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
+WHERE st.fkloja
+  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20
+GROUP BY  HOUR(rs.dataLeitura);
+`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);
@@ -53,7 +63,7 @@ function buscarDadosGraficoLinha() {
 // ====================================================================================================
 
 
-function buscarDadosGraficoRadar() {
+function buscarDadosGraficoRadarGeral() {
   var instrucaoSql = ``;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -66,6 +76,6 @@ function buscarDadosGraficoRadar() {
 module.exports = {
   buscarDadosGraficoBarras,
   buscarDadosGraficoPizzaGeral,
-  buscarDadosGraficoLinha,
-  buscarDadosGraficoRadar
+  buscarDadosGraficoLinhaGeral,
+  buscarDadosGraficoRadarGeral
 }

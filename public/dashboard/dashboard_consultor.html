@@ -231,14 +231,7 @@
         const setor = document.getElementById('select-setor').value;
         const dados = dadosSetores[setor];
 
-        chartLinha = new Chart(document.getElementById('graf-linha'), {
-            type: 'line',
-            options: { plugins: { title: { display: true, text: dados.linhaTitle, font: { size: 18 } } } },
-            data: {
-                labels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
-                datasets: [{ label: dados.label, data: dados.linha, backgroundColor: '#163460cf', borderWidth: 8, tension: 0.4, fill: true }]
-            }
-        });
+
 
 
 
@@ -571,8 +564,8 @@
 
 <script>
     // setInterval(() => {
-    //     compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1);
-    // }, "1000");
+    //     compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1); fetchGraficoPizza();
+    // }, "3000");
 </script>
 <script>
 
@@ -608,6 +601,28 @@
                         de Pizza: ${JSON.stringify(resultado)}`);
 
                         plotarGraficoPizza(resultado)
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+
+    function fetchGraficoLinha() {
+        return fetch(`/graficos/buscarDadosGraficoLinhaGeral`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Dados recebidos grafico 
+                        de Linha: ${JSON.stringify(resultado)}`);
+
+                        plotarGraficoLinha(resultado)
                         return resultado;
                     });
                 } else {
@@ -729,13 +744,57 @@
                 }]
             }
         });
-
-        
     }
 
+    function plotarGraficoLinha(resposta) {
+        let labelsGraficoLinha = [];
+        let valoresGraficoLinha = [];
+
+        for (let i = 0; i < resposta.length; i++) {
+            let label = resposta[i].hora
+            labelsGraficoLinha.push(label.toString());
+            valoresGraficoLinha.push(resposta[i].quantidade);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsGraficoLinha)
+        console.log('Dados:')
+        console.log(valoresGraficoLinha)
+        console.log('----------------------------------------------')
+
+        const ctm = document.getElementById('graf-linha');
+
+        new Chart(ctm, {
+            type: 'line',
+            options:
+            {
+                plugins:
+                {
+                    title: {
+                        display: true,
+                        text: 'Fluxo Geral por hora',
+                        font: { size: 18 }
+                    }
+                }
+            },
+            data: {
+                labels: labelsGraficoLinha,
+                datasets: [{
+                    label: 'Fluxo Geral',
+                    data: valoresGraficoLinha,
+                    backgroundColor: '#163460cf',
+                    borderWidth: 8,
+                    tension: 0.4,
+                    fill: true
+                }]
+            }
+        });
+    }
 
 </script>
 
 <script>
-    fetchGraficoPizza();
+    fetchGraficoLinha()
 </script>

@@ -11,12 +11,12 @@ router.get("/buscarDadosGraficoPizzaGeral/", function (req, res) {
     graficosController.buscarDadosGraficoPizzaGeral(req, res);
 });
 
-router.get("/buscarDadosGraficoLinha/", function (req, res) {
-    graficosController.buscarDadosGraficoLinha(req, res);
+router.get("/buscarDadosGraficoLinhaGeral/", function (req, res) {
+    graficosController.buscarDadosGraficoLinhaGeral(req, res);
 });
 
-router.get("/buscarDadosGraficoRadar/", function (req, res) {
-    graficosController.buscarDadosGraficoRadar(req, res);
+router.get("/buscarDadosGraficoRadarGeral/", function (req, res) {
+    graficosController.buscarDadosGraficoRadarGeral(req, res);
 });
 
 
