@@ -249,6 +249,7 @@ GROUP BY st.nomeSetor
 LIMIT 0, 1000;
 
 -- META DIARIA KPI 2 e 3
+CREATE VIEW view_buscarMetaDiaria AS
 SELECT SUM(meta) AS 'META DIARIA'
 FROM setor
 GROUP BY meta;
@@ -259,6 +260,7 @@ WHERE dataLeitura = CURDATE();
 
 
 -- SELECT DA SOMA DOS REGISTROS ATE A DATA DA CONSULTA DA LOJA
+CREATE VIEW view_buscarAtivacoesPorSetorAteODiaDaConsulta AS
 SELECT 
 		COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
 FROM setor st
@@ -272,6 +274,7 @@ GROUP BY rs.leitura
 LIMIT 1000;
 
 -- SELECT DA SOMA DOS REGISTROS DA ULTIMA SEMANA COMPLETA
+CREATE VIEW view_buscarAtivacoesPorSetorDaSemanaAnterior AS
 SELECT
        COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
 FROM setor st
@@ -440,8 +443,14 @@ JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja = ${idLoja}
 GROUP BY st.idSetor, st.nomeSetor;
 */
-
+CREATE VIEW buscarSomaDosRegistrosDosSetoresNoDia AS
 SELECT 
           COUNT(registroSensor.idRegistroSensor) AS Quant_Registros_Dia 
           FROM registroSensor
           WHERE DAY(dataLeitura) = DAY(current_date()) AND MONTH(dataLeitura) = MONTH(current_date());
+          
+
+SELECT * FROM view_buscarAtivacoesPorSetorDaSemanaAnterior;
+SELECT * FROM view_buscarAtivacoesPorSetorAteODiaDaConsulta;
+SELECT * FROM view_buscarSomaDosRegistrosDosSetoresNoDia;
+SELECT * FROM view_buscarMetaDiaria;
