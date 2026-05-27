@@ -3,7 +3,7 @@ var router = express.Router();
 
 var graficosController = require("../controllers/graficosController");
 
-router.get("/buscarDadosGraficoBarras/", function (req, res) {
+router.get("/buscarDadosGraficoBarras/:idLoja", function (req, res) {
     graficosController.buscarDadosGraficoBarras(req, res);
 });
 

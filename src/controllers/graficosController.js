@@ -1,8 +1,10 @@
 var graficosModel = require("../models/graficosModel");
 
 function buscarDadosGraficoBarras(req, res) {
+ 
+  var idLoja = req.params.idLoja;
 
-  graficosModel.buscarDadosGraficoBarras().then((resultado) => {
+  graficosModel.buscarDadosGraficoBarras(idLoja).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

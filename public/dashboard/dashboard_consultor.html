@@ -29,11 +29,13 @@
                     <button class="botao-sair" onclick="menuAjuda()">Ajuda</button>
                     <div id="menuAjuda" class="menu hidden">
                         <div class="menu-header">
-                        <span class="element">Ajuda</span>
-                        <button class="close-btn" onclick="fecharMenu()">✕</button>
+                            <span class="element">Ajuda</span>
+                            <button class="close-btn" onclick="fecharMenu()">✕</button>
                         </div>
-                        <a href="https://bandteccom-my.sharepoint.com/:w:/g/personal/pedro_dreis_sptech_school/IQB9tW28z9zjQZT5N5S37bIxAfaG_1Lv0UnatuWk2oYnR8o?e=whhO8F" target="_blank" class="element">Documentação</a>
-                        <a href="https://flow1t.atlassian.net/servicedesk/customer/portal/1" target="_blank" class="element">Central de ajuda</a>
+                        <a href="https://bandteccom-my.sharepoint.com/:w:/g/personal/pedro_dreis_sptech_school/IQB9tW28z9zjQZT5N5S37bIxAfaG_1Lv0UnatuWk2oYnR8o?e=whhO8F"
+                            target="_blank" class="element">Documentação</a>
+                        <a href="https://flow1t.atlassian.net/servicedesk/customer/portal/1" target="_blank"
+                            class="element">Central de ajuda</a>
                     </div>
                 </div>
             </div>
@@ -48,7 +50,7 @@
                                 04/05/2026 17:00</i></span>
                         <div class="KPIs">
                             <div class="card cardRuim">
-                                <span ><b>Setor com maior queda</b></span><span class="seta-icon t-1">▼</span>
+                                <span><b>Setor com maior queda</b></span><span class="seta-icon t-1">▼</span>
                                 <span class="setor" id="spanSetorQueda"></span>
                                 <span class="card-descritivo"></span>
                             </div>
@@ -60,13 +62,12 @@
                             <div class="card cardBom">
                                 <span><b>Ativações vs Meta Diária</b></span><span class="seta-icon c">○</span></span>
                                 <span class="setor" id="spanQuantoFaltaMetaDiaria">
-                                <!-- <span class="card-descritivo">Passou 20% do
+                                    <!-- <span class="card-descritivo">Passou 20% do
                                     fluxo do dia anterior.</span> -->
                             </div>
                             <div class="card cardBom">
                                 <span><b>Setor com maior
-                                        crescimento</b></span><span
-                                        class="seta-icon t-2">▲</span>
+                                        crescimento</b></span><span class="seta-icon t-2">▲</span>
                                 <span class="setor" id="spanSetorCrescimento"></span>
                                 <span class="card-descritivo"></span>
                             </div>
@@ -239,50 +240,6 @@
             }
         });
 
-        chartBarra = new Chart(document.getElementById('graf-barra'), {
-            type: 'bar',
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Fluxo por Setor – Zonas Quentes e Frias',
-                        font: { size: 18 }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return context.raw + '%';
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        ticks: {
-                            callback: function (value) {
-                                return value + '%';
-                            }
-                        }
-                    }
-                }
-            },
-            data: {
-                labels: [
-                    'Alimentício', 'Vestuário', 'Eletrodomésticos',
-                    'Eletrônicos', 'Papelaria', 'Brinquedos',
-                    'Utencílios', 'Livraria', 'Higiene'
-                ],
-                datasets: [{
-                    label: 'Fluxo (%)',
-                    data: dados.barra,
-                    backgroundColor: dados.barra.map(valor => {
-                        if (valor <= 4) return "#7E99B4";  // zona fria (azul acinzentado)
-                        return "#00123d";                 // zona quente (vermelho fechado)
-                    }),
-                    borderRadius: 6
-                }]
-            }
-        });
 
         chartPizza = new Chart(document.getElementById('graf-pizza'), {
             type: 'pie',
@@ -311,8 +268,8 @@
         chartLinha.data.datasets[0].label = dados.label;
         chartLinha.data.datasets[0].data = dados.linha;
         chartLinha.update();
-        chartBarra.data.datasets[0].data = dados.barra;
-        chartBarra.update();
+        // chartBarra.data.datasets[0].data = dados.barra;
+        // chartBarra.update();
         chartPizza.options.plugins.title.text = dados.pizzaTitle;
         chartPizza.data.datasets[0].data = dados.pizza;
         chartPizza.update();
@@ -384,17 +341,17 @@
             fetchSomaDosRegistrosDosSetoresNoDia().then(function () {
 
                 let metaDiariaNum = metaDiaria[0].metaDiaria;
-                let quantRegistrosDiaNum = quantRegistrosDia[0].Quant_Registros_Dia ;
-                
+                let quantRegistrosDiaNum = quantRegistrosDia[0].Quant_Registros_Dia;
+
 
                 var quantoFaltaMetaDiaria = Number(metaDiariaNum) - Number(quantRegistrosDiaNum);
                 var quantoUltrapassouDiaria = Number(quantRegistrosDiaNum) - Number(metaDiariaNum);
 
-                if(metaDiariaNum <= Number(quantRegistrosDiaNum)){
-                    spanQuantoFaltaMetaDiaria.innerHTML =`Parabens! Meta Diária Atingida<br>Ultrapassou em ${quantoUltrapassouDiaria} ativações`
+                if (metaDiariaNum <= Number(quantRegistrosDiaNum)) {
+                    spanQuantoFaltaMetaDiaria.innerHTML = `Parabens! Meta Diária Atingida<br>Ultrapassou em ${quantoUltrapassouDiaria} ativações`
                 } else {
                     console.log(`Quanto falta para meta diária: ${quantoFaltaMetaDiaria}`)
-                spanQuantoFaltaMetaDiaria.innerHTML = `Faltam ${quantoFaltaMetaDiaria} ativações`
+                    spanQuantoFaltaMetaDiaria.innerHTML = `Faltam ${quantoFaltaMetaDiaria} ativações`
 
                 }
 
@@ -402,7 +359,7 @@
         })
     }
 
-    
+
 
     // para pegar a meta diaria eh so chamar fetchMetaDiaria()
     // o resultado puro pode ser encontrado em metaDiaria[0].metaDiaria depois de chamar o fetchMetaDiaria()
@@ -453,17 +410,17 @@
                 let ativacoesAteHojeHigiene = resultadoAtivacaoAteODia[4].quantidade;
 
                 let somaRegistrosSetoresAteHoje = ativacoesAteHojeAlimenticio + ativacoesAteHojeVestuario + ativacoesAteHojeUtensilio + ativacoesAteHojeEletronico + ativacoesAteHojeHigiene
-                
+
 
                 var quantoFaltaMetaSemanal = Number(metaSemanal) - Number(somaRegistrosSetoresAteHoje);
                 var quantoUltrapassouSemanal = Number(somaRegistrosSetoresAteHoje) - Number(metaSemanal);
 
 
-                if(metaSemanal <= somaRegistrosSetoresAteHoje){
-                    spanQuantoFaltaMetaDiaria.innerHTML =`Parabens! Meta Semanal Atingida<br>Ultrapassou em ${quantoUltrapassouSemanal} ativações`
+                if (metaSemanal <= somaRegistrosSetoresAteHoje) {
+                    spanQuantoFaltaMetaDiaria.innerHTML = `Parabens! Meta Semanal Atingida<br>Ultrapassou em ${quantoUltrapassouSemanal} ativações`
                 } else {
                     console.log(`Quanto falta para meta Semanal: ${quantoFaltaMetaSemanal}`)
-                spanQuantoFaltaMetaSemanal.innerHTML = `Faltam ${quantoFaltaMetaSemanal} ativações`
+                    spanQuantoFaltaMetaSemanal.innerHTML = `Faltam ${quantoFaltaMetaSemanal} ativações`
 
                 }
             })
@@ -600,7 +557,7 @@
                     maiorCrescimento = diferencaHigiene;
                     nomeSetorCres = "Setor Higiene";
                 }
-                
+
                 console.log(`setor com maior cresc é: ${nomeSetorCres}`)
                 spanSetorCrescimento.innerHTML = nomeSetorCres
 
@@ -609,18 +566,110 @@
         })
     }
 
-    function menuAjuda(){
+    function menuAjuda() {
         const menu = document.getElementById("menuAjuda");
         menu.classList.toggle("hidden");
     }
 
     function fecharMenu() {
-    document.getElementById("menuAjuda").classList.add("hidden");
+        document.getElementById("menuAjuda").classList.add("hidden");
     }
 </script>
 
 <script>
-    setInterval(() => {
-            compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal()
-          }, "2000");
+    // setInterval(() => {
+    //     compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1);
+    // }, "1000");
+</script>
+<script>
+
+    function fetchGraficoBarras(idLoja) {
+        return fetch(`/graficos/buscarDadosGraficoBarras/${idLoja}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Dados recebidos grafico 
+                        de barras: ${JSON.stringify(resultado)}`);
+
+                        plotarGraficoBarras(resultado)
+                        // resultadoAtivacaoAteODia = resultado
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+</script>
+
+<script>
+    function plotarGraficoBarras(resposta) {
+        let labelsGraficoBarras = [];
+        let valoresGraficoBarras = [];
+
+        for (let i = 0; i < resposta.length; i++) {
+            let data = resposta[i];
+            labelsGraficoBarras.push(data.nomeSetor);
+            valoresGraficoBarras.push(data.totalAtivacoes);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsGraficoBarras)
+        console.log('Dados:')
+        console.log(valoresGraficoBarras)
+        console.log('----------------------------------------------')
+
+
+        const ctx = document.getElementById('graf-barra');
+
+        new Chart(ctx, {
+            type: 'bar',
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Fluxo por Setor – Zonas Quentes e Frias',
+                        font: { size: 18 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.raw + '%';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: function (value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            },
+            data: {
+                labels: labelsGraficoBarras,
+                datasets: [{
+                    label: 'Fluxo (%)',
+                    data: valoresGraficoBarras,
+                    backgroundColor: valoresGraficoBarras.map(valor => {
+                        if (valor <= 4) return "#7E99B4";  // zona fria (azul acinzentado)
+                        return "#00123d";                 // zona quente (vermelho fechado)
+                    }),
+                    borderRadius: 6
+                }]
+            }
+        });
+    }
+
+
 </script>
