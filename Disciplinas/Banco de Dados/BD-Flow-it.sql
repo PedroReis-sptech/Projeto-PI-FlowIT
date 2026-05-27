@@ -296,27 +296,27 @@ INSERT INTO registroSensor (leitura, dataLeitura, fkSensor) VALUES
 
 -- Contar a quantidade de ativações por setor na última semana cheia (dom-sab)
 SELECT st.nomeSetor, 
-       COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
+    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
 FROM setor st
 JOIN corredor c ON st.idSetor = c.fkSetor
 JOIN sensor ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs ON ss.idSensor = rs.fkSensor
 WHERE ss.idSensor
-  AND rs.dataLeitura >= STR_TO_DATE(CONCAT(YEARWEEK(NOW() - INTERVAL 1 WEEK, 0), ' Sunday'), '%X%V %W')
-  AND rs.dataLeitura <= STR_TO_DATE(CONCAT(YEARWEEK(NOW() - INTERVAL 1 WEEK, 0), ' Saturday'), '%X%V %W')
+    AND rs.dataLeitura >= STR_TO_DATE(CONCAT(YEARWEEK(NOW() - INTERVAL 1 WEEK, 0), ' Sunday'), '%X%V %W')
+    AND rs.dataLeitura <= STR_TO_DATE(CONCAT(YEARWEEK(NOW() - INTERVAL 1 WEEK, 0), ' Saturday'), '%X%V %W')
 GROUP BY st.nomeSetor
 LIMIT 0, 1000;
 
 -- Contar a quantidade de ativações por setor do último domingo até hoje
 SELECT st.nomeSetor, 
-       COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
+    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
 FROM setor st
 JOIN corredor c ON st.idSetor = c.fkSetor
 JOIN sensor ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs ON ss.idSensor = rs.fkSensor
 WHERE ss.idSensor
-  AND rs.dataLeitura >= STR_TO_DATE(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(NOW()) + 1 DAY), '%Y-%m-%d')
-  AND rs.dataLeitura <= NOW()
+    AND rs.dataLeitura >= STR_TO_DATE(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(NOW()) + 1 DAY), '%Y-%m-%d')
+    AND rs.dataLeitura <= NOW()
 GROUP BY st.nomeSetor
 LIMIT 0, 1000;
 
@@ -340,22 +340,22 @@ JOIN corredor c ON st.idSetor = c.fkSetor
 JOIN sensor ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs ON ss.idSensor = rs.fkSensor
 WHERE ss.idSensor 
-  AND rs.dataLeitura >= STR_TO_DATE(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(NOW()) + 1 DAY), '%Y-%m-%d')
-  AND rs.dataLeitura <= NOW()
+    AND rs.dataLeitura >= STR_TO_DATE(DATE_SUB(CURDATE(), INTERVAL WEEKDAY(NOW()) + 1 DAY), '%Y-%m-%d')
+    AND rs.dataLeitura <= NOW()
 GROUP BY rs.leitura
 LIMIT 1000;
 
 -- SELECT DA SOMA DOS REGISTROS DA ULTIMA SEMANA COMPLETA
 CREATE VIEW view_buscarAtivacoesPorSetorDaSemanaAnterior AS
 SELECT
-       COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
+    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
 FROM setor st
 JOIN corredor c ON st.idSetor = c.fkSetor
 JOIN sensor ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs ON ss.idSensor = rs.fkSensor
 WHERE ss.idSensor
-  AND rs.dataLeitura >= STR_TO_DATE(CONCAT(YEARWEEK(NOW() - INTERVAL 1 WEEK, 0), ' Sunday'), '%X%V %W')
-  AND rs.dataLeitura <= STR_TO_DATE(CONCAT(YEARWEEK(NOW() - INTERVAL 1 WEEK, 0), ' Saturday'), '%X%V %W')
+    AND rs.dataLeitura >= STR_TO_DATE(CONCAT(YEARWEEK(NOW() - INTERVAL 1 WEEK, 0), ' Sunday'), '%X%V %W')
+    AND rs.dataLeitura <= STR_TO_DATE(CONCAT(YEARWEEK(NOW() - INTERVAL 1 WEEK, 0), ' Saturday'), '%X%V %W')
 GROUP BY rs.leitura
 LIMIT 1000;
 
@@ -369,7 +369,7 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20
+    AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20
 GROUP BY st.nomeSetor, HOUR(rs.dataLeitura);
 
 /* 
@@ -383,8 +383,8 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja = ${idLoja}
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20
-  ${FILTRO DA COMBOBOX}
+    AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20
+    ${FILTRO DA COMBOBOX}
 GROUP BY st.nomeSetor, HOUR(rs.dataLeitura);
 */
 
@@ -404,7 +404,7 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19
+    AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19
 GROUP BY st.nomeSetor, turno;
 
 /* 
@@ -422,8 +422,8 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja = ${idLoja}
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19
-  ${FILTRO DA COMBOBOX}
+    AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19
+    ${FILTRO DA COMBOBOX}
 GROUP BY st.nomeSetor, turno;
 */
 
@@ -448,8 +448,8 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
-  AND rs.dataLeitura >= DATE_SUB(CURDATE(), INTERVAL DAYOFWEEK(NOW()) - 1 DAY)
-  AND rs.dataLeitura <= NOW()
+    AND rs.dataLeitura >= DATE_SUB(CURDATE(), INTERVAL DAYOFWEEK(NOW()) - 1 DAY)
+    AND rs.dataLeitura <= NOW()
 GROUP BY st.nomeSetor, DAYOFWEEK(rs.dataLeitura), diaSemana;
 
 /* 
@@ -471,9 +471,9 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja = ${idLoja}
-  AND rs.dataLeitura >= DATE_SUB(CURDATE(), INTERVAL DAYOFWEEK(NOW()) - 1 DAY)
-  AND rs.dataLeitura <= NOW()
-  ${FILTRO DA COMBOBOX}
+    AND rs.dataLeitura >= DATE_SUB(CURDATE(), INTERVAL DAYOFWEEK(NOW()) - 1 DAY)
+    AND rs.dataLeitura <= NOW()
+    ${FILTRO DA COMBOBOX}
 GROUP BY st.nomeSetor, DAYOFWEEK(rs.dataLeitura), diaSemana
 */
 
@@ -517,10 +517,10 @@ GROUP BY st.idSetor, st.nomeSetor;
 */
 CREATE VIEW buscarSomaDosRegistrosDosSetoresNoDia AS
 SELECT 
-          COUNT(registroSensor.idRegistroSensor) AS Quant_Registros_Dia 
-          FROM registroSensor
-          WHERE DAY(dataLeitura) = DAY(current_date()) AND MONTH(dataLeitura) = MONTH(current_date());
-          
+        COUNT(registroSensor.idRegistroSensor) AS Quant_Registros_Dia 
+        FROM registroSensor
+        WHERE DAY(dataLeitura) = DAY(current_date()) AND MONTH(dataLeitura) = MONTH(current_date());
+    
 
 SELECT * FROM view_buscarAtivacoesPorSetorDaSemanaAnterior;
 SELECT * FROM view_buscarAtivacoesPorSetorAteODiaDaConsulta;
