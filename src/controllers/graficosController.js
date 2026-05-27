@@ -17,9 +17,9 @@ function buscarDadosGraficoBarras(req, res) {
   });
 }
 
-function buscarDadosGraficoPizza(req, res) {
+function buscarDadosGraficoPizzaGeral(req, res) {
 
-  graficosModel.buscarDadosGraficoPizza().then((resultado) => {
+  graficosModel.buscarDadosGraficoPizzaGeral().then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {
@@ -65,7 +65,7 @@ function buscarDadosGraficoRadar(req, res) {
 
 module.exports = {
   buscarDadosGraficoBarras,
-  buscarDadosGraficoPizza,
+  buscarDadosGraficoPizzaGeral,
   buscarDadosGraficoLinha,
   buscarDadosGraficoRadar
 }

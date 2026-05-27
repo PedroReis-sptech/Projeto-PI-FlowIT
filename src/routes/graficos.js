@@ -7,8 +7,8 @@ router.get("/buscarDadosGraficoBarras/:idLoja", function (req, res) {
     graficosController.buscarDadosGraficoBarras(req, res);
 });
 
-router.get("/buscarDadosGraficoPizza/", function (req, res) {
-    graficosController.buscarDadosGraficoPizza(req, res);
+router.get("/buscarDadosGraficoPizzaGeral/", function (req, res) {
+    graficosController.buscarDadosGraficoPizzaGeral(req, res);
 });
 
 router.get("/buscarDadosGraficoLinha/", function (req, res) {

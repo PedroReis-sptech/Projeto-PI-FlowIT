@@ -241,14 +241,7 @@
         });
 
 
-        chartPizza = new Chart(document.getElementById('graf-pizza'), {
-            type: 'pie',
-            options: { plugins: { title: { display: true, text: dados.pizzaTitle, font: { size: 18 } } } },
-            data: {
-                labels: ['08:00-12:00', '12:00-16:00', '16:00-20:00'],
-                datasets: [{ data: dados.pizza, backgroundColor: colorspizza }]
-            }
-        });
+
 
         chartRosca = new Chart(document.getElementById('graf-rosca'), {
             type: 'polarArea',
@@ -270,9 +263,9 @@
         chartLinha.update();
         // chartBarra.data.datasets[0].data = dados.barra;
         // chartBarra.update();
-        chartPizza.options.plugins.title.text = dados.pizzaTitle;
-        chartPizza.data.datasets[0].data = dados.pizza;
-        chartPizza.update();
+        // chartPizza.options.plugins.title.text = dados.pizzaTitle;
+        // chartPizza.data.datasets[0].data = dados.pizza;
+        // chartPizza.update();
         chartRosca.data.datasets[0].data = dados.rosca;
         chartRosca.update();
     }
@@ -588,8 +581,8 @@
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
-                        console.log(`Dados recebidos grafico 
-                        de barras: ${JSON.stringify(resultado)}`);
+                        // console.log(`Dados recebidos grafico 
+                        // de barras: ${JSON.stringify(resultado)}`);
 
                         plotarGraficoBarras(resultado)
                         // resultadoAtivacaoAteODia = resultado
@@ -605,6 +598,32 @@
                 return null;
             });
     }
+
+    function fetchGraficoPizza() {
+        return fetch(`/graficos/buscarDadosGraficoPizzaGeral`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Dados recebidos grafico 
+                        de Pizza: ${JSON.stringify(resultado)}`);
+
+                        plotarGraficoPizza(resultado)
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+
+
+</script>
+
 </script>
 
 <script>
@@ -672,4 +691,51 @@
     }
 
 
+    function plotarGraficoPizza(resposta) {
+        let labelsGraficoPizza = [];
+        let valoresGraficoPizza = [];
+
+        for (let i = 0; i < resposta.length; i++) {
+            labelsGraficoPizza.push(resposta[i].turno);
+            valoresGraficoPizza.push(resposta[i].quantidade);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsGraficoPizza)
+        console.log('Dados:')
+        console.log(valoresGraficoPizza)
+        console.log('----------------------------------------------')
+
+        const cty = document.getElementById('graf-pizza');
+
+        new Chart(cty, {
+            type: 'pie',
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Movimento por turno - Geral',
+                        font: { size: 18 }
+                    },
+                }
+            },
+            data: {
+                labels: labelsGraficoPizza,
+                datasets: [{
+                    data: valoresGraficoPizza,
+                    backgroundColor: colorspizza
+                }]
+            }
+        });
+
+        
+    }
+
+
+</script>
+
+<script>
+    fetchGraficoPizza();
 </script>
