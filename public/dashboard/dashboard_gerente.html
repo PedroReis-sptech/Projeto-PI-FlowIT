@@ -22,7 +22,7 @@
 
             <div class="links">
                 <a href="#" class="link-ativo">DASHBOARD</a>
-                <a href="loginGestao.html">GESTÃO</a>
+                <a href="../tela-gestao.html">GESTÃO</a>
             </div>
             <div class="botoes-topo">
                 <button class="botao-sair" onclick="sairTela()">Sair</button>
@@ -40,35 +40,36 @@
             </div>
         </div>
 
-        <div class="box__graficos">
+           <div class="box__graficos">
             <div class="layout">
-
 
                 <div class="main-content quadrado-grafico">
                     <div class="container-kpi">
-                        <span class="info-kpi"><i>Dados Obtidos em 04/05/2026 17:00</i></span>
+                        <span class="info-kpi"><i>Dados Obtidos em
+                                04/05/2026 17:00</i></span>
                         <div class="KPIs">
                             <div class="card cardRuim">
                                 <span><b>Setor com maior queda</b></span>
-                                <span class="setor">Vestuário<span class="seta-icon t-1">▼</span></span>
-                                <span class="card-descritivo">Diferente da semana anterior este é o setor com o menor
-                                    fluxo.</span>
+                                <span class="setor" id="spanSetorQueda"></span>
+                                <span class="card-descritivo"></span>
                             </div>
-                            <div class="card cardRuim">
-                                <span><b>Atingimento vs Semana Anterior</b></span>
-                                <span class="setor">Segunda-feira <span class="seta-icon c">○</span></span>
-                                <span class="card-descritivo">Falta 80% para atingirmos o fluxo da semana
-                                    passada.</span>
+                            <div id="cardSemanal" class="card">
+                                <span><b>Ativações vs Meta Semanal</b></span>
+                                <!-- <span class="seta-icon c">○</span> -->
+                                <span class="setor" id="iconeSemanal"></span>
+                                <span class="card-descritivo" id="spanQuantoFaltaMetaSemanal"></span>
+                            </div>
+                            <div id="cardDiaria" class="card">
+                                <span><b>Ativações vs Meta Diária</b></span>
+                                <!-- <span class="seta-icon c">○</span></span> -->
+                                <span class="setor" id="iconeDiaria"></span>
+                                    <span class="card-descritivo" id="spanQuantoFaltaMetaDiaria"></span>
                             </div>
                             <div class="card cardBom">
-                                <span><b>Atingimento vs Dia Anterior</b></span>
-                                <span class="setor">Segunda-feira <span class="seta-icon c">○</span></span>
-                                <span class="card-descritivo">Passou 20% do fluxo do dia anterior.</span>
-                            </div>
-                            <div class="card cardBom">
-                                <span><b>Setor com maior crescimento</b></span>
-                                <span class="setor">Livraria<span class="seta-icon t-2">▲</span></span>
-                                <span class="card-descritivo">Crescimento de 20% em comparação à semana anterior.</span>
+                                <span><b>Setor com maior
+                                        crescimento</b></span>
+                                <span class="setor" id="spanSetorCrescimento"></span>
+                                <span class="card-descritivo"></span>
                             </div>
                         </div>
                     </div>
@@ -333,31 +334,295 @@
 </script>
 
 <script>
-    if (proximaAtualizacao != undefined) {
-            clearTimeout(proximaAtualizacao);
-        }
+    let resultadoAtivacaoSemanaAnterior;
+    let resultadoAtivacaoAteODia;
+    let metaDiaria;
+    let quantRegistrosDia;
 
-        fetch(`/kpis/ativacaoSemanaAnterior`, { cache: 'no-store' }).then(function (response) {
-            if (response.ok) {
-                response.json().then(function (resposta) {
-                    console.log(`Dados recebidos Ativacao Semana Anterior: ${JSON.stringify(resposta)}`);
-                    resposta.reverse();
+    function fetchAtivacaoSemanaAnterior() {
+        return fetch(`/kpis/ativacaoSemanaAnterior`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        // console.log(`Dados recebidos Ativacao Semana Anterior: ${JSON.stringify(resultado)}`);
 
-                });
-            } else {
-                console.error('Nenhum dado encontrado ou erro na API');
-            }
-        })
+                        resultadoAtivacaoSemanaAnterior = resultado
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
             .catch(function (error) {
                 console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
             });
-
-    function refreshKpiTotalInvestido(resposta) {
-        let kpiData = resultTotalInvested[0].TotalInvestido;
-        console.log(kpiData)
-
-        totalInvested.innerHTML = kpiData;
     }
+
+    function fetchAtivacaoAteODia() {
+        return fetch(`/kpis/ativacaoAteConsulta`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        // console.log(`Dados recebidos Ativacao Ate o Dia: ${JSON.stringify(resultado)}`);
+
+                        resultadoAtivacaoAteODia = resultado
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+
+    // KPI 3 função -> (meta diaria - quant de registros do dia)
+    function ativacoesParaMetaDiaria() {
+        fetchMetaDiaria().then(function () {
+            fetchSomaDosRegistrosDosSetoresNoDia().then(function () {
+                const card = document.getElementById('cardDiaria');
+                const icon = document.getElementById('iconeDiaria');
+
+                let metaDiariaNum = metaDiaria[0].metaDiaria;
+                let quantRegistrosDiaNum = quantRegistrosDia[0].Quant_Registros_Dia;
+
+                var quantoFaltaMetaDiaria = Number(metaDiariaNum) - Number(quantRegistrosDiaNum);
+                var quantoUltrapassouDiaria = Number(quantRegistrosDiaNum) - Number(metaDiariaNum);
+
+                if (metaDiariaNum <= Number(quantRegistrosDiaNum)) {
+                    spanQuantoFaltaMetaDiaria.innerHTML = `Parabens! Meta Diária Atingida<br>Ultrapassou em ${quantoUltrapassouDiaria} ativações`
+                    icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#40FF40"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>'
+                    card.style.backgroundColor = '#086608'
+                } else {
+                    console.log(`Quanto falta para meta diária: ${quantoFaltaMetaDiaria}`)
+                    spanQuantoFaltaMetaDiaria.innerHTML = `Faltam ${quantoFaltaMetaDiaria} ativações para atingir a meta diária`
+                    icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FF4D4D"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z"/></svg>'
+                    card.style.backgroundColor = '#531111'
+
+                }
+
+            })
+        })
+    }
+
+
+
+    // para pegar a meta diaria eh so chamar fetchMetaDiaria()
+    // o resultado puro pode ser encontrado em metaDiaria[0].metaDiaria depois de chamar o fetchMetaDiaria()
+
+    // OBS: segue a estrutura de chamar o fetch e usar o .then igual ta nas funcoes das KPIs 1 e 4
+    // fetchMetaDiaria().then(function () {coloca o codigo da funcao aqui}
+    function fetchMetaDiaria() {
+        return fetch(`/kpis/metaDiaria`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Dados recebidos de Meta Diaria: ${JSON.stringify(resultado)}`);
+
+                        metaDiaria = resultado
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados Meta Diaria: ${error.message}`);
+                return null;
+            });
+    }
+
+    // para pegar a Soma de registros de todos os setores juntos do dia da consulta apenas
+    // eh so chamar fetchSomaDosRegistrosDosSetoresNoDia()
+
+    // o resultado puro pode ser encontrado em quantRegistrosDia[0].Quant_Registros_Dia 
+    //  depois de chamar o fetchMetaDiaria()
+    // OBS: segue a estrutura de chamar o fetch e usar o .then igual ta nas funcoes das KPIs 1 e 4
+    // fetchSomaDosRegistrosDosSetoresNoDia().then(function () {coloca o codigo da funcao aqui}
+
+    // KPI 2
+    function ativacoesParaMetaSemanal() {
+        fetchMetaDiaria().then(function () {
+            fetchAtivacaoAteODia().then(function () {
+
+                const card = document.getElementById('cardSemanal');
+                const icon = document.getElementById('iconeSemanal');
+
+                let metaDiariaNum = metaDiaria[0].metaDiaria;
+                let metaSemanal = metaDiariaNum * 7;
+
+                let ativacoesAteHojeAlimenticio = resultadoAtivacaoAteODia[0].quantidade;
+                let ativacoesAteHojeVestuario = resultadoAtivacaoAteODia[1].quantidade;
+                let ativacoesAteHojeUtensilio = resultadoAtivacaoAteODia[2].quantidade;
+                let ativacoesAteHojeEletronico = resultadoAtivacaoAteODia[3].quantidade;
+                let ativacoesAteHojeHigiene = resultadoAtivacaoAteODia[4].quantidade;
+
+                let somaRegistrosSetoresAteHoje = ativacoesAteHojeAlimenticio + ativacoesAteHojeVestuario + ativacoesAteHojeUtensilio + ativacoesAteHojeEletronico + ativacoesAteHojeHigiene
+
+
+                var quantoFaltaMetaSemanal = Number(metaSemanal) - Number(somaRegistrosSetoresAteHoje);
+                var quantoUltrapassouSemanal = Number(somaRegistrosSetoresAteHoje) - Number(metaSemanal);
+
+
+                if (metaSemanal <= somaRegistrosSetoresAteHoje) {
+                    spanQuantoFaltaMetaDiaria.innerHTML = `Parabens! Meta Semanal Atingida<br>Ultrapassou em ${quantoUltrapassouSemanal} ativações`
+                    icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#40FF40"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>'
+                    card.style.backgroundColor = '#086608'
+                } else {
+                    console.log(`Quanto falta para meta Semanal: ${quantoFaltaMetaSemanal}`)
+                    spanQuantoFaltaMetaSemanal.innerHTML = `Faltam ${quantoFaltaMetaSemanal} ativações para atingir a meta semanal`
+                    icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FF4D4D"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z"/></svg>'
+                    card.style.backgroundColor = '#531111'
+
+                }
+            })
+        })
+    }
+
+
+
+    function fetchSomaDosRegistrosDosSetoresNoDia() {
+        return fetch(`/kpis/somaDosRegistrosSetoresDiario`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Soma de registros de todos os setores juntos do dia da consulta apenas: ${JSON.stringify(resultado)}`);
+
+                        quantRegistrosDia = resultado
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados Soma dos Setores: ${error.message}`);
+                return null;
+            });
+    }
+
+    function compararParaVerQualSetorDiminuiu() {
+        fetchAtivacaoSemanaAnterior().then(function () {
+            fetchAtivacaoAteODia().then(function () {
+                // console.log(`Semana Anterior: ${JSON.stringify(resultadoAtivacaoSemanaAnterior)}`)
+                // console.log(`Ate o dia: ${JSON.stringify(resultadoAtivacaoAteODia)}`)
+
+                let ultimosSeteAlimenticio = resultadoAtivacaoSemanaAnterior[0].quantidade;
+                let ultimosSeteVestuario = resultadoAtivacaoSemanaAnterior[1].quantidade;
+                let ultimosSeteUtensilio = resultadoAtivacaoSemanaAnterior[2].quantidade;
+                let ultimosSeteEletronico = resultadoAtivacaoSemanaAnterior[3].quantidade;
+                let ultimosSeteHigiene = resultadoAtivacaoSemanaAnterior[4].quantidade;
+
+                let ativacoesAteHojeAlimenticio = resultadoAtivacaoAteODia[0].quantidade;
+                let ativacoesAteHojeVestuario = resultadoAtivacaoAteODia[1].quantidade;
+                let ativacoesAteHojeUtensilio = resultadoAtivacaoAteODia[2].quantidade;
+                let ativacoesAteHojeEletronico = resultadoAtivacaoAteODia[3].quantidade;
+                let ativacoesAteHojeHigiene = resultadoAtivacaoAteODia[4].quantidade;
+
+                let diferencaAlimenticio = Number(ultimosSeteAlimenticio) - Number(ativacoesAteHojeAlimenticio)
+                let diferencaVestuario = Number(ultimosSeteVestuario) - Number(ativacoesAteHojeVestuario)
+                let diferencaUtensilio = Number(ultimosSeteUtensilio) - Number(ativacoesAteHojeUtensilio)
+                let diferencaEletronico = Number(ultimosSeteEletronico) - Number(ativacoesAteHojeEletronico)
+                let diferencaHigiene = Number(ultimosSeteHigiene) - Number(ativacoesAteHojeHigiene)
+
+                var maiorQueda = 0;
+                var nomeSetor = "";
+
+                if (diferencaAlimenticio > maiorQueda) {
+                    maiorQueda = diferencaAlimenticio;
+                    nomeSetor = "Setor Alimenticio";
+                }
+
+                if (diferencaVestuario > maiorQueda) {
+                    maiorQueda = diferencaVestuario;
+                    nomeSetor = "Setor Vestuário";
+                }
+
+                if (diferencaUtensilio > maiorQueda) {
+                    maiorQueda = diferencaUtensilio;
+                    nomeSetor = "Setor Utensílio";
+                }
+                if (diferencaEletronico > maiorQueda) {
+                    maiorQueda = diferencaEletronico;
+                    nomeSetor = "Setor Eletrônico";
+                }
+                if (diferencaHigiene > maiorQueda) {
+                    maiorQueda = diferencaHigiene;
+                    nomeSetor = "Setor Higiene";
+                }
+
+                console.log(`setor com maior queda é: ${nomeSetor}`)
+                spanSetorQueda.innerHTML = `${nomeSetor} <span class="seta-icon t-1">▼</span>`
+
+            })
+        })
+    }
+
+    function compararParaVerQualSetorCresceu() {
+        fetchAtivacaoSemanaAnterior().then(function () {
+            fetchAtivacaoAteODia().then(function () {
+                // console.log(`Semana Anterior: ${JSON.stringify(resultadoAtivacaoSemanaAnterior)}`)
+                // console.log(`Ate o dia: ${JSON.stringify(resultadoAtivacaoAteODia)}`)
+
+                let ultimosSeteAlimenticio = resultadoAtivacaoSemanaAnterior[0].quantidade;
+                let ultimosSeteVestuario = resultadoAtivacaoSemanaAnterior[1].quantidade;
+                let ultimosSeteUtensilio = resultadoAtivacaoSemanaAnterior[2].quantidade;
+                let ultimosSeteEletronico = resultadoAtivacaoSemanaAnterior[3].quantidade;
+                let ultimosSeteHigiene = resultadoAtivacaoSemanaAnterior[4].quantidade;
+
+                let ativacoesAteHojeAlimenticio = resultadoAtivacaoAteODia[0].quantidade;
+                let ativacoesAteHojeVestuario = resultadoAtivacaoAteODia[1].quantidade;
+                let ativacoesAteHojeUtensilio = resultadoAtivacaoAteODia[2].quantidade;
+                let ativacoesAteHojeEletronico = resultadoAtivacaoAteODia[3].quantidade;
+                let ativacoesAteHojeHigiene = resultadoAtivacaoAteODia[4].quantidade;
+
+                let diferencaAlimenticio = Number(ativacoesAteHojeAlimenticio) - Number(ultimosSeteAlimenticio)
+                let diferencaVestuario = Number(ativacoesAteHojeVestuario) - Number(ultimosSeteVestuario)
+                let diferencaUtensilio = Number(ativacoesAteHojeUtensilio) - Number(ultimosSeteUtensilio)
+                let diferencaEletronico = Number(ativacoesAteHojeEletronico) - Number(ultimosSeteEletronico)
+                let diferencaHigiene = Number(ativacoesAteHojeHigiene) - Number(ultimosSeteHigiene)
+
+                var maiorCrescimento = diferencaAlimenticio;
+                var nomeSetorCres = "Setor Alimentício";
+
+                if (diferencaEletronico > maiorCrescimento) {
+                    maiorCrescimento = diferencaEletronico;
+                    nomeSetorCres = "Setor Eletrônico";
+                }
+
+                if (diferencaUtensilio > maiorCrescimento) {
+                    maiorCrescimento = diferencaUtensilio;
+                    nomeSetorCres = "Setor Utensílio";
+                }
+
+                if (diferencaVestuario > maiorCrescimento) {
+                    maiorCrescimento = diferencaVestuario;
+                    nomeSetorCres = "Setor Vestuário";
+                }
+
+                if (diferencaHigiene > maiorCrescimento) {
+                    maiorCrescimento = diferencaHigiene;
+                    nomeSetorCres = "Setor Higiene";
+                }
+
+                console.log(`setor com maior cresc é: ${nomeSetorCres}`)
+                spanSetorCrescimento.innerHTML = `${nomeSetorCres} <span class="seta-icon t-2">▲</span>`
+
+
+            })
+        })
+    }
+
+   setInterval(() => {
+        compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1);
+    }, "1000");
 
     function menuAjuda(){
         const menu = document.getElementById("menuAjuda");
