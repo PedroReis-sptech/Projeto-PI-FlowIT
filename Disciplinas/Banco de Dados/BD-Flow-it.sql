@@ -220,7 +220,7 @@ INSERT INTO registroSensor (leitura, dataLeitura, fkSensor) VALUES
 (1, '2026-05-26 15:22:01', 5),
 (1, '2026-05-26 16:11:44', 6),
 (0, '2026-05-26 17:05:59', 7),
-(1, '2026-05-26 17:35:12', 8);
+(1, '2026-05-26 17:35:12', 8),
 -- Dia 21/05/2026 (Quinta-feira)
 (1, '2026-05-21 07:12:34', 1),
 (0, '2026-05-21 09:45:12', 2),
@@ -293,6 +293,12 @@ INSERT INTO registroSensor (leitura, dataLeitura, fkSensor) VALUES
 (0, '2026-05-28 17:30:12', 6),
 (1, '2026-05-28 19:59:44', 7),
 (1, '2026-05-28 22:12:01', 8);
+
+SELECT DATE_FORMAT(dataLeitura, '%d/%m/%y %H:%i:%s') AS dataLeitura 
+FROM registroSensor 
+WHERE dataLeitura < NOW() AND leitura = 1
+ORDER BY dataLeitura DESC 
+LIMIT 1;
 
 -- Contar a quantidade de ativações por setor na última semana cheia (dom-sab)
 SELECT st.nomeSetor, 

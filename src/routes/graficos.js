@@ -19,5 +19,9 @@ router.get("/buscarDadosGraficoRadarGeral/", function (req, res) {
     graficosController.buscarDadosGraficoRadarGeral(req, res);
 });
 
+router.get("/buscarUltimoRegistro/", function (req, res) {
+    graficosController.buscarUltimoRegistro(req, res);
+});
+
 
 module.exports = router;

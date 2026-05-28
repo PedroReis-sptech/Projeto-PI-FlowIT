@@ -72,10 +72,21 @@ function buscarDadosGraficoRadarGeral() {
 
 // ====================================================================================================
 
+function buscarUltimoRegistro() {
+  var instrucaoSql = `SELECT DATE_FORMAT(dataLeitura, '%d/%m/%y %H:%i:%s') AS dataLeitura 
+FROM registroSensor 
+WHERE dataLeitura < NOW() AND leitura = 1
+ORDER BY dataLeitura DESC 
+LIMIT 1;`;
+
+  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+  return database.executar(instrucaoSql);
+}
 
 module.exports = {
   buscarDadosGraficoBarras,
   buscarDadosGraficoPizzaGeral,
   buscarDadosGraficoLinhaGeral,
-  buscarDadosGraficoRadarGeral
+  buscarDadosGraficoRadarGeral,
+  buscarUltimoRegistro
 }

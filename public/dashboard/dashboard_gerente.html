@@ -45,8 +45,7 @@
 
                 <div class="main-content quadrado-grafico">
                     <div class="container-kpi">
-                        <span class="info-kpi"><i>Dados Obtidos em
-                                04/05/2026 17:00</i></span>
+                        <span id="spanUltimoRegistro" class="info-kpi"></span>
                         <div class="KPIs">
                             <div class="card cardRuim">
                                 <span><b>Setor com maior queda</b></span>
@@ -620,8 +619,31 @@
         })
     }
 
+    function fetchRegistro() {
+        return fetch(`/graficos/buscarUltimoRegistro`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Ultimo registro: ${JSON.stringify(resultado)}`);
+                        var registro = resultado[0]; 
+                        var dataFormatada = registro.dataLeitura; 
+                    document.getElementById('spanUltimoRegistro').innerHTML = `<i>Dados Obtidos em ${dataFormatada}</i>`;
+                    return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+    fetchRegistro()
+
     setInterval(() => {
-        compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1);
+        compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1); fetchRegistro();
     }, "1000");
 
     function menuAjuda(){
