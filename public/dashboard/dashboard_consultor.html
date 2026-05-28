@@ -621,9 +621,10 @@
 
 
     function plotarGraficoPizza(resposta) {
-
-
-        for (let i = 0; i < resposta.length; i++) {
+        labelsGraficoPizza = [];
+        valoresGraficoPizza = [];
+        
+         for (let i = 0; i < resposta.length; i++) {
             labelsGraficoPizza.push(resposta[i].turno);
             valoresGraficoPizza.push(resposta[i].quantidade);
         }
@@ -636,7 +637,7 @@
         console.log(valoresGraficoPizza)
         console.log('----------------------------------------------')
 
-        
+
     }
 
     function plotarGraficoLinha(resposta) {
@@ -692,7 +693,6 @@
         const dados = dadosSetores[setor];
 
 
-
         const ctx = document.getElementById('graf-barra');
 
         chartBarra = new Chart(ctx, {
@@ -736,6 +736,29 @@
             }
         });
 
+        const cty = document.getElementById('graf-pizza');
+
+        chartPizza = new Chart(cty, {
+            type: 'pie',
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Movimento por turno - Geral',
+                        font: { size: 18 }
+                    },
+                }
+            },
+            data: {
+                labels: labelsGraficoPizza,
+                datasets: [{
+                    data: valoresGraficoPizza,
+                    backgroundColor: colorspizza
+                }]
+            }
+        });
+
+
 
 
         chartRosca = new Chart(document.getElementById('graf-rosca'), {
@@ -753,6 +776,10 @@
         chartBarra.data.labels = labelsGraficoBarras;
         chartBarra.data.datasets[0].data = valoresGraficoBarras;
         chartBarra.update();
+
+        chartPizza.data.labels = labelsGraficoPizza;
+        chartPizza.data.datasets[0].data = valoresGraficoPizza;
+        chartPizza.update();
     }
 
     function sairTela() {
@@ -774,8 +801,11 @@
     setInterval(() => {
 
         compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal();
-        fetchGraficoBarras(1); atualizarGraficos()
-        // fetchGraficoPizza(); fetchGraficoLinha();
+        fetchGraficoBarras(1); fetchGraficoPizza();
+
+        atualizarGraficos();
+
+        // fetchGraficoLinha();
 
 
     }, "1000");
