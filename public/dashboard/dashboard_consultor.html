@@ -225,52 +225,8 @@
         }
     };
 
-    let chartLinha, chartBarra, chartPizza, chartRosca;
-
-    function inicializarGraficos() {
-        const setor = document.getElementById('select-setor').value;
-        const dados = dadosSetores[setor];
 
 
-
-
-
-
-        chartRosca = new Chart(document.getElementById('graf-rosca'), {
-            type: 'polarArea',
-            options: { plugins: { title: { display: true, text: 'Fluxo por dia da semana', font: { size: 18 } }, legend: { position: 'right' } } },
-            data: {
-                labels: ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'],
-                datasets: [{ data: dados.rosca, backgroundColor: colorssemana }]
-            }
-        });
-    }
-
-    function atualizarGraficos() {
-        const setor = document.getElementById('select-setor').value;
-        const dados = dadosSetores[setor];
-        chartLinha.options.plugins.title.text = dados.linhaTitle;
-        chartBarra.options.plugins.title.text = 'Fluxo por Setor – Zonas Quentes e Frias';
-        chartLinha.data.datasets[0].label = dados.label;
-        chartLinha.data.datasets[0].data = dados.linha;
-        chartLinha.update();
-        // chartBarra.data.datasets[0].data = dados.barra;
-        // chartBarra.update();
-        // chartPizza.options.plugins.title.text = dados.pizzaTitle;
-        // chartPizza.data.datasets[0].data = dados.pizza;
-        // chartPizza.update();
-        chartRosca.data.datasets[0].data = dados.rosca;
-        chartRosca.update();
-    }
-
-    function sairTela() {
-        if (confirm("Deseja sair desta tela?")) {
-            window.location.href = "../index.html";
-        }
-    }
-
-    inicializarGraficos();
-    document.getElementById('select-setor').addEventListener('change', atualizarGraficos);
 </script>
 
 <script>
@@ -563,11 +519,6 @@
 </script>
 
 <script>
-    // setInterval(() => {
-    //     compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1); fetchGraficoPizza();
-    // }, "3000");
-</script>
-<script>
 
     function fetchGraficoBarras(idLoja) {
         return fetch(`/graficos/buscarDadosGraficoBarras/${idLoja}`, { cache: 'no-store' })
@@ -642,14 +593,20 @@
 </script>
 
 <script>
+    let labelsGraficoBarras = [];
+    let valoresGraficoBarras = [];
+    let labelsGraficoPizza = [];
+    let valoresGraficoPizza = [];
+    let labelsGraficoLinha = [];
+    let valoresGraficoLinha = [];
+
     function plotarGraficoBarras(resposta) {
-        let labelsGraficoBarras = [];
-        let valoresGraficoBarras = [];
+        labelsGraficoBarras = [];
+        valoresGraficoBarras = [];
 
         for (let i = 0; i < resposta.length; i++) {
-            let data = resposta[i];
-            labelsGraficoBarras.push(data.nomeSetor);
-            valoresGraficoBarras.push(data.totalAtivacoes);
+            labelsGraficoBarras.push(resposta[i].nomeSetor);
+            valoresGraficoBarras.push(resposta[i].totalAtivacoes);
         }
 
         console.log('----------------------------------------------')
@@ -660,55 +617,11 @@
         console.log(valoresGraficoBarras)
         console.log('----------------------------------------------')
 
-
-        const ctx = document.getElementById('graf-barra');
-
-        new Chart(ctx, {
-            type: 'bar',
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Fluxo por Setor – Zonas Quentes e Frias',
-                        font: { size: 18 }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return context.raw + '%';
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        ticks: {
-                            callback: function (value) {
-                                return value + '%';
-                            }
-                        }
-                    }
-                }
-            },
-            data: {
-                labels: labelsGraficoBarras,
-                datasets: [{
-                    label: 'Fluxo (%)',
-                    data: valoresGraficoBarras,
-                    backgroundColor: valoresGraficoBarras.map(valor => {
-                        if (valor <= 4) return "#7E99B4";  // zona fria (azul acinzentado)
-                        return "#00123d";                 // zona quente (vermelho fechado)
-                    }),
-                    borderRadius: 6
-                }]
-            }
-        });
     }
 
 
     function plotarGraficoPizza(resposta) {
-        let labelsGraficoPizza = [];
-        let valoresGraficoPizza = [];
+
 
         for (let i = 0; i < resposta.length; i++) {
             labelsGraficoPizza.push(resposta[i].turno);
@@ -723,32 +636,11 @@
         console.log(valoresGraficoPizza)
         console.log('----------------------------------------------')
 
-        const cty = document.getElementById('graf-pizza');
-
-        new Chart(cty, {
-            type: 'pie',
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Movimento por turno - Geral',
-                        font: { size: 18 }
-                    },
-                }
-            },
-            data: {
-                labels: labelsGraficoPizza,
-                datasets: [{
-                    data: valoresGraficoPizza,
-                    backgroundColor: colorspizza
-                }]
-            }
-        });
+        
     }
 
     function plotarGraficoLinha(resposta) {
-        let labelsGraficoLinha = [];
-        let valoresGraficoLinha = [];
+
 
         for (let i = 0; i < resposta.length; i++) {
             let label = resposta[i].hora
@@ -793,8 +685,98 @@
         });
     }
 
+    let chartLinha, chartBarra, chartPizza, chartRosca;
+
+    function inicializarGraficos() {
+        const setor = document.getElementById('select-setor').value;
+        const dados = dadosSetores[setor];
+
+
+
+        const ctx = document.getElementById('graf-barra');
+
+        chartBarra = new Chart(ctx, {
+            type: 'bar',
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Fluxo por Setor – Zonas Quentes e Frias',
+                        font: { size: 18 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.raw + '%';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: function (value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            },
+            data: {
+                labels: labelsGraficoBarras,
+                datasets: [{
+                    label: 'Fluxo (%)',
+                    data: valoresGraficoBarras,
+                    backgroundColor: valoresGraficoBarras.map(valor => {
+                        if (valor <= 4) return "#7E99B4";  // zona fria (azul acinzentado)
+                        return "#00123d";                 // zona quente (vermelho fechado)
+                    }),
+                    borderRadius: 6
+                }]
+            }
+        });
+
+
+
+        chartRosca = new Chart(document.getElementById('graf-rosca'), {
+            type: 'polarArea',
+            options: { plugins: { title: { display: true, text: 'Fluxo por dia da semana', font: { size: 18 } }, legend: { position: 'right' } } },
+            data: {
+                labels: ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'],
+                datasets: [{ data: dados.rosca, backgroundColor: colorssemana }]
+            }
+        });
+    }
+
+
+    function atualizarGraficos() {
+        chartBarra.data.labels = labelsGraficoBarras;
+        chartBarra.data.datasets[0].data = valoresGraficoBarras;
+        chartBarra.update();
+    }
+
+    function sairTela() {
+        if (confirm("Deseja sair desta tela?")) {
+            window.location.href = "../index.html";
+        }
+    }
+
+    inicializarGraficos();
+    document.getElementById('select-setor').addEventListener('change', atualizarGraficos);
+
 </script>
 
 <script>
-    fetchGraficoLinha()
+
+</script>
+
+<script>
+    setInterval(() => {
+
+        compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal();
+        fetchGraficoBarras(1); atualizarGraficos()
+        // fetchGraficoPizza(); fetchGraficoLinha();
+
+
+    }, "1000");
 </script>
