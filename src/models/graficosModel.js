@@ -53,7 +53,8 @@ JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
   AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20
-GROUP BY  HOUR(rs.dataLeitura);
+GROUP BY  HOUR(rs.dataLeitura)
+ORDER BY hora;
 `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
@@ -64,7 +65,26 @@ GROUP BY  HOUR(rs.dataLeitura);
 
 
 function buscarDadosGraficoRadarGeral() {
-  var instrucaoSql = ``;
+  var instrucaoSql = `SELECT 
+    DAYOFWEEK(rs.dataLeitura) AS numeroDia,
+    CASE DAYOFWEEK(rs.dataLeitura)
+        WHEN 1 THEN 'Domingo'
+        WHEN 2 THEN 'Segunda-feira'
+        WHEN 3 THEN 'Terça-feira'
+        WHEN 4 THEN 'Quarta-feira'
+        WHEN 5 THEN 'Quinta-feira'
+        WHEN 6 THEN 'Sexta-feira'
+        WHEN 7 THEN 'Sábado'
+    END AS diaSemana,
+    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
+FROM setor st
+JOIN corredor       c   ON st.idSetor   = c.fkSetor
+JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
+JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
+WHERE st.fkloja
+    AND rs.dataLeitura >= DATE_SUB(CURDATE(), INTERVAL DAYOFWEEK(NOW()) - 1 DAY)
+    AND rs.dataLeitura <= NOW()
+GROUP BY DAYOFWEEK(rs.dataLeitura), diaSemana;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
   return database.executar(instrucaoSql);

@@ -21,7 +21,7 @@ const serial = async (
         {
             host: '127.0.0.1',
             user: 'root',
-            password: 'colocarsenhaaquiemgalera',
+            password: 'Aemierri@1',
             database: 'flow',
             port: 3306
         }

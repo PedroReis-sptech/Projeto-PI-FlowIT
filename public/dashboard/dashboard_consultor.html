@@ -359,7 +359,7 @@
 
 
                 if (metaSemanal <= somaRegistrosSetoresAteHoje) {
-                    spanQuantoFaltaMetaDiaria.innerHTML = `Parabens! Meta Semanal Atingida<br>Ultrapassou em ${quantoUltrapassouSemanal} ativações`
+                    spanQuantoFaltaMetaSemanal.innerHTML = `Parabens! Meta Semanal Atingida<br>Ultrapassou em ${quantoUltrapassouSemanal} ativações`
                 } else {
                     console.log(`Quanto falta para meta Semanal: ${quantoFaltaMetaSemanal}`)
                     spanQuantoFaltaMetaSemanal.innerHTML = `Faltam ${quantoFaltaMetaSemanal} ativações`
@@ -587,6 +587,28 @@
             });
     }
 
+    function fetchGraficoRadar() {
+        return fetch(`/graficos/buscarDadosGraficoRadarGeral`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Dados recebidos grafico 
+                        de Radar: ${JSON.stringify(resultado)}`);
+
+                        plotarGraficoRadar(resultado)
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+
 
 </script>
 
@@ -599,6 +621,8 @@
     let valoresGraficoPizza = [];
     let labelsGraficoLinha = [];
     let valoresGraficoLinha = [];
+    let labelsGraficoRadar = [];
+    let valoresGraficoRadar = [];
 
     function plotarGraficoBarras(resposta) {
         labelsGraficoBarras = [];
@@ -623,8 +647,8 @@
     function plotarGraficoPizza(resposta) {
         labelsGraficoPizza = [];
         valoresGraficoPizza = [];
-        
-         for (let i = 0; i < resposta.length; i++) {
+
+        for (let i = 0; i < resposta.length; i++) {
             labelsGraficoPizza.push(resposta[i].turno);
             valoresGraficoPizza.push(resposta[i].quantidade);
         }
@@ -641,7 +665,8 @@
     }
 
     function plotarGraficoLinha(resposta) {
-
+        labelsGraficoLinha = [];
+        valoresGraficoLinha = [];
 
         for (let i = 0; i < resposta.length; i++) {
             let label = resposta[i].hora
@@ -657,36 +682,29 @@
         console.log(valoresGraficoLinha)
         console.log('----------------------------------------------')
 
-        const ctm = document.getElementById('graf-linha');
-
-        new Chart(ctm, {
-            type: 'line',
-            options:
-            {
-                plugins:
-                {
-                    title: {
-                        display: true,
-                        text: 'Fluxo Geral por hora',
-                        font: { size: 18 }
-                    }
-                }
-            },
-            data: {
-                labels: labelsGraficoLinha,
-                datasets: [{
-                    label: 'Fluxo Geral',
-                    data: valoresGraficoLinha,
-                    backgroundColor: '#163460cf',
-                    borderWidth: 8,
-                    tension: 0.4,
-                    fill: true
-                }]
-            }
-        });
     }
 
-    let chartLinha, chartBarra, chartPizza, chartRosca;
+    function plotarGraficoRadar(resposta) {
+        labelsGraficoRadar = [];
+        valoresGraficoRadar = [];
+
+        for (let i = 0; i < resposta.length; i++) {
+            let label = resposta[i].diaSemana
+            labelsGraficoRadar.push(label.toString());
+            valoresGraficoRadar.push(resposta[i].quantidade);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsGraficoRadar)
+        console.log('Dados:')
+        console.log(valoresGraficoRadar)
+        console.log('----------------------------------------------')
+
+    }
+
+    let chartLinha, chartBarra, chartPizza, chartRadar;
 
     function inicializarGraficos() {
         const setor = document.getElementById('select-setor').value;
@@ -758,15 +776,54 @@
             }
         });
 
+        const ctm = document.getElementById('graf-linha');
 
-
-
-        chartRosca = new Chart(document.getElementById('graf-rosca'), {
-            type: 'polarArea',
-            options: { plugins: { title: { display: true, text: 'Fluxo por dia da semana', font: { size: 18 } }, legend: { position: 'right' } } },
+        chartLinha = new Chart(ctm, {
+            type: 'line',
+            options:
+            {
+                plugins:
+                {
+                    title: {
+                        display: true,
+                        text: 'Fluxo Geral por hora',
+                        font: { size: 18 }
+                    }
+                }
+            },
             data: {
-                labels: ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'],
-                datasets: [{ data: dados.rosca, backgroundColor: colorssemana }]
+                labels: labelsGraficoLinha,
+                datasets: [{
+                    label: 'Fluxo Geral',
+                    data: valoresGraficoLinha,
+                    backgroundColor: '#163460cf',
+                    borderWidth: 8,
+                    tension: 0.4,
+                    fill: true
+                }]
+            }
+        });
+
+
+        chartRadar = new Chart(document.getElementById('graf-rosca'), {
+            type: 'polarArea',
+            options: {
+                plugins:
+                {
+                    title:
+                    {
+                        display: true, text: 'Fluxo por dia da semana',
+                        font: { size: 18 }
+                    },
+                    legend: { position: 'right' }
+                }
+            },
+            data: {
+                labels: labelsGraficoRadar,
+                datasets: [{
+                    data: valoresGraficoRadar,
+                    backgroundColor: colorssemana
+                }]
             }
         });
     }
@@ -780,6 +837,14 @@
         chartPizza.data.labels = labelsGraficoPizza;
         chartPizza.data.datasets[0].data = valoresGraficoPizza;
         chartPizza.update();
+
+        chartLinha.data.labels = labelsGraficoLinha;
+        chartLinha.data.datasets[0].data = valoresGraficoLinha;
+        chartLinha.update();
+
+        chartRadar.data.labels = labelsGraficoRadar;
+        chartRadar.data.datasets[0].data = valoresGraficoRadar;
+        chartRadar.update();
     }
 
     function sairTela() {
@@ -801,11 +866,11 @@
     setInterval(() => {
 
         compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal();
-        fetchGraficoBarras(1); fetchGraficoPizza();
+        fetchGraficoBarras(1); fetchGraficoPizza(); fetchGraficoLinha(); fetchGraficoRadar();
 
         atualizarGraficos();
 
-        // fetchGraficoLinha();
+        // 
 
 
     }, "1000");
