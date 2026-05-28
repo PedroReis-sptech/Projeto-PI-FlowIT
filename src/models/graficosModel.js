@@ -34,7 +34,7 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19 AND st.nomeSetor = ${setor}
+  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19 AND st.nomeSetor = '${setor}'
 GROUP BY turno;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);

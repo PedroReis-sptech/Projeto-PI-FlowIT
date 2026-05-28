@@ -542,7 +542,7 @@
             });
     }
 
-    function fetchGraficoPizza() {
+    function fetchGraficoPizza(setor) {
         let setor = cbx_setor.value
         return fetch(`/graficos/buscarDadosGraficoPizzaGeral/${setor}`, { cache: 'no-store' })
             .then(function (response) {
