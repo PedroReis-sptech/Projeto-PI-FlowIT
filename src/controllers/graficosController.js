@@ -18,8 +18,8 @@ function buscarDadosGraficoBarras(req, res) {
 }
 
 function buscarDadosGraficoPizzaGeral(req, res) {
-
-  graficosModel.buscarDadosGraficoPizzaGeral().then((resultado) => {
+    let setor = req.params.setor
+  graficosModel.buscarDadosGraficoPizzaGeral(setor).then((resultado) => {
     if (resultado.length > 0) {
       res.status(200).json(resultado);
     } else {

@@ -78,17 +78,17 @@
                             <select id="select-setor" class="select-setor">
                                 <option value="geral" selected>Selecionar
                                     Setor</option>
-                                <option value="geral">Geral</option>
-                                <option value="caixa">Caixa</option>
-                                <option value="alimenticio">Alimentício</option>
-                                <option value="vestuario">Vestuário</option>
-                                <option value="eletrodomesticos">Eletrodomésticos</option>
-                                <option value="eletronicos">Eletrônicos</option>
-                                <option value="papelaria">Papelaria</option>
-                                <option value="brinquedos">Brinquedos</option>
-                                <option value="utencilios">Utencílios</option>
-                                <option value="livraria">Livraria</option>
-                                <option value="higiene">Higiene</option>
+                                <option value="Geral">Geral</option>
+                                <option value="Caixa">Caixa</option>
+                                <option value="Alimentício">Alimentício</option>
+                                <option value="Vestuário">Vestuário</option>
+                                <option value="Eletrodomésticos">Eletrodomésticos</option>
+                                <option value="Eletrônicos">Eletrônicos</option>
+                                <option value="Papelaria">Papelaria</option>
+                                <option value="Brinquedos">Brinquedos</option>
+                                <option value="Utencílios">Utencílios</option>
+                                <option value="Livraria">Livraria</option>
+                                <option value="Higiene">Higiene</option>
                             </select>
                         </div>
 
@@ -543,7 +543,8 @@
     }
 
     function fetchGraficoPizza() {
-        return fetch(`/graficos/buscarDadosGraficoPizzaGeral`, { cache: 'no-store' })
+        let setor = select-setor.value
+        return fetch(`/graficos/buscarDadosGraficoPizzaGeral/${setor}`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
