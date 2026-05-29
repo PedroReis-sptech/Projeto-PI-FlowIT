@@ -76,9 +76,7 @@
                     <div class="conteudo-principal">
                         <div class="container-select">
                             <select id="cbx_setor" class="select-setor">
-                                <option value="geral" selected>Selecionar
-                                    Setor</option>
-                                <option value="Geral">Geral</option>
+                                <option value="Geral" selected>Geral</option>
                                 <option value="Caixa">Caixa</option>
                                 <option value="Alimentício">Alimentício</option>
                                 <option value="Vestuário">Vestuário</option>
@@ -542,9 +540,8 @@
             });
     }
 
-    function fetchGraficoPizza(setor) {
-        let setor = cbx_setor.value
-        return fetch(`/graficos/buscarDadosGraficoPizzaGeral/${setor}`, { cache: 'no-store' })
+    function fetchGraficoPizza() {
+        return fetch(`/graficos/buscarDadosGraficoPizzaGeral/`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
@@ -708,7 +705,6 @@
     function inicializarGraficos() {
         const setor = document.getElementById('cbx_setor').value;
         const dados = dadosSetores[setor];
-
 
         const ctx = document.getElementById('graf-barra');
 
@@ -877,7 +873,7 @@
     }
 
     inicializarGraficos();
-    document.getElementById('cbx_setor').addEventListener('change', atualizarGraficos);
+    // document.getElementById('cbx_setor').addEventListener('change', atualizarGraficos);
 
 </script>
 
@@ -891,7 +887,7 @@
         compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal();
         fetchGraficoBarras(1); fetchGraficoPizza(); fetchGraficoLinha(); fetchGraficoRadar(); fetchRegistro();
 
-        atualizarGraficos();
+        atualizarGraficos(); fetchRegistro();
 
         // 
 

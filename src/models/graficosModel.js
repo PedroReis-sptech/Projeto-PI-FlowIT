@@ -21,7 +21,7 @@ function buscarDadosGraficoBarras(idLoja) {
 
 // ====================================================================================================
 
-function buscarDadosGraficoPizzaGeral(setor) {
+function buscarDadosGraficoPizzaGeral() {
   var instrucaoSql = `SELECT 
     CASE 
         WHEN HOUR(rs.dataLeitura) >= 8  AND HOUR(rs.dataLeitura) < 12 THEN '08:00-12:00'
@@ -34,7 +34,7 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19 AND st.nomeSetor = '${setor}'
+  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19
 GROUP BY turno;`;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);
