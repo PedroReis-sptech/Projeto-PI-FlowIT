@@ -1,164 +1,82 @@
-var database = require("../database/config");
+var graficosModel = require("../models/graficosModel");
 
-// ====================================================================================================
+function buscarDadosGraficoBarras(req, res) {
+ 
+  var idLoja = req.params.idLoja;
 
-
-function buscarDadosGraficoBarras(idLoja) {
-
-  var instrucaoSql = `SELECT 
-          st.nomeSetor,
-          COUNT(rs.leitura) AS totalAtivacoes
-        FROM setor st
-        JOIN corredor       c   ON st.idSetor   = c.fkSetor
-        JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
-        JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
-        WHERE st.fkloja = ${idLoja}
-        GROUP BY st.idSetor, st.nomeSetor;`;
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
+  graficosModel.buscarDadosGraficoBarras(idLoja).then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar a Ativacao da Semana Anterior: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
 }
 
-// ====================================================================================================
-
-function buscarDadosGraficoPizzaGeral(setor) {
-  if(setor == 'Geral'){
-    var instrucaoSql = `SELECT 
-    CASE 
-        WHEN HOUR(rs.dataLeitura) >= 8  AND HOUR(rs.dataLeitura) < 12 THEN '08:00-12:00'
-        WHEN HOUR(rs.dataLeitura) >= 12 AND HOUR(rs.dataLeitura) < 16 THEN '12:00-16:00'
-        WHEN HOUR(rs.dataLeitura) >= 16 AND HOUR(rs.dataLeitura) < 20 THEN '16:00-20:00'
-    END AS turno,
-    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
-FROM setor st
-JOIN corredor       c   ON st.idSetor   = c.fkSetor
-JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
-JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
-WHERE st.fkloja
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19
-GROUP BY turno;`;
-  } else {
-  var instrucaoSql = `SELECT 
-    CASE 
-        WHEN HOUR(rs.dataLeitura) >= 8  AND HOUR(rs.dataLeitura) < 12 THEN '08:00-12:00'
-        WHEN HOUR(rs.dataLeitura) >= 12 AND HOUR(rs.dataLeitura) < 16 THEN '12:00-16:00'
-        WHEN HOUR(rs.dataLeitura) >= 16 AND HOUR(rs.dataLeitura) < 20 THEN '16:00-20:00'
-    END AS turno,
-    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
-FROM setor st
-JOIN corredor       c   ON st.idSetor   = c.fkSetor
-JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
-JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
-WHERE st.fkloja
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19 AND st.nomeSetor = '${setor}'
-GROUP BY turno;`;
-  }
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
+function buscarDadosGraficoPizzaGeral(req, res) {
+    let setor = req.params.setor
+  graficosModel.buscarDadosGraficoPizzaGeral(setor).then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar a Ativacao do Setor ate o Dia da Consulta: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
 }
 
-// ====================================================================================================
-
-function buscarDadosGraficoLinhaGeral(setor) {
-  if(setor == 'Geral'){
-    var instrucaoSql = `SELECT 
-    HOUR(rs.dataLeitura) AS hora,
-    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
-FROM setor st
-JOIN corredor       c   ON st.idSetor   = c.fkSetor
-JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
-JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
-WHERE st.fkloja
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20
-GROUP BY  HOUR(rs.dataLeitura)
-ORDER BY hora;
-`;
-  } else {
-  var instrucaoSql = `SELECT 
-    HOUR(rs.dataLeitura) AS hora,
-    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
-FROM setor st
-JOIN corredor       c   ON st.idSetor   = c.fkSetor
-JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
-JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
-WHERE st.fkloja
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20 AND st.nomeSetor = '${setor}'
-GROUP BY  HOUR(rs.dataLeitura)
-ORDER BY hora;
-`;
-  }
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
+function buscarDadosGraficoLinhaGeral(req, res) {
+    let setor = req.params.setor
+  graficosModel.buscarDadosGraficoLinhaGeral(setor).then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar a Meta Diaria: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
 }
 
-// ====================================================================================================
-
-
-function buscarDadosGraficoRadarGeral(setor) {
-  if(setor == 'Geral'){
-      var instrucaoSql = `SELECT 
-    DAYOFWEEK(rs.dataLeitura) AS numeroDia,
-    CASE DAYOFWEEK(rs.dataLeitura)
-        WHEN 1 THEN 'Domingo'
-        WHEN 2 THEN 'Segunda-feira'
-        WHEN 3 THEN 'Terça-feira'
-        WHEN 4 THEN 'Quarta-feira'
-        WHEN 5 THEN 'Quinta-feira'
-        WHEN 6 THEN 'Sexta-feira'
-        WHEN 7 THEN 'Sábado'
-    END AS diaSemana,
-    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
-FROM setor st
-JOIN corredor       c   ON st.idSetor   = c.fkSetor
-JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
-JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
-WHERE st.fkloja
-    AND rs.dataLeitura >= DATE_SUB(CURDATE(), INTERVAL DAYOFWEEK(NOW()) - 1 DAY)
-    AND rs.dataLeitura <= NOW()
-GROUP BY DAYOFWEEK(rs.dataLeitura), diaSemana;`;
-  } else {
-    var instrucaoSql = `SELECT 
-    DAYOFWEEK(rs.dataLeitura) AS numeroDia,
-    CASE DAYOFWEEK(rs.dataLeitura)
-        WHEN 1 THEN 'Domingo'
-        WHEN 2 THEN 'Segunda-feira'
-        WHEN 3 THEN 'Terça-feira'
-        WHEN 4 THEN 'Quarta-feira'
-        WHEN 5 THEN 'Quinta-feira'
-        WHEN 6 THEN 'Sexta-feira'
-        WHEN 7 THEN 'Sábado'
-    END AS diaSemana,
-    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS quantidade
-FROM setor st
-JOIN corredor       c   ON st.idSetor   = c.fkSetor
-JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
-JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
-WHERE st.fkloja
-    AND rs.dataLeitura >= DATE_SUB(CURDATE(), INTERVAL DAYOFWEEK(NOW()) - 1 DAY)
-    AND rs.dataLeitura <= NOW()
-    AND st.nomeSetor = '${setor}'
-GROUP BY DAYOFWEEK(rs.dataLeitura), diaSemana;`;
-  }
-
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
+function buscarDadosGraficoRadarGeral(req, res) {
+    let setor = req.params.setor
+  graficosModel.buscarDadosGraficoRadarGeral(setor).then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar a Meta Diaria: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
 }
 
-// ====================================================================================================
+function buscarUltimoRegistro(req, res) {
 
-function buscarUltimoRegistro() {
-  var instrucaoSql = `SELECT DATE_FORMAT(dataLeitura, '%d/%m/%y %H:%i:%s') AS dataLeitura 
-FROM registroSensor 
-WHERE dataLeitura < NOW() AND leitura = 1
-ORDER BY dataLeitura DESC 
-LIMIT 1;`;
-
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
-  return database.executar(instrucaoSql);
+  graficosModel.buscarUltimoRegistro().then((resultado) => {
+    if (resultado.length > 0) {
+      res.status(200).json(resultado);
+    } else {
+      res.status(204).json([]);
+    }
+  }).catch(function (erro) {
+    console.log(erro);
+    console.log("Houve um erro ao buscar a Ultima Ativação: ", erro.sqlMessage);
+    res.status(500).json(erro.sqlMessage);
+  });
 }
+
 
 module.exports = {
   buscarDadosGraficoBarras,
