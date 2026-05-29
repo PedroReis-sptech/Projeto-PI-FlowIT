@@ -60,7 +60,7 @@ const serial = async (
 
         let leituraSetores = [];
 
-        for (let i = 0; i <= 5; i++) {
+        for (let i = 0; i <= 6; i++) {
             let inserido;
             let dado = sensorBloqueio + Math.floor(Math.random() * 9)
             if (i == 0) {
@@ -92,8 +92,17 @@ const serial = async (
                 }
                 leituraSetores.push(inserido)
             } else if (i == 4) {
-                if (dado >= 9) {
+                if (dado >= 1) {
                     inserido = 1;
+
+                } else {
+                    inserido = 0;
+                }
+                leituraSetores.push(inserido)
+            } else if (i == 5) {
+                if (dado >= 1) {
+                    inserido = 1;
+
                 } else {
                     inserido = 0;
                 }

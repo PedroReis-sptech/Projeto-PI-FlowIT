@@ -420,7 +420,7 @@
                 let diferencaEletronico = Number(ultimosSeteEletronico) - Number(ativacoesAteHojeEletronico)
                 let diferencaHigiene = Number(ultimosSeteHigiene) - Number(ativacoesAteHojeHigiene)
 
-                var maiorQueda = 0;
+                var maiorQueda = -9999999;
                 var nomeSetor = "";
 
                 if (diferencaAlimenticio > maiorQueda) {
@@ -571,7 +571,7 @@
     }
 
     function fetchGraficoPizza(setor) {
-        let setor = cbx_setor.value
+        setor = cbx_setor.value
         return fetch(`/graficos/buscarDadosGraficoPizzaGeral/${setor}`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
@@ -594,7 +594,7 @@
     }
 
     function fetchGraficoLinha(setor) {
-        let setor = cbx_setor.value
+        setor = cbx_setor.value
         return fetch(`/graficos/buscarDadosGraficoLinhaGeral/${setor}`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
@@ -617,7 +617,7 @@
     }
 
     function fetchGraficoRadar(setor) {
-        let setor = cbx_setor.value
+        setor = cbx_setor.value
         return fetch(`/graficos/buscarDadosGraficoRadarGeral/${setor}`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
