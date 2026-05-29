@@ -36,12 +36,14 @@ INSERT INTO endereco (cep, logradouro, numero, estado, cidade, regiao, fkloja) V
 CREATE TABLE permissao (
     idPermissao INT PRIMARY KEY AUTO_INCREMENT,
     cargo VARCHAR(45),
-    CONSTRAINT chfkCargo CHECK (cargo IN ('Gerente', 'Consultor'))
+    CONSTRAINT chfkCargo CHECK (cargo IN ('Gerente', 'Consultor', 'Suporte'))
 );
 
 INSERT INTO permissao (cargo) VALUES
 ('Gerente'),
-('Consultor');
+('Consultor'),
+('Suporte');
+
 
 CREATE TABLE usuario (
     idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -58,6 +60,7 @@ INSERT INTO usuario (nomeUsuario, email, senha, fkloja, fkPermissao) VALUES
 ('Ana Silva', 'ana@americanas.com', '123456', 1, 1),
 ('Carlos Souza', 'carlos@magalu.com', '123456', 2, 2),
 ('Fernanda Lima', 'fernanda@casasbahia.com', '123456', 3, 2),
+('Claudio', 'suporte@flow.com', '123456', null, 3),
 ('Bruno Rocha', 'bruno@ponto.com', '123456', 4, 1);
 
 CREATE TABLE setor (
@@ -530,5 +533,6 @@ SELECT
 
 SELECT * FROM view_buscarAtivacoesPorSetorDaSemanaAnterior;
 SELECT * FROM view_buscarAtivacoesPorSetorAteODiaDaConsulta;
-SELECT * FROM view_buscarSomaDosRegistrosDosSetoresNoDia;
+SELECT * FROM buscarSomaDosRegistrosDosSetoresNoDia;
 SELECT * FROM view_buscarMetaDiaria;
+

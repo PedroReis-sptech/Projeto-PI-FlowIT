@@ -78,6 +78,8 @@
                 setTimeout(function () {
                     if (json.cargo === "Gerente") {
                         window.location.href = "dashboard/dashboard_gerente.html";
+                    }else if(json.cargo === "Suporte"){
+                        window.location.href = "http://localhost:3333";
                     } else {
                         window.location.href = "dashboard/dashboard_consultor.html";
                     }

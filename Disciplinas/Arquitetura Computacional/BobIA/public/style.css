@@ -1,0 +1,64 @@
+body {
+    font-family: Arial, sans-serif;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: top;
+    align-items: center;
+    background-image: url('https://www.shutterstock.com/image-photo/blurred-image-shows-interior-supermarket-600nw-2645858227.jpg');
+    background-size: cover;
+    width: 100%;
+    height: 650px;
+    background-color: #3d5a9897;
+    background-blend-mode: multiply;
+}
+
+
+#container {
+    width: 80%;
+    margin: 50px auto;
+    text-align: center;
+}
+
+h1 {
+    color: white;
+}
+
+h3 {
+    color: white;
+}
+
+textarea[type="text"] {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    width: 400px;
+}
+
+select,
+button {
+    padding: 8px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button {
+    background-color: #1b3263;
+    color: #FFFFFF;
+    border: none;
+}
+
+button:hover {
+    background-color: #EFB661;
+}
+
+#resposta {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #D0D3D4;
+    border: 1px solid #63666A;
+    text-align: left;
+    display: none;
+}
