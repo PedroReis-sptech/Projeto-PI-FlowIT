@@ -76,18 +76,12 @@
                     <div class="conteudo-principal">
                         <div class="container-select">
                             <select id="select-setor" class="select-setor">
-                                <option value="geral" selected>Selecionar Setor</option>
-                                <option value="geral">Geral</option>
-                                <option value="caixa">Caixa</option>
-                                <option value="alimenticio">Alimentício</option>
-                                <option value="vestuario">Vestuário</option>
-                                <option value="eletrodomesticos">Eletrodomésticos</option>
-                                <option value="eletronicos">Eletrônicos</option>
-                                <option value="papelaria">Papelaria</option>
-                                <option value="brinquedos">Brinquedos</option>
-                                <option value="utencilios">Utencílios</option>
-                                <option value="livraria">Livraria</option>
-                                <option value="higiene">Higiene</option>
+                                <option value="Geral" selected>Geral</option>
+                                <option value="Alimentício">Alimentício</option>
+                                <option value="Vestuário">Vestuário</option>
+                                <option value="Eletrônico">Eletrônicos</option>
+                                <option value="Utensilio">Utensílios</option>
+                                <option value="Higiene">Higiene</option>
                             </select>
                         </div>
 
@@ -225,111 +219,6 @@
             linhaTitle: 'Fluxo por hora - Higiene'
         }
     };
-
-    let chartLinha, chartBarra, chartPizza, chartRosca;
-
-    function inicializarGraficos() {
-        const setor = document.getElementById('select-setor').value;
-        const dados = dadosSetores[setor];
-
-        chartLinha = new Chart(document.getElementById('graf-linha'), {
-            type: 'line',
-            options: { plugins: { title: { display: true, text: dados.linhaTitle, font: { size: 18 } } } },
-            data: {
-                labels: ['8:00', '9:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00'],
-                datasets: [{ label: dados.label, data: dados.linha, backgroundColor: '#163460cf', borderWidth: 8, tension: 0.4, fill: true }]
-            }
-        });
-
-        chartBarra = new Chart(document.getElementById('graf-barra'), {
-            type: 'bar',
-            options: {
-                plugins: {
-                    title: {
-                        display: true,
-                        text: 'Fluxo por Setor – Zonas Quentes e Frias',
-                        font: { size: 18 }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function (context) {
-                                return context.raw + '%';
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        ticks: {
-                            callback: function (value) {
-                                return value + '%';
-                            }
-                        }
-                    }
-                }
-            },
-            data: {
-                labels: [
-                    'Alimentício', 'Vestuário', 'Eletrodomésticos',
-                    'Eletrônicos', 'Papelaria', 'Brinquedos',
-                    'Utencílios', 'Livraria', 'Higiene'
-                ],
-                datasets: [{
-                    label: 'Fluxo (%)',
-                    data: dados.barra,
-                    backgroundColor: dados.barra.map(valor => {
-                        if (valor <= 4) return "#7E99B4";  // zona fria (azul acinzentado)
-                        return "#00123d";                 // zona quente (vermelho fechado)
-                    }),
-                    borderRadius: 6
-                }]
-            }
-        });
-
-        chartPizza = new Chart(document.getElementById('graf-pizza'), {
-            type: 'pie',
-            options: { plugins: { title: { display: true, text: dados.pizzaTitle, font: { size: 18 } } } },
-            data: {
-                labels: ['08:00-12:00', '12:00-16:00', '16:00-20:00'],
-                datasets: [{ data: dados.pizza, backgroundColor: colorspizza }]
-            }
-        });
-
-        chartRosca = new Chart(document.getElementById('graf-rosca'), {
-            type: 'polarArea',
-            options: { plugins: { title: { display: true, text: 'Fluxo por dia da semana', font: { size: 18 } }, legend: { position: 'right' } } },
-            data: {
-                labels: ['Segunda-feira', 'Terça-feira', 'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado', 'Domingo'],
-                datasets: [{ data: dados.rosca, backgroundColor: colorssemana }]
-            }
-        });
-    }
-
-    function atualizarGraficos() {
-        const setor = document.getElementById('select-setor').value;
-        const dados = dadosSetores[setor];
-        chartLinha.options.plugins.title.text = dados.linhaTitle;
-        chartBarra.options.plugins.title.text = 'Fluxo por Setor – Zonas Quentes e Frias';
-        chartLinha.data.datasets[0].label = dados.label;
-        chartLinha.data.datasets[0].data = dados.linha;
-        chartLinha.update();
-        chartBarra.data.datasets[0].data = dados.barra;
-        chartBarra.update();
-        chartPizza.options.plugins.title.text = dados.pizzaTitle;
-        chartPizza.data.datasets[0].data = dados.pizza;
-        chartPizza.update();
-        chartRosca.data.datasets[0].data = dados.rosca;
-        chartRosca.update();
-    }
-
-    function sairTela() {
-        if (confirm("Deseja sair desta tela?")) {
-            window.location.href = "../index.html";
-        }
-    }
-
-    inicializarGraficos();
-    document.getElementById('select-setor').addEventListener('change', atualizarGraficos);
 </script>
 
 <script>
@@ -654,4 +543,388 @@
     function fecharMenu() {
     document.getElementById("menuAjuda").classList.add("hidden");
     }
+</script>
+
+<script>
+
+    function fetchGraficoBarras(idLoja) {
+        return fetch(`/graficos/buscarDadosGraficoBarras/${idLoja}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        // console.log(`Dados recebidos grafico 
+                        // de barras: ${JSON.stringify(resultado)}`);
+
+                        plotarGraficoBarras(resultado)
+                        // resultadoAtivacaoAteODia = resultado
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+
+    function fetchGraficoPizza(setor) {
+        let setor = cbx_setor.value
+        return fetch(`/graficos/buscarDadosGraficoPizzaGeral/${setor}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Dados recebidos grafico 
+                        de Pizza: ${JSON.stringify(resultado)}`);
+
+                        plotarGraficoPizza(resultado)
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+
+    function fetchGraficoLinha(setor) {
+        let setor = cbx_setor.value
+        return fetch(`/graficos/buscarDadosGraficoLinhaGeral/${setor}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Dados recebidos grafico 
+                        de Linha: ${JSON.stringify(resultado)}`);
+
+                        plotarGraficoLinha(resultado)
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+
+    function fetchGraficoRadar(setor) {
+        let setor = cbx_setor.value
+        return fetch(`/graficos/buscarDadosGraficoRadarGeral/${setor}`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Dados recebidos grafico 
+                        de Radar: ${JSON.stringify(resultado)}`);
+                        plotarGraficoRadar(resultado)
+                        return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+
+
+</script>
+
+</script>
+
+<script>
+    let labelsGraficoBarras = [];
+    let valoresGraficoBarras = [];
+    let labelsGraficoPizza = [];
+    let valoresGraficoPizza = [];
+    let labelsGraficoLinha = [];
+    let valoresGraficoLinha = [];
+    let labelsGraficoRadar = [];
+    let valoresGraficoRadar = [];
+
+    function plotarGraficoBarras(resposta) {
+        labelsGraficoBarras = [];
+        valoresGraficoBarras = [];
+
+        for (let i = 0; i < resposta.length; i++) {
+            labelsGraficoBarras.push(resposta[i].nomeSetor);
+            valoresGraficoBarras.push(resposta[i].totalAtivacoes);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsGraficoBarras)
+        console.log('Dados:')
+        console.log(valoresGraficoBarras)
+        console.log('----------------------------------------------')
+
+    }
+
+
+    function plotarGraficoPizza(resposta) {
+        labelsGraficoPizza = [];
+        valoresGraficoPizza = [];
+
+        for (let i = 0; i < resposta.length; i++) {
+            labelsGraficoPizza.push(resposta[i].turno);
+            valoresGraficoPizza.push(resposta[i].quantidade);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsGraficoPizza)
+        console.log('Dados:')
+        console.log(valoresGraficoPizza)
+        console.log('----------------------------------------------')
+
+
+    }
+
+    function plotarGraficoLinha(resposta) {
+        labelsGraficoLinha = [];
+        valoresGraficoLinha = [];
+
+        for (let i = 0; i < resposta.length; i++) {
+            let label = resposta[i].hora
+            labelsGraficoLinha.push(label.toString());
+            valoresGraficoLinha.push(resposta[i].quantidade);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsGraficoLinha)
+        console.log('Dados:')
+        console.log(valoresGraficoLinha)
+        console.log('----------------------------------------------')
+
+    }
+
+    function plotarGraficoRadar(resposta) {
+        labelsGraficoRadar = [];
+        valoresGraficoRadar = [];
+
+        for (let i = 0; i < resposta.length; i++) {
+            let label = resposta[i].diaSemana
+            labelsGraficoRadar.push(label.toString());
+            valoresGraficoRadar.push(resposta[i].quantidade);
+        }
+
+        console.log('----------------------------------------------')
+        console.log('O gráfico será plotado com os respectivos valores:')
+        console.log('Labels:')
+        console.log(labelsGraficoRadar)
+        console.log('Dados:')
+        console.log(valoresGraficoRadar)
+        console.log('----------------------------------------------')
+
+    }
+
+    let chartLinha, chartBarra, chartPizza, chartRadar;
+
+    function inicializarGraficos() {
+        const setor = document.getElementById('cbx_setor').value;
+        const dados = dadosSetores[setor];
+
+
+        const ctx = document.getElementById('graf-barra');
+
+        chartBarra = new Chart(ctx, {
+            type: 'bar',
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Fluxo por Setor – Zonas Quentes e Frias',
+                        font: { size: 18 }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (context) {
+                                return context.raw + '%';
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        ticks: {
+                            callback: function (value) {
+                                return value + '%';
+                            }
+                        }
+                    }
+                }
+            },
+            data: {
+                labels: labelsGraficoBarras,
+                datasets: [{
+                    label: 'Fluxo (%)',
+                    data: valoresGraficoBarras,
+                    backgroundColor: valoresGraficoBarras.map(valor => {
+                        if (valor <= 4) return "#7E99B4";  // zona fria (azul acinzentado)
+                        return "#00123d";                 // zona quente (vermelho fechado)
+                    }),
+                    borderRadius: 6
+                }]
+            }
+        });
+
+        const cty = document.getElementById('graf-pizza');
+
+        chartPizza = new Chart(cty, {
+            type: 'pie',
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Movimento por turno - Geral',
+                        font: { size: 18 }
+                    },
+                }
+            },
+            data: {
+                labels: labelsGraficoPizza,
+                datasets: [{
+                    data: valoresGraficoPizza,
+                    backgroundColor: colorspizza
+                }]
+            }
+        });
+
+        const ctm = document.getElementById('graf-linha');
+
+        chartLinha = new Chart(ctm, {
+            type: 'line',
+            options:
+            {
+                plugins:
+                {
+                    title: {
+                        display: true,
+                        text: 'Fluxo Geral por hora',
+                        font: { size: 18 }
+                    }
+                }
+            },
+            data: {
+                labels: labelsGraficoLinha,
+                datasets: [{
+                    label: 'Fluxo Geral',
+                    data: valoresGraficoLinha,
+                    backgroundColor: '#163460cf',
+                    borderWidth: 8,
+                    tension: 0.4,
+                    fill: true
+                }]
+            }
+        });
+
+
+        chartRadar = new Chart(document.getElementById('graf-rosca'), {
+            type: 'polarArea',
+            options: {
+                plugins:
+                {
+                    title:
+                    {
+                        display: true, text: 'Fluxo por dia da semana',
+                        font: { size: 18 }
+                    },
+                    legend: { position: 'right' }
+                }
+            },
+            data: {
+                labels: labelsGraficoRadar,
+                datasets: [{
+                    data: valoresGraficoRadar,
+                    backgroundColor: colorssemana
+                }]
+            }
+        });
+    }
+
+
+    function atualizarGraficos() {
+        chartBarra.data.labels = labelsGraficoBarras;
+        chartBarra.data.datasets[0].data = valoresGraficoBarras;
+        chartBarra.update();
+
+        chartPizza.data.labels = labelsGraficoPizza;
+        chartPizza.data.datasets[0].data = valoresGraficoPizza;
+        chartPizza.update();
+
+        chartLinha.data.labels = labelsGraficoLinha;
+        chartLinha.data.datasets[0].data = valoresGraficoLinha;
+        chartLinha.update();
+
+        chartRadar.data.labels = labelsGraficoRadar;
+        chartRadar.data.datasets[0].data = valoresGraficoRadar;
+        chartRadar.update();
+    }
+
+    function fetchRegistro() {
+        return fetch(`/graficos/buscarUltimoRegistro`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Ultimo registro: ${JSON.stringify(resultado)}`);
+                        var registro = resultado[0]; 
+                        var dataFormatada = registro.dataLeitura; 
+                    document.getElementById('spanUltimoRegistro').innerHTML = `<i>Dados Obtidos em ${dataFormatada}</i>`;
+                    return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+    fetchRegistro()
+
+
+    function sairTela() {
+        if (confirm("Deseja sair desta tela?")) {
+            window.location.href = "../index.html";
+        }
+    }
+
+    inicializarGraficos();
+    document.getElementById('cbx_setor').addEventListener('change', atualizarGraficos);
+
+</script>
+
+<script>
+
+</script>
+
+<script>
+    setInterval(() => {
+
+        compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal();
+        fetchGraficoBarras(1); fetchGraficoPizza(); fetchGraficoLinha(); fetchGraficoRadar(); fetchRegistro();
+
+        atualizarGraficos();
+
+        // 
+
+
+    }, "1000");
 </script>
