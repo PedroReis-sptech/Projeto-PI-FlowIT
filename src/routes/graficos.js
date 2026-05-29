@@ -7,15 +7,15 @@ router.get("/buscarDadosGraficoBarras/:idLoja", function (req, res) {
     graficosController.buscarDadosGraficoBarras(req, res);
 });
 
-router.get("/buscarDadosGraficoPizzaGeral/", function (req, res) {
+router.get("/buscarDadosGraficoPizzaGeral/:setor", function (req, res) {
     graficosController.buscarDadosGraficoPizzaGeral(req, res);
 });
 
-router.get("/buscarDadosGraficoLinhaGeral/", function (req, res) {
+router.get("/buscarDadosGraficoLinhaGeral/:setor", function (req, res) {
     graficosController.buscarDadosGraficoLinhaGeral(req, res);
 });
 
-router.get("/buscarDadosGraficoRadarGeral/", function (req, res) {
+router.get("/buscarDadosGraficoRadarGeral/:setor", function (req, res) {
     graficosController.buscarDadosGraficoRadarGeral(req, res);
 });
 
