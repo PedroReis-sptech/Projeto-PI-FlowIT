@@ -222,14 +222,10 @@
             linhaTitle: 'Fluxo por hora - Higiene'
         }
     };
-
-
-
 </script>
 
 <script>
-
-        let resultadoAtivacaoSemanaAnterior;
+    let resultadoAtivacaoSemanaAnterior;
     let resultadoAtivacaoAteODia;
     let metaDiaria;
     let quantRegistrosDia;
@@ -427,8 +423,8 @@
                 let diferencaEletronico = Number(ultimosSeteEletronico) - Number(ativacoesAteHojeEletronico)
                 let diferencaHigiene = Number(ultimosSeteHigiene) - Number(ativacoesAteHojeHigiene)
 
-                var maiorQueda = -99999999;
-                var nomeSetor = "aaaaa";
+                var maiorQueda = -9999999;
+                var nomeSetor = "";
 
                 if (diferencaAlimenticio > maiorQueda) {
                     maiorQueda = diferencaAlimenticio;
@@ -515,14 +511,40 @@
         })
     }
 
+    function fetchRegistro() {
+        return fetch(`/graficos/buscarUltimoRegistro`, { cache: 'no-store' })
+            .then(function (response) {
+                if (response.ok) {
+                    return response.json().then(function (resultado) {
+                        console.log(`Ultimo registro: ${JSON.stringify(resultado)}`);
+                        var registro = resultado[0]; 
+                        var dataFormatada = registro.dataLeitura; 
+                    document.getElementById('spanUltimoRegistro').innerHTML = `<i>Dados Obtidos em ${dataFormatada}</i>`;
+                    return resultado;
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                    return null;
+                }
+            })
+            .catch(function (error) {
+                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
+                return null;
+            });
+    }
+    fetchRegistro()
 
-    function menuAjuda() {
+    setInterval(() => {
+        compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1); fetchRegistro();
+    }, "1000");
+
+    function menuAjuda(){
         const menu = document.getElementById("menuAjuda");
         menu.classList.toggle("hidden");
     }
 
     function fecharMenu() {
-        document.getElementById("menuAjuda").classList.add("hidden");
+    document.getElementById("menuAjuda").classList.add("hidden");
     }
 </script>
 
@@ -535,7 +557,7 @@
                     return response.json().then(function (resultado) {
                         // console.log(`Dados recebidos grafico 
                         // de barras: ${JSON.stringify(resultado)}`);
-
+                        console.log(response)
                         plotarGraficoBarras(resultado)
                         // resultadoAtivacaoAteODia = resultado
                         return resultado;
@@ -551,8 +573,9 @@
             });
     }
 
-    function fetchGraficoPizza() {
-        return fetch(`/graficos/buscarDadosGraficoPizzaGeral/`, { cache: 'no-store' })
+    function fetchGraficoPizza(setor) {
+        setor = cbx_setor.value
+        return fetch(`/graficos/buscarDadosGraficoPizzaGeral/${setor}`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
@@ -573,8 +596,9 @@
             });
     }
 
-    function fetchGraficoLinha() {
-        return fetch(`/graficos/buscarDadosGraficoLinhaGeral`, { cache: 'no-store' })
+    function fetchGraficoLinha(setor) {
+        setor = cbx_setor.value
+        return fetch(`/graficos/buscarDadosGraficoLinhaGeral/${setor}`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
@@ -595,8 +619,9 @@
             });
     }
 
-    function fetchGraficoRadar() {
-        return fetch(`/graficos/buscarDadosGraficoRadarGeral`, { cache: 'no-store' })
+    function fetchGraficoRadar(setor) {
+        setor = cbx_setor.value
+        return fetch(`/graficos/buscarDadosGraficoRadarGeral/${setor}`, { cache: 'no-store' })
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
@@ -637,7 +662,7 @@
 
         for (let i = 0; i < resposta.length; i++) {
             labelsGraficoBarras.push(resposta[i].nomeSetor);
-            valoresGraficoBarras.push(resposta[i].totalAtivacoes);
+            valoresGraficoBarras.push(resposta[i].percentualAtivacao);
         }
 
         console.log('----------------------------------------------')
@@ -717,6 +742,7 @@
         const setor = document.getElementById('cbx_setor').value;
         const dados = dadosSetores[setor];
 
+
         const ctx = document.getElementById('graf-barra');
 
         chartBarra = new Chart(ctx, {
@@ -751,10 +777,10 @@
                 datasets: [{
                     label: 'Fluxo (%)',
                     data: valoresGraficoBarras,
-                    backgroundColor: valoresGraficoBarras.map(valor => {
-                        if (valor <= 4) return "#7E99B4";  // zona fria (azul acinzentado)
-                        return "#00123d";                 // zona quente (vermelho fechado)
-                    }),
+                    backgroundColor: (conteudo) => {
+                    let valor = conteudo.raw;
+                    return valor > 15 ? '#E26A22' : '#6E8CB2';
+                    },
                     borderRadius: 6
                 }]
             }
@@ -884,7 +910,7 @@
     }
 
     inicializarGraficos();
-    // document.getElementById('cbx_setor').addEventListener('change', atualizarGraficos);
+    document.getElementById('cbx_setor').addEventListener('change', atualizarGraficos);
 
 </script>
 
@@ -898,7 +924,7 @@
         compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal();
         fetchGraficoBarras(1); fetchGraficoPizza(); fetchGraficoLinha(); fetchGraficoRadar(); fetchRegistro();
 
-        atualizarGraficos(); fetchRegistro();
+        atualizarGraficos();
 
         // 
 

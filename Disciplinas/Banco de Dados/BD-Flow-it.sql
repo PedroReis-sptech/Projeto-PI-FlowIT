@@ -75,7 +75,7 @@ INSERT INTO setor (nomeSetor, meta, fkloja) VALUES
 ('Alimentício', 100, 1),
 ('Vestuário', 100, 1),
 ('Utensilio', 100, 1),
-('Eletrônico', 100, 1),
+('Eletrônicos', 100, 1),
 ('Higiene', 100, 1);
 
 CREATE TABLE corredor (
@@ -288,14 +288,14 @@ INSERT INTO registroSensor (leitura, dataLeitura, fkSensor) VALUES
 (1, '2026-05-27 21:05:04', 7),
 (1, '2026-05-27 23:45:22', 8),
 -- Dia 28/05/2026 (Quinta-feira)
-(1, '2026-05-28 07:50:15', 1),
-(1, '2026-05-28 09:22:40', 2),
-(1, '2026-05-28 11:05:11', 3),
-(1, '2026-05-28 13:44:30', 4),
-(1, '2026-05-28 15:15:55', 5),
-(1, '2026-05-28 17:30:12', 6),
-(1, '2026-05-28 19:59:44', 7),
-(1, '2026-05-28 22:12:01', 8);
+(1, '2026-06-02 07:50:15', 1),
+(1, '2026-06-02 09:22:40', 2),
+(1, '2026-06-02 11:05:11', 3),
+(1, '2026-06-02 13:44:30', 4),
+(1, '2026-06-02 15:15:55', 5),
+(1, '2026-06-02 17:30:12', 6),
+(1, '2026-06-02 19:59:44', 7),
+(1, '2026-06-02 22:12:01', 8);
 
 SELECT DATE_FORMAT(dataLeitura, '%d/%m/%y %H:%i:%s') AS dataLeitura 
 FROM registroSensor 
@@ -490,20 +490,24 @@ GROUP BY st.nomeSetor, DAYOFWEEK(rs.dataLeitura), diaSemana
 
 
 --  Fluxo por setor / zonas quentes e frias (gráfico de barras)
+CREATE VIEW total_ativacoes AS
+SELECT COUNT(rs.idRegistroSensor) AS totalRegistros FROM registroSensor rs
+WHERE rs.dataLeitura >= NOW();
+
+select * from total_ativacoes;
+
 SELECT 
     st.nomeSetor,
-    COUNT(rs.idRegistroSensor) AS totalRegistros,
-    COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) AS totalAtivacoes,
     ROUND(
         COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) * 100.0
-        / NULLIF(COUNT(rs.idRegistroSensor), 0),
+        / (select * from total_ativacoes),
         2
     ) AS percentualAtivacao
 FROM setor st
 JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
-WHERE st.fkloja
+WHERE st.fkloja AND rs.dataLeitura >= NOW()
 GROUP BY st.idSetor, st.nomeSetor;
 
 /* 

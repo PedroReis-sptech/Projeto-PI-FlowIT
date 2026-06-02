@@ -5,17 +5,23 @@ var database = require("../database/config");
 
 function buscarDadosGraficoBarras(idLoja) {
 
-  var instrucaoSql = `SELECT 
-          st.nomeSetor,
-          COUNT(rs.leitura) AS totalAtivacoes
-        FROM setor st
-        JOIN corredor       c   ON st.idSetor   = c.fkSetor
-        JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
-        JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
-        WHERE st.fkloja = ${idLoja}
-        GROUP BY st.idSetor, st.nomeSetor;`;
+  var instrucaoSql = `
+  SELECT 
+    st.nomeSetor,
+    ROUND(
+        COUNT(CASE WHEN rs.leitura = 1 THEN 1 END) * 100.0
+        / (SELECT COUNT(rs.idRegistroSensor) AS totalRegistros FROM registroSensor rs
+          WHERE rs.dataLeitura >= CURDATE()),
+        2
+    ) AS percentualAtivacao
+FROM setor st
+JOIN corredor       c   ON st.idSetor   = c.fkSetor
+JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
+JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
+WHERE st.fkloja AND rs.dataLeitura >= CURDATE()
+GROUP BY st.idSetor, st.nomeSetor;`;
 
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
   return database.executar(instrucaoSql);
 }
 
@@ -54,7 +60,7 @@ WHERE st.fkloja
 GROUP BY turno;`;
   }
 
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
   return database.executar(instrucaoSql);
 }
 
@@ -89,7 +95,7 @@ ORDER BY hora;
 `;
   }
 
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
   return database.executar(instrucaoSql);
 }
 
@@ -143,7 +149,7 @@ GROUP BY DAYOFWEEK(rs.dataLeitura), diaSemana;`;
   }
 
 
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
   return database.executar(instrucaoSql);
 }
 
@@ -156,7 +162,7 @@ WHERE dataLeitura < NOW() AND leitura = 1
 ORDER BY dataLeitura DESC 
 LIMIT 1;`;
 
-  console.log("Executando a instrução SQL: \n" + instrucaoSql);
+
   return database.executar(instrucaoSql);
 }
 

@@ -554,7 +554,7 @@
                     return response.json().then(function (resultado) {
                         // console.log(`Dados recebidos grafico 
                         // de barras: ${JSON.stringify(resultado)}`);
-
+                        console.log(response)
                         plotarGraficoBarras(resultado)
                         // resultadoAtivacaoAteODia = resultado
                         return resultado;
@@ -659,7 +659,7 @@
 
         for (let i = 0; i < resposta.length; i++) {
             labelsGraficoBarras.push(resposta[i].nomeSetor);
-            valoresGraficoBarras.push(resposta[i].totalAtivacoes);
+            valoresGraficoBarras.push(resposta[i].percentualAtivacao);
         }
 
         console.log('----------------------------------------------')
@@ -774,10 +774,10 @@
                 datasets: [{
                     label: 'Fluxo (%)',
                     data: valoresGraficoBarras,
-                    backgroundColor: valoresGraficoBarras.map(valor => {
-                        if (valor <= 4) return "#7E99B4";  // zona fria (azul acinzentado)
-                        return "#00123d";                 // zona quente (vermelho fechado)
-                    }),
+                    backgroundColor: (conteudo) => {
+                    let valor = conteudo.raw;
+                    return valor > 15 ? '#E26A22' : '#6E8CB2';
+                    },
                     borderRadius: 6
                 }]
             }

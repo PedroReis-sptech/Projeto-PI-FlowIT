@@ -1,7 +1,6 @@
 var graficosModel = require("../models/graficosModel");
 
 function buscarDadosGraficoBarras(req, res) {
- 
   var idLoja = req.params.idLoja;
 
   graficosModel.buscarDadosGraficoBarras(idLoja).then((resultado) => {
@@ -12,7 +11,7 @@ function buscarDadosGraficoBarras(req, res) {
     }
   }).catch(function (erro) {
     console.log(erro);
-    console.log("Houve um erro ao buscar a Ativacao da Semana Anterior: ", erro.sqlMessage);
+    console.log("Houve um erro ao buscar a Ativacao da dia Anterior: ", erro.sqlMessage);
     res.status(500).json(erro.sqlMessage);
   });
 }
