@@ -55,14 +55,17 @@
 </html>
 
 <script>
-    let setores = [];
+    let loja = {
+        setores: []
+    };
+
  function obterSetores() {
-        fetch(`/gestao/listarSetores/${sessionStorage.idLoja}`)
+        fetch(`/gestao/listarSetores/${sessionStorage.ID_LOJA}`)
             .then(function(resposta) {
                 if (resposta.ok) {
                     resposta.json().then(function(setor) {
                         console.log(`Dados recebidos: ${JSON.stringify(setor)}`);
-                        setores = setor
+                        loja.setores = setor
                         exibirSetor();
                     });
                 } else {
@@ -77,9 +80,9 @@
     function exibirSetor() {
         let tabela = tabelaSetores;
         tabela.innerHTML = "";
-
-       for (var i = 0; i < setores.length; i++){
-            var setorS = setores[i];
+        console.log(setores)
+       for (var i = 0; i < loja.setores.length; i++){
+            var setorS = loja.setores[i];
 
             tabela.innerHTML += `
             <tr>
@@ -96,7 +99,7 @@
 
 function sairTela() {
     if (confirm("Deseja sair desta tela?")) {
-    window.location.href = "../Site Institucional/index.html";
+    window.location.href = "../public/index.html";
 } 
 }
 
