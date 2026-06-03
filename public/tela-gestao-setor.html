@@ -78,9 +78,8 @@
     }
 
     function exibirSetor() {
-        let tabela = tabelaSetores;
+        let tabela = document.getElementById("tabelaSetores"); 
         tabela.innerHTML = "";
-        console.log(setores)
        for (var i = 0; i < loja.setores.length; i++){
             var setorS = loja.setores[i];
 

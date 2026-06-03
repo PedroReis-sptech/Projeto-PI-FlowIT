@@ -6,8 +6,8 @@ function listar() {
   return database.executar(instrucaoSql);
 }
 
-function listarSetores() {
-  var instrucaoSql = `SELECT idSetor, nomesetor, meta
+function listarSetores(id) {
+  var instrucaoSql = `SELECT idSetor, nomeSetor, meta
   FROM setor 
   JOIN loja ON fkLoja = idLoja
   WHERE fkLoja = '${id}'`;
