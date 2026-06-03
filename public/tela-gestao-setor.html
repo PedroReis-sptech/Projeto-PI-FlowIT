@@ -30,11 +30,11 @@
             <input type="corredor" id="campoCorredor" placeholder="Corredor">
             <input type="corredor" id="campoMeta" placeholder="Meta do setor">
 
-            <button onclick="adicionarSetor()" class="botao-add"> + ADICIONAR SETOR </button>
+            <button onclick="modificarSetor()" class="botao-add"> MODIFICAR SETOR </button>
         </div>
 
         <div class="quadrado-lista">
-            <h3>LISTA DE SETORES ADICIONADOS</h3>
+            <h3>LISTA DE SETORES</h3>
             <table>
                 <thead>
                     <tr>
@@ -55,52 +55,44 @@
 </html>
 
 <script>
-let listaDeSetor = [];
-
-function adicionarSetor() {
-    let nome = campoSetor.value;
-    let corredor = campoCorredor.value;
-    let meta = campoMeta.value;
-
-    if (nome == "" || corredor == "" || meta == "") {
-        alert("Por favor, preencha todos os campos!");
-        return;
+    let setores = [];
+ function obterSetores() {
+        fetch(`/gestao/listarSetores/${sessionStorage.idLoja}`)
+            .then(function(resposta) {
+                if (resposta.ok) {
+                    resposta.json().then(function(setor) {
+                        console.log(`Dados recebidos: ${JSON.stringify(setor)}`);
+                        setores = setor
+                        exibirSetor();
+                    });
+                } else {
+                    console.error('Nenhum dado encontrado ou erro na API');
+                }
+            })
+            .catch(function(erro) {
+                console.error(`Erro na obtenção dos setores: ${erro.message}`);
+            });
     }
 
-    let novo = {
-        nomeFunc: nome,
-        corredorFunc: corredor,
-        metaFunc: meta
-    };
+    function exibirSetor() {
+        let tabela = tabelaSetores;
+        tabela.innerHTML = "";
 
-    listaDeSetor.push(novo);
+       for (var i = 0; i < setores.length; i++){
+            var setorS = setores[i];
 
-    campoSetor.value = "";
-    campoCorredor.value = "";
-    campoMeta.value = "";
-
-    mostrarNaTela();
-}
-
-function mostrarNaTela() {
-    let tabela = tabelaSetores;
-    tabela.innerHTML = "";
-
-    for (let i = 0; i < listaDeSetor.length; i++) {
-        let setor = listaDeSetor[i];
-
-        tabela.innerHTML += `
+            tabela.innerHTML += `
             <tr>
-                <td>${setor.nomeFunc}</td>
-                <td>${setor.corredorFunc}</td>
-                <td>${setor.metaFunc}</td>
+                <td>${setorS.nomeSetor}</td>
+                <td>${setorS.idSetor}</td>
+                <td>${setorS.meta}</td>
                 <td>
                     <button class="botao-excluir" onclick="remover(${i})">Excluir</button>
                 </td>
             </tr>
-        `;
+            `;  
+        }
     }
-}
 
 function sairTela() {
     if (confirm("Deseja sair desta tela?")) {

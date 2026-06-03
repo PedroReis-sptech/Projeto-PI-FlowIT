@@ -6,4 +6,12 @@ function listar() {
   return database.executar(instrucaoSql);
 }
 
-module.exports = {buscarPorId, listar };
+function listarSetores() {
+  var instrucaoSql = `SELECT idSetor, nomesetor, meta
+  FROM setor 
+  JOIN loja ON fkLoja = idLoja
+  WHERE fkLoja = '${id}'`;
+
+  return database.executar(instrucaoSql);
+}
+module.exports = {listarSetores};
