@@ -111,7 +111,7 @@
             })
         }).then(function (resposta) {
             if (resposta.ok) {
-                console.log("Cargo atualizado com sucesso!");
+                alert("Cargo atualizado com sucesso!");
                 gerenciar();
             } else {
                 console.error("Erro ao atualizar cargo.");
@@ -127,7 +127,7 @@
                 method: "DELETE"
             }).then(function (resposta) {
                 if (resposta.ok) {
-                    console.log("Usuário deletado com sucesso!");
+                    alert("Usuário deletado com sucesso!");
                     gerenciar();
                 } else {
                     console.error("Erro ao deletar usuário.");
