@@ -47,58 +47,100 @@
 </html>
 
 <script>
-let listaDeEquipe = [];
-
-window.onload = exibirFunc();
+    window.onload = gerenciar;
 
     function gerenciar() {
-            var codigoLoja = sessionStorage.codigo;
+    var codigoLoja = sessionStorage.ID_LOJA;
 
-            // busca os atributos
-            fetch(`/usuarios/gerenciar/${codigoLoja}`, { cache: 'no-store' })
-                .then(function(resposta) {
-                    if (resposta.ok) {
-                        resposta.json().then(function(dado) {
-                            console.log(`Dados recebidos: ${JSON.stringify(dado)}`);
-                            exibirTabela(dado);
-                        });
-                    } else {
-                        console.error('Nenhum dado encontrado ou erro na API');
-                    }
-                })
-                .catch(function(erro) {
-                    console.error(`Erro na obtenção do tipo dominante: ${erro.message}`);
+    if (!codigoLoja) {
+        console.error("ID da loja não encontrado no sessionStorage.");
+        return;
+    }
+
+    fetch(`/gestaoUsuario/listarUsuarios/${codigoLoja}`, { cache: 'no-store' })
+        .then(function(resposta) {
+            if (resposta.ok) {
+                resposta.json().then(function(dado) {
+                    console.log(`Dados recebidos: ${JSON.stringify(dado)}`);
+                    exibirTabela(dado);
                 });
-        }   
+            } else {
+                console.error('Nenhum dado encontrado ou erro na API');
+            }
+        })
+        .catch(function(erro) {
+            console.error(`Erro na obtenção dos usuários: ${erro.message}`);
+        });
+}   
 
     function exibirTabela(dado) {
+        var container = document.getElementById("tabeladados");
+        container.innerHTML = "";
 
-        var container = document.getElementById("tabelaU");
-            container.innerHTML = ""; // limpa antes de renderizar
-            dado.forEach(function(usuario) {
-                container.innerHTML += `
-                    <div class="dado-item">
-                    <tr>
-                            <td>${usuario.nomeUsuario}</td>
-                            <td>${usuario.email}</td>
-                            <td>${usuario.cargo}</td>
-                            <td>
-                                <button class="botao-excluir" onclick="remover(${i})">Excluir</button>
-                            </td>
-                        </tr>
-                    </div>
-                `;
+        for (var i = 0; i < dado.length; i++) {
+        var usuario = dado[i];
+
+        container.innerHTML += `
+            <tr>
+                <td>${usuario.nomeUsuario}</td>
+                <td>${usuario.email}</td>
+                <td>
+                    <select onchange="alterarCargo(${usuario.idUsuario}, this.value)">
+                        <option value="1" ${usuario.fkPermissao == 1 ? 'selected' : ''}>Gerente</option>
+                        <option value="2" ${usuario.fkPermissao == 2 ? 'selected' : ''}>Consultor</option>
+                        <option value="3" ${usuario.fkPermissao == 3 ? 'selected' : ''}>Suporte</option>
+                    </select>
+                </td>
+                <td>
+                    <button class="botao-excluir" onclick="remover(${usuario.idUsuario})">Excluir</button>
+                </td>
+            </tr>
+        `;
+    }
+}
+
+    function alterarCargo(idUsuario, novaPermissao) {
+        fetch("/gestaoUsuario/alterarCargo", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                idUsuario: idUsuario,
+                fkPermissao: novaPermissao
+            })
+        }).then(function (resposta) {
+            if (resposta.ok) {
+                console.log("Cargo atualizado com sucesso!");
+                gerenciar();
+            } else {
+                console.error("Erro ao atualizar cargo.");
+            }
+        }).catch(function (erro) {
+            console.error(`Erro: ${erro.message}`);
+        });
+    }
+
+    function remover(idUsuario) {
+        if (confirm("Tem certeza que deseja excluir este usuário?")) {
+            fetch(`/gestaoUsuario/deletarUsuario/${idUsuario}`, {
+                method: "DELETE"
+            }).then(function (resposta) {
+                if (resposta.ok) {
+                    console.log("Usuário deletado com sucesso!");
+                    gerenciar();
+                } else {
+                    console.error("Erro ao deletar usuário.");
+                }
+            }).catch(function (erro) {
+                console.error(`Erro: ${erro.message}`);
             });
         }
+    }
 
-function sairTela() {
-    if (confirm("Deseja sair desta tela?")) {
-    window.location.href = "../index.html";
-} 
-}
-
-function remover(posicao) {
-    listaDeEquipe.splice(posicao, 1);
-    mostrarNaTela();
-}
+    function sairTela() {
+        if (confirm("Deseja sair desta tela?")) {
+            window.location.href = "../index.html";
+        } 
+    }
 </script>
