@@ -7,7 +7,7 @@ function autenticar(email, senha) {
         SELECT u.idUsuario, u.nomeUsuario, u.email, u.senha, p.cargo, l.idLoja
          FROM usuario u
          JOIN permissao p ON u.fkPermissao = p.idPermissao
-         JOIN loja l ON u.fkLoja = l.idLoja
+         LEFT JOIN loja l ON u.fkLoja = l.idLoja
          WHERE u.email = "${email}" AND u.senha = "${senha}";`;
 
     console.log("Executando a instrução SQL: \n" + instrucaoSql);
