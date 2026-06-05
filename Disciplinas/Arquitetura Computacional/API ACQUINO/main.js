@@ -19,18 +19,18 @@ const serial = async (
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
-            host: '127.0.0.1',
-            user: 'aluno',
-            password: 'sptech',
+            host: '10.18.32.121',
+            user: 'inserter',
+            password: 'Insert#2024',
             database: 'flow',
-            port: 3306
+            port: 3307
         }
     ).promise();
 
     // lista as portas seriais disponíveis e procura pelo Arduino
     const portas = await serialport.SerialPort.list();
-    // const portaArduino = portas.find((porta) => porta.vendorId == '1A86' && porta.productId == 7523);
-    const portaArduino = portas.find((porta) => porta.vendorId == 2341 && porta.productId == 43);
+    const portaArduino = portas.find((porta) => porta.vendorId == '1A86' && porta.productId == 7523);
+    // const portaArduino = portas.find((porta) => porta.vendorId == 2341 && porta.productId == 43);
     if (!portaArduino) {
         throw new Error('O arduino não foi encontrado em nenhuma porta serial');
     }
