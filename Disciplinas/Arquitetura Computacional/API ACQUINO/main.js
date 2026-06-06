@@ -19,11 +19,11 @@ const serial = async (
     // conexão com o banco de dados MySQL
     let poolBancoDados = mysql.createPool(
         {
-            host: '10.18.32.121',
+            host: '127.0.0.1',
             user: 'inserter',
             password: 'Insert#2024',
             database: 'flow',
-            port: 3307
+            port: 3306
         }
     ).promise();
 
@@ -54,9 +54,9 @@ const serial = async (
         const valores = data.split(';');
         const sensorBloqueio = valores[0];
 
-        // 0 = Alimenticio        // 3 = Vestuario 
-        // 1 = Eletronicos        // 4 = Higiene
-        // 2 = Utencilios         // 5 = Caixa
+        // 0 = ?????????????             // 3 = Utensilio menor
+        // 1 = Alimenticio maior         // 4 = Eletronico
+        // 2 = Vestuario                 // 5 = Higiene
 
         let leituraSetores = [];
 
@@ -71,28 +71,28 @@ const serial = async (
                 }
                 leituraSetores.push(inserido)
             } else if (i == 1) {
-                if (dado >= 3) {
+                if (dado >= 1) {
                     inserido = 1;
                 } else {
                     inserido = 0;
                 }
                 leituraSetores.push(inserido)
             } else if (i == 2) {
-                if (dado >= 5) {
+                if (dado > 6) {
                     inserido = 1;
                 } else {
                     inserido = 0;
                 }
                 leituraSetores.push(inserido)
             } else if (i == 3) {
-                if (dado >= 7) {
+                if (dado > 7) {
                     inserido = 1;
                 } else {
                     inserido = 0;
                 }
                 leituraSetores.push(inserido)
             } else if (i == 4) {
-                if (dado >= 1) {
+                if (dado > 4) {
                     inserido = 1;
 
                 } else {
@@ -100,7 +100,7 @@ const serial = async (
                 }
                 leituraSetores.push(inserido)
             } else if (i == 5) {
-                if (dado >= 1) {
+                if (dado > 5) {
                     inserido = 1;
 
                 } else {

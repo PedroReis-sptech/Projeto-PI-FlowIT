@@ -19,6 +19,7 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja AND rs.dataLeitura >= CURDATE()
+AND DAY(rs.dataLeitura) = DAY(NOW())
 GROUP BY st.idSetor, st.nomeSetor;`;
 
 
@@ -41,7 +42,8 @@ JOIN corredor       c   ON st.idSetor   = c.fkSetor
 JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
-  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19
+  AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20
+  AND DAY(rs.dataLeitura) = DAY(NOW())
 GROUP BY turno;`;
   } else {
   var instrucaoSql = `SELECT 
@@ -57,6 +59,7 @@ JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
   AND HOUR(rs.dataLeitura) BETWEEN 8 AND 19 AND st.nomeSetor = '${setor}'
+  AND DAY(rs.dataLeitura) = DAY(NOW())
 GROUP BY turno;`;
   }
 
@@ -77,6 +80,7 @@ JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
   AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20
+  AND DAY(rs.dataLeitura) = DAY(NOW())
 GROUP BY  HOUR(rs.dataLeitura)
 ORDER BY hora;
 `;
@@ -90,6 +94,7 @@ JOIN sensor         ss  ON c.idCorredor = ss.fkCorredor
 JOIN registroSensor rs  ON ss.idSensor  = rs.fkSensor
 WHERE st.fkloja
   AND HOUR(rs.dataLeitura) BETWEEN 8 AND 20 AND st.nomeSetor = '${setor}'
+  AND DAY(rs.dataLeitura) = DAY(NOW())
 GROUP BY  HOUR(rs.dataLeitura)
 ORDER BY hora;
 `;

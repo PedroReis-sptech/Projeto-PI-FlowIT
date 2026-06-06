@@ -114,106 +114,107 @@
 
 </html>
 
+
 <script>
     const colors = ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", "#14B8A6", "#353538"];
     const colorspizza = ["#00123d", "#0656be", "#0cb2ff"];
     const colorssemana = ["#3a2749", "#006a85", "#6c00f8", "#5dd6e6", "#0f2c8f", "#6e8499", "#0d1529"]
     const dadosSetores = {
         geral: {
-            linha: [12, 45, 82, 110, 150, 190, 165, 140, 155, 210, 230, 180, 95],
-            pizza: [450, 820, 680],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [220, 240, 250, 230, 310, 420, 380],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Geral',
             pizzaTitle: 'Movimento por turno - Geral',
             linhaTitle: 'Fluxo Geral por hora'
         },
         caixa: {
-            linha: [10, 38, 70, 95, 130, 160, 140, 110, 125, 180, 200, 150, 80],
-            pizza: [380, 710, 590],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [190, 210, 220, 200, 280, 390, 350],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo dos Caixas',
             pizzaTitle: 'Movimento por turno - Caixas',
             linhaTitle: 'Fluxo por hora - Caixas'
         },
         alimenticio: {
-            linha: [8, 25, 55, 70, 90, 110, 100, 85, 95, 130, 145, 110, 60],
-            pizza: [280, 490, 420],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [150, 160, 170, 165, 210, 280, 240],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Alimentício',
             pizzaTitle: 'Movimento por turno - Alimentício',
             linhaTitle: 'Fluxo por hora - Alimentício'
         },
         vestuario: {
-            linha: [2, 10, 22, 35, 48, 55, 50, 42, 45, 65, 70, 55, 30],
-            pizza: [120, 250, 210],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [70, 85, 90, 88, 110, 140, 130],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Vestuário',
             pizzaTitle: 'Movimento por turno - Vestuário',
             linhaTitle: 'Fluxo por hora - Vestuário'
         },
         eletrodomesticos: {
-            linha: [1, 5, 12, 18, 25, 22, 18, 15, 20, 30, 35, 28, 12],
-            pizza: [65, 110, 95],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [35, 40, 42, 38, 55, 75, 68],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Eletrodomésticos',
             pizzaTitle: 'Movimento por turno - Eletrodomésticos',
             linhaTitle: 'Fluxo por hora - Eletrodomésticos'
         },
         eletronicos: {
-            linha: [3, 15, 30, 45, 60, 75, 65, 50, 55, 85, 95, 70, 40],
-            pizza: [160, 320, 280],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [85, 100, 110, 105, 135, 180, 160],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Eletrônicos',
             pizzaTitle: 'Movimento por turno - Eletrônicos',
             linhaTitle: 'Fluxo por hora - Eletrônicos'
         },
         papelaria: {
-            linha: [2, 8, 15, 22, 28, 35, 30, 25, 28, 40, 45, 35, 18],
-            pizza: [80, 160, 140],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [45, 50, 55, 52, 70, 90, 85],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Papelaria',
             pizzaTitle: 'Movimento por turno - Papelaria',
             linhaTitle: 'Fluxo por hora - Papelaria'
         },
         brinquedos: {
-            linha: [1, 12, 28, 40, 55, 80, 75, 60, 65, 90, 100, 85, 45],
-            pizza: [140, 330, 290],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [75, 90, 95, 92, 125, 170, 155],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Brinquedos',
             pizzaTitle: 'Movimento por turno - Brinquedos',
             linhaTitle: 'Fluxo por hora - Brinquedos'
         },
         utencilios: {
-            linha: [2, 10, 20, 30, 42, 48, 40, 35, 38, 55, 60, 45, 25],
-            pizza: [110, 220, 195],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [60, 70, 75, 72, 95, 120, 110],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Utencílios',
             pizzaTitle: 'Movimento por turno - Utencílios',
             linhaTitle: 'Fluxo por hora - Utencílios'
         },
         livraria: {
-            linha: [1, 4, 8, 12, 18, 22, 20, 15, 18, 25, 28, 20, 10],
-            pizza: [50, 95, 85],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [25, 32, 35, 30, 45, 60, 55],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Livraria',
             pizzaTitle: 'Movimento por turno - Livraria',
             linhaTitle: 'Fluxo por hora - Livraria'
         },
         higiene: {
-            linha: [5, 18, 35, 50, 65, 85, 75, 60, 68, 95, 105, 80, 45],
-            pizza: [190, 360, 310],
-            barra: [19, 3, 12, 8, 4, 18, 14, 10, 12],
-            rosca: [100, 115, 120, 118, 150, 200, 185],
+            linha: [],
+            pizza: [],
+            barra: [],
+            rosca: [],
             label: 'Fluxo Higiene',
             pizzaTitle: 'Movimento por turno - Higiene',
             linhaTitle: 'Fluxo por hora - Higiene'
@@ -287,7 +288,7 @@
                     icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#40FF40"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>'
                     card.style.backgroundColor = '#086608'
                 } else {
-                    console.log(`Quanto falta para meta diária: ${quantoFaltaMetaDiaria}`)
+                    // console.log(`Quanto falta para meta diária: ${quantoFaltaMetaDiaria}`)
                     spanQuantoFaltaMetaDiaria.innerHTML = `Faltam ${quantoFaltaMetaDiaria} ativações para atingir a meta diária`
                     icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FF4D4D"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z"/></svg>'
                     card.style.backgroundColor = '#531111'
@@ -310,7 +311,7 @@
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
-                        console.log(`Dados recebidos de Meta Diaria: ${JSON.stringify(resultado)}`);
+                        // console.log(`Dados recebidos de Meta Diaria: ${JSON.stringify(resultado)}`);
 
                         metaDiaria = resultado
                         return resultado;
@@ -363,7 +364,7 @@
                     icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#40FF40"><path d="M720-120H280v-520l280-280 50 50q7 7 11.5 19t4.5 23v14l-44 174h258q32 0 56 24t24 56v80q0 7-2 15t-4 15L794-168q-9 20-30 34t-44 14Zm-360-80h360l120-280v-80H480l54-220-174 174v406Zm0-406v406-406Zm-80-34v80H160v360h120v80H80v-520h200Z"/></svg>'
                     card.style.backgroundColor = '#086608'
                 } else {
-                    console.log(`Quanto falta para meta Semanal: ${quantoFaltaMetaSemanal}`)
+                    // console.log(`Quanto falta para meta Semanal: ${quantoFaltaMetaSemanal}`)
                     spanQuantoFaltaMetaSemanal.innerHTML = `Faltam ${quantoFaltaMetaSemanal} ativações para atingir a meta semanal`
                     icon.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#FF4D4D"><path d="m40-120 440-760 440 760H40Zm138-80h604L480-720 178-200Zm330.5-51.5Q520-263 520-280t-11.5-28.5Q497-320 480-320t-28.5 11.5Q440-297 440-280t11.5 28.5Q463-240 480-240t28.5-11.5ZM440-360h80v-200h-80v200Zm40-100Z"/></svg>'
                     card.style.backgroundColor = '#531111'
@@ -380,7 +381,7 @@
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
-                        console.log(`Soma de registros de todos os setores juntos do dia da consulta apenas: ${JSON.stringify(resultado)}`);
+                        // console.log(`Soma de registros de todos os setores juntos do dia da consulta apenas: ${JSON.stringify(resultado)}`);
 
                         quantRegistrosDia = resultado
                         return resultado;
@@ -446,7 +447,7 @@
                     nomeSetor = "Setor Higiene";
                 }
 
-                console.log(`setor com maior queda é: ${nomeSetor}`)
+                // console.log(`setor com maior queda é: ${nomeSetor}`)
                 spanSetorQueda.innerHTML = `${nomeSetor} <span class="seta-icon t-1">▼</span>`
 
             })
@@ -500,7 +501,7 @@
                     nomeSetorCres = "Setor Higiene";
                 }
 
-                console.log(`setor com maior cresc é: ${nomeSetorCres}`)
+                // console.log(`setor com maior cresc é: ${nomeSetorCres}`)
                 spanSetorCrescimento.innerHTML = `${nomeSetorCres} <span class="seta-icon t-2">▲</span>`
 
 
@@ -513,7 +514,7 @@
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
-                        console.log(`Ultimo registro: ${JSON.stringify(resultado)}`);
+                        // console.log(`Ultimo registro: ${JSON.stringify(resultado)}`);
                         var registro = resultado[0]; 
                         var dataFormatada = registro.dataLeitura; 
                     document.getElementById('spanUltimoRegistro').innerHTML = `<i>Dados Obtidos em ${dataFormatada}</i>`;
@@ -531,9 +532,7 @@
     }
     fetchRegistro()
 
-    setInterval(() => {
-        compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1); fetchRegistro();
-    }, "1000");
+    
 
     function menuAjuda(){
         const menu = document.getElementById("menuAjuda");
@@ -554,7 +553,7 @@
                     return response.json().then(function (resultado) {
                         // console.log(`Dados recebidos grafico 
                         // de barras: ${JSON.stringify(resultado)}`);
-                        console.log(response)
+                        // console.log(response)
                         plotarGraficoBarras(resultado)
                         // resultadoAtivacaoAteODia = resultado
                         return resultado;
@@ -576,8 +575,8 @@
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
-                        console.log(`Dados recebidos grafico 
-                        de Pizza: ${JSON.stringify(resultado)}`);
+                        // console.log(`Dados recebidos grafico 
+                        // de Pizza: ${JSON.stringify(resultado)}`);
 
                         plotarGraficoPizza(resultado)
                         return resultado;
@@ -599,8 +598,8 @@
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
-                        console.log(`Dados recebidos grafico 
-                        de Linha: ${JSON.stringify(resultado)}`);
+                        // console.log(`Dados recebidos grafico 
+                        // de Linha: ${JSON.stringify(resultado)}`);
 
                         plotarGraficoLinha(resultado)
                         return resultado;
@@ -622,8 +621,8 @@
             .then(function (response) {
                 if (response.ok) {
                     return response.json().then(function (resultado) {
-                        console.log(`Dados recebidos grafico 
-                        de Radar: ${JSON.stringify(resultado)}`);
+                        // console.log(`Dados recebidos grafico 
+                        // de Radar: ${JSON.stringify(resultado)}`);
                         plotarGraficoRadar(resultado)
                         return resultado;
                     });
@@ -662,13 +661,13 @@
             valoresGraficoBarras.push(resposta[i].percentualAtivacao);
         }
 
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labelsGraficoBarras)
-        console.log('Dados:')
-        console.log(valoresGraficoBarras)
-        console.log('----------------------------------------------')
+        // console.log('----------------------------------------------')
+        // console.log('O gráfico será plotado com os respectivos valores:')
+        // console.log('Labels:')
+        // console.log(labelsGraficoBarras)
+        // console.log('Dados:')
+        // console.log(valoresGraficoBarras)
+        // console.log('----------------------------------------------')
 
     }
 
@@ -682,13 +681,13 @@
             valoresGraficoPizza.push(resposta[i].quantidade);
         }
 
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labelsGraficoPizza)
-        console.log('Dados:')
-        console.log(valoresGraficoPizza)
-        console.log('----------------------------------------------')
+        // console.log('----------------------------------------------')
+        // console.log('O gráfico será plotado com os respectivos valores:')
+        // console.log('Labels:')
+        // console.log(labelsGraficoPizza)
+        // console.log('Dados:')
+        // console.log(valoresGraficoPizza)
+        // console.log('----------------------------------------------')
 
 
     }
@@ -703,13 +702,13 @@
             valoresGraficoLinha.push(resposta[i].quantidade);
         }
 
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labelsGraficoLinha)
-        console.log('Dados:')
-        console.log(valoresGraficoLinha)
-        console.log('----------------------------------------------')
+        // console.log('----------------------------------------------')
+        // console.log('O gráfico será plotado com os respectivos valores:')
+        // console.log('Labels:')
+        // console.log(labelsGraficoLinha)
+        // console.log('Dados:')
+        // console.log(valoresGraficoLinha)
+        // console.log('----------------------------------------------')
 
     }
 
@@ -723,13 +722,13 @@
             valoresGraficoRadar.push(resposta[i].quantidade);
         }
 
-        console.log('----------------------------------------------')
-        console.log('O gráfico será plotado com os respectivos valores:')
-        console.log('Labels:')
-        console.log(labelsGraficoRadar)
-        console.log('Dados:')
-        console.log(valoresGraficoRadar)
-        console.log('----------------------------------------------')
+        // console.log('----------------------------------------------')
+        // console.log('O gráfico será plotado com os respectivos valores:')
+        // console.log('Labels:')
+        // console.log(labelsGraficoRadar)
+        // console.log('Dados:')
+        // console.log(valoresGraficoRadar)
+        // console.log('----------------------------------------------')
 
     }
 
@@ -876,29 +875,6 @@
         chartRadar.update();
     }
 
-    function fetchRegistro() {
-        return fetch(`/graficos/buscarUltimoRegistro`, { cache: 'no-store' })
-            .then(function (response) {
-                if (response.ok) {
-                    return response.json().then(function (resultado) {
-                        console.log(`Ultimo registro: ${JSON.stringify(resultado)}`);
-                        var registro = resultado[0]; 
-                        var dataFormatada = registro.dataLeitura; 
-                    document.getElementById('spanUltimoRegistro').innerHTML = `<i>Dados Obtidos em ${dataFormatada}</i>`;
-                    return resultado;
-                    });
-                } else {
-                    console.error('Nenhum dado encontrado ou erro na API');
-                    return null;
-                }
-            })
-            .catch(function (error) {
-                console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`);
-                return null;
-            });
-    }
-    fetchRegistro()
-
 
     function sairTela() {
         if (confirm("Deseja sair desta tela?")) {
@@ -911,20 +887,24 @@
 
 </script>
 
-<script>
 
-</script>
 
 <script>
-    setInterval(() => {
+    setInterval(async () => {
+        
+        compararParaVerQualSetorDiminuiu(); 
+        compararParaVerQualSetorCresceu(); 
+        ativacoesParaMetaDiaria(); 
+        ativacoesParaMetaSemanal();
 
-        compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal();
-        fetchGraficoBarras(1); fetchGraficoPizza(); fetchGraficoLinha(); fetchGraficoRadar(); fetchRegistro();
+        await fetchGraficoBarras(1);
+        
+        await fetchGraficoPizza(); 
+        await fetchGraficoLinha();
+        await fetchGraficoRadar();
+        await fetchRegistro();
 
         atualizarGraficos();
 
-        // 
-
-
-    }, "1000");
+    }, 1000); 
 </script>
