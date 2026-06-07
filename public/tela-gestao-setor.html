@@ -27,10 +27,10 @@
             <h3>ADICIONAR SETOR</h3>
             
             <input type="text" id="campoSetor" placeholder="NOME DO SETOR">
-            <input type="corredor" id="campoCorredor" placeholder="Corredor">
-            <input type="corredor" id="campoMeta" placeholder="Meta do setor">
+            <input type="text" id="campoCorredor" placeholder="NÚMERO DO CORREDOR">
+            <input type="number" id="campoMeta" placeholder="Meta do setor">
 
-            <button onclick="modificarSetor()" class="botao-add"> MODIFICAR SETOR </button>
+            <button onclick="adicionarSetor()" class="botao-add"> ADICIONAR SETOR </button>
         </div>
 
         <div class="quadrado-lista">
@@ -59,13 +59,21 @@
         setores: []
     };
 
- function obterSetores() {
-        fetch(`/gestao/listarSetores/${sessionStorage.ID_LOJA}`)
+    var codigoLoja = sessionStorage.ID_LOJA;
+
+    if (!codigoLoja) {
+        console.log("ID da loja não encontrado no sessionStorage.");
+    } else {
+        obterSetores();
+    }
+
+    function obterSetores() {
+        fetch(`/gestao/listarSetores/${codigoLoja}`, { cache: 'no-store' })
             .then(function(resposta) {
                 if (resposta.ok) {
                     resposta.json().then(function(setor) {
                         console.log(`Dados recebidos: ${JSON.stringify(setor)}`);
-                        loja.setores = setor
+                        loja.setores = setor;
                         exibirSetor();
                     });
                 } else {
@@ -77,33 +85,97 @@
             });
     }
 
+    function excluirSetor(idSetor) {
+        if (confirm("Tem certeza que deseja excluir este setor?")) {
+            fetch(`/gestao/deletarSetor/${idSetor}`, { 
+                method: 'DELETE',
+                cache: 'no-store' 
+            })
+            .then(function(resposta) {
+                if (resposta.ok) {
+                    console.log("Setor deletado com sucesso!");
+                    obterSetores(); 
+                } else {
+                    console.error('Erro ao deletar na API');
+                }
+            })
+            .catch(function(erro) {
+                console.error(`Erro na exclusão do setor: ${erro.message}`);
+            });
+        }
+    }
+
+function adicionarSetor() {
+    var nomeInput = document.getElementById("campoSetor").value;
+    var corredorInput = document.getElementById("campoCorredor").value; 
+    var metaInput = document.getElementById("campoMeta").value;
+
+    if (nomeInput == "" || corredorInput == "" || metaInput == "") {
+        alert("Por favor, preencha todos os campos obrigatórios.");
+        return;
+    }
+
+    for (var i = 0; i < loja.setores.length; i++) {
+        var setorExistente = loja.setores[i];
+
+        if (setorExistente.idCorredor == corredorInput) {
+            alert("O corredor de número " + corredorInput + " já está sendo utilizado por outro setor! Escolha outro.");
+            return; 
+        }
+    }
+
+    fetch(`/gestao/cadastrarSetor`, { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            nomeSetor: nomeInput,
+            idCorredor: corredorInput,
+            meta: metaInput,
+            fkLoja: codigoLoja
+        })
+    })
+    .then(function(resposta) {
+        if (resposta.ok) {
+            console.log("Setor e corredor adicionados com sucesso!");
+            document.getElementById("campoSetor").value = "";
+            document.getElementById("campoCorredor").value = "";
+            document.getElementById("campoMeta").value = "";
+            
+            obterSetores();
+        } else {
+            console.error('Erro ao cadastrar ou erro na API');
+        }
+    })
+    .catch(function(erro) {
+        console.error(`Erro no cadastro do setor: ${erro.message}`);
+    });
+}
+
     function exibirSetor() {
         let tabela = document.getElementById("tabelaSetores"); 
         tabela.innerHTML = "";
-       for (var i = 0; i < loja.setores.length; i++){
-            var setorS = loja.setores[i];
+        for (var i = 0; i < loja.setores.length; i++){
+            var setoresLoja = loja.setores[i];
+
+            var corredorExibicao = setoresLoja.idCorredor ? setoresLoja.idCorredor : "Não informado";
 
             tabela.innerHTML += `
             <tr>
-                <td>${setorS.nomeSetor}</td>
-                <td>${setorS.idSetor}</td>
-                <td>${setorS.meta}</td>
+                <td>${setoresLoja.nomeSetor}</td>
+                <td>${corredorExibicao}</td> <td>${setoresLoja.meta}</td>
                 <td>
-                    <button class="botao-excluir" onclick="remover(${i})">Excluir</button>
+                    <button class="botao-excluir" onclick="excluirSetor(${setoresLoja.idSetor})">Excluir</button>
                 </td>
             </tr>
             `;  
         }
     }
 
-function sairTela() {
-    if (confirm("Deseja sair desta tela?")) {
-    window.location.href = "../public/index.html";
-} 
-}
-
-function remover(posicao) {
-    listaDeSetor.splice(posicao, 1);
-    mostrarNaTela();
-}
+    function sairTela() {
+        if (confirm("Deseja sair desta tela?")) {
+            window.location.href = "../public/index.html";
+        } 
+    }
 </script>
