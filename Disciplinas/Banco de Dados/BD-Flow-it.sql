@@ -629,12 +629,3 @@ SELECT * FROM view_buscarAtivacoesPorSetorAteODiaDaConsulta;
 SELECT * FROM buscarSomaDosRegistrosDosSetoresNoDia;
 SELECT * FROM view_buscarMetaDiaria;
 
-      SELECT 
-      s.idSetor, 
-      s.nomeSetor, 
-      s.meta, 
-      c.idCorredor
-    FROM setor s
-    JOIN loja l ON s.fkLoja = l.idLoja
-    LEFT JOIN corredor c ON c.fkSetor = s.idSetor
-    WHERE s.fkLoja = 1;

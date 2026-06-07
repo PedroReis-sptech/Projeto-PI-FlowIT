@@ -3,7 +3,7 @@ var gestaoModel = require("../models/gestaoUsuarioModel");
 function listarUsuarios(req, res) {
   var idLoja = req.params.idLoja;
 
-  gestaoUsuarioModel.listarUsuarios(idLoja)
+  gestaoModel.listarUsuarios(idLoja)
     .then((resultado) => {
       res.status(200).json(resultado);
     }).catch(function(erro) {
@@ -16,7 +16,7 @@ function alterarCargo(req, res) {
   var idUsuario = req.body.idUsuario;
   var fkPermissao = req.body.fkPermissao;
 
-  gestaoUsuarioModel.alterarCargo(idUsuario, fkPermissao)
+  gestaoModel.alterarCargo(idUsuario, fkPermissao)
     .then((resultado) => {
       res.status(200).json(resultado);
     }).catch(function(erro) {
@@ -28,7 +28,7 @@ function alterarCargo(req, res) {
 function deletarUsuario(req, res) {
   var idUsuario = req.params.idUsuario;
 
-  gestaoUsuarioModel.deletarUsuario(idUsuario)
+  gestaoModel.deletarUsuario(idUsuario)
     .then((resultado) => {
       res.status(200).json(resultado);
     }).catch(function(erro) {
@@ -40,7 +40,7 @@ function deletarUsuario(req, res) {
 function listarSetores(req, res) {
   var id = req.params.idLoja;
 
-  gestaoUsuarioModel.listarSetores(id).then((resultado) => {
+  gestaoModel.listarSetores(id).then((resultado) => {
     res.status(200).json(resultado);
   }).catch(function(erro) {
       console.log(erro);
