@@ -5,34 +5,44 @@ body {
     flex-direction: column;
     justify-content: top;
     align-items: center;
-    background-image: url('https://www.shutterstock.com/image-photo/blurred-image-shows-interior-supermarket-600nw-2645858227.jpg');
-    background-size: cover;
-    width: 100%;
-    height: 650px;
-    background-color: #3d5a9897;
-    background-blend-mode: multiply;
+    background-color: #1b3263;
 }
 
 
 #container {
-    width: 80%;
-    margin: 50px auto;
+    width: 60%;
+    height: 500px;
+    border-radius: 50px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    align-items: center;
     text-align: center;
+    background-color: #eee;
+    box-shadow: 4px 4px 50px #ffffff6c;
 }
 
 h1 {
     color: white;
+    margin-top: 30px;
+}
+
+h2 {
+    color: #1b3263;
+    margin-top: 60px;
 }
 
 h3 {
-    color: white;
+    color: #1b3263;
 }
 
 textarea[type="text"] {
     padding: 8px;
     font-size: 16px;
-    border-radius: 5px;
+    border-radius: 15px;
+    border: none;
     width: 400px;
+    height: 100px;
 }
 
 select,
@@ -45,12 +55,16 @@ button {
 
 button {
     background-color: #1b3263;
+    border-radius: 30px;
+    font-weight: bold;
+    font-size: 18px;
+    padding: 15px;
     color: #FFFFFF;
     border: none;
 }
 
 button:hover {
-    background-color: #EFB661;
+    background-color: #1b3263c0;
 }
 
 #resposta {
@@ -61,4 +75,47 @@ button:hover {
     border: 1px solid #63666A;
     text-align: left;
     display: none;
+}
+
+.header a,
+.header img {
+    cursor: pointer;
+    transition: transform 2s ease;
+}
+
+.header img:hover{
+    transform: scale(1.25);
+}
+
+
+.img-container {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    flex-direction: row;
+    margin-right: 100px;
+    width: 100%;
+    margin-top: 80px;
+    margin-bottom: 10px;
+}
+
+.img-container a {
+    text-decoration: none;
+    color: #ffc716;
+}
+
+.img-container span {
+    padding: 10px;    
+}
+
+.img-link {
+    width: 100%;
+    border-radius: 50px;
+    border: solid 2px #ffc716;
+    transition: transform 2s ease;
+}
+
+.img-link:hover {
+    transform: scale(1.05);
+    border: solid 2px #fff;
 }

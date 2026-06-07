@@ -7,16 +7,25 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
+    <div class="header">
+        <a href="../../../../public/index.html">
+            <img src="../../../../public/assets/imagens/flowlogo.png" alt="logo flow" width="100px">
+        </a>
+    </div>
+    <h1>Agente de Apoio ao Suporte</h1>
     <div id="container">
-        <h1>BobIA</h1>
+        <h2>BobIA</h2>
         <textarea id="pergunta" type="text" placeholder="Digite a pergunta..."></textarea>
         <br><br>
         <button onclick="gerarResposta()">Gerar Resposta</button>
         <h3>Resposta da IA:</h3>
         <div id="resposta"></div>
+        <div class="img-container">
+        <a href="https://flow1t.atlassian.net/jira/servicedesk/projects/SUP/queues/custom/1">
+            <img class="img-link" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHIUXMd6_PkWGcNMbnN-Jb8W1g0Ffz2cNZqw&s" alt="" style="width: 50px;">
+        </a>
     </div>
-
+    </div>
     <script>
         
         async function gerarResposta() {
