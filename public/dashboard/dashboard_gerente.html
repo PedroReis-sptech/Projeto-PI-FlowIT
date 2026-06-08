@@ -17,7 +17,7 @@
             </div>
 
             <div class="saudacoes">
-                <h3>Seja bem-vindo, Fernando Brandão!</h3>
+                <h3 >Seja bem-vindo, <span id="nomeDeUsuario">Usuario</span> !</h3>
             </div>
 
             <div class="links">
@@ -113,6 +113,12 @@
 </body>
 
 </html>
+
+<script>
+    if(sessionStorage.NOME_USUARIO){
+        nomeDeUsuario.innerHTML = sessionStorage.NOME_USUARIO
+    }
+</script>
 
 
 <script>

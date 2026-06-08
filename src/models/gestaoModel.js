@@ -9,6 +9,16 @@ function listarSetores(id) {
   return database.executar(instrucaoSql);
 }
 
+function alterarSetor(idSetor, novaMeta) {
+    var instrucaoSql = `
+        UPDATE setor 
+        SET meta = ${novaMeta} 
+        WHERE idSetor = ${idSetor};
+    `;
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
-  listarSetores
+  listarSetores,
+  alterarSetor
 };

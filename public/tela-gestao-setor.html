@@ -85,15 +85,17 @@
             var setorS = loja.setores[i];
 
             tabela.innerHTML += `
-            <tr>
-                <td>${setorS.nomeSetor}</td>
-                <td>${setorS.idSetor}</td> 
-                <td>${setorS.meta}</td>
-                <td>
-                    <button class="botao-excluir" onclick="remover(${i}, ${setorS.idSetor})">Alterar</button>
-                </td>
-            </tr>
-            `;
+        <tr>
+            <td>${setorS.nomeSetor}</td>
+            <td>${setorS.idSetor}</td> 
+            <td>
+                <input type="number" id="input_meta_${setorS.idSetor}" value="${setorS.meta}" style="width: 80px; text-align: center;">
+            </td>
+            <td>
+                <button class="botao-excluir" onclick="alterar(${setorS.idSetor})">Alterar</button>
+            </td>
+        </tr>
+        `;
         }
     }
 
@@ -102,11 +104,43 @@
             window.location.href = "../public/index.html";
         }
     }
-    
+
     function remover(posicao, idSetor) {
         if (confirm(`Deseja mesmo excluir o setor de ID ${idSetor}?`)) {
             loja.setores.splice(posicao, 1);
             exibirSetor();
         }
     }
+
+    function alterar(idSetor) {
+        var novaMeta = document.getElementById(`input_meta_${idSetor}`).value;
+
+        if (novaMeta == "") {
+            alert("A meta não pode ficar em branco!");
+            return;
+        }
+
+        fetch(`/gestao/alterarSetor/${idSetor}`, {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                meta: novaMeta
+            })
+        })
+            .then(function (resposta) {
+                if (resposta.ok) {
+                    alert("Meta do setor atualizada com sucesso!");
+                    obterSetores();
+                } else {
+                    alert("Houve um erro ao tentar atualizar o setor.");
+                }
+            })
+            .catch(function (erro) {
+                console.error(`Erro: ${erro.message}`);
+            });
+    }
+
+    
 </script>

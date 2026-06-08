@@ -20,6 +20,26 @@ function listarSetores(req, res) {
     }
 }
 
+function alterarSetor(req, res) {
+    var idSetor = req.params.idSetor; 
+    var novaMeta = req.body.meta;     
+
+    if (idSetor == undefined) {
+        res.status(400).send("O ID do setor está undefined!");
+    } else if (novaMeta == undefined) {
+        res.status(400).send("A nova meta está undefined!");
+    } else {
+        gestaoModel.alterarSetor(idSetor, novaMeta)
+            .then(function (resultado) {
+                res.status(200).json(resultado); 
+            }).catch(function (erro) {
+                console.log(erro);
+                res.status(500).json(erro.sqlMessage);
+            });
+    }
+}
+
 module.exports = {
-    listarSetores
+    listarSetores,
+    alterarSetor
 };

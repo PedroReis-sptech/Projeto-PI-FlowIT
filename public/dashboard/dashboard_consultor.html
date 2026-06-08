@@ -17,7 +17,7 @@
             </div>
 
             <div class="saudacoes">
-                <h3>Seja bem-vindo, Fernando Brandão!</h3>
+                <h3 >Seja bem-vindo, <span id="nomeDeUsuario">Usuario</span> !</h3>
             </div>
 
             <div class="links">
@@ -32,8 +32,7 @@
                             <span class="element">Ajuda</span>
                             <button class="close-btn" onclick="fecharMenu()">✕</button>
                         </div>
-                        <a href="../assets/FlowIT_1_copy.pdf"
-                            target="_blank" class="element">Documentação</a>
+                        <a href="../assets/FlowIT_1_copy.pdf" target="_blank" class="element">Documentação</a>
                         <a href="https://flow1t.atlassian.net/servicedesk/customer/portal/1" target="_blank"
                             class="element">Central de ajuda</a>
                     </div>
@@ -63,7 +62,7 @@
                                 <span><b>Ativações vs Meta Diária</b></span>
                                 <!-- <span class="seta-icon c">○</span></span> -->
                                 <span class="setor" id="iconeDiaria"></span>
-                                    <span class="card-descritivo" id="spanQuantoFaltaMetaDiaria"></span>
+                                <span class="card-descritivo" id="spanQuantoFaltaMetaDiaria"></span>
                             </div>
                             <div class="card cardBom">
                                 <span><b>Setor com maior
@@ -111,6 +110,12 @@
 </body>
 
 </html>
+
+<script>
+    if (sessionStorage.NOME_USUARIO) {
+        nomeDeUsuario.innerHTML = sessionStorage.NOME_USUARIO
+    }
+</script>
 
 <script>
     const colors = ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", "#14B8A6", "#353538"];
@@ -512,10 +517,10 @@
                 if (response.ok) {
                     return response.json().then(function (resultado) {
                         console.log(`Ultimo registro: ${JSON.stringify(resultado)}`);
-                        var registro = resultado[0]; 
-                        var dataFormatada = registro.dataLeitura; 
-                    document.getElementById('spanUltimoRegistro').innerHTML = `<i>Dados Obtidos em ${dataFormatada}</i>`;
-                    return resultado;
+                        var registro = resultado[0];
+                        var dataFormatada = registro.dataLeitura;
+                        document.getElementById('spanUltimoRegistro').innerHTML = `<i>Dados Obtidos em ${dataFormatada}</i>`;
+                        return resultado;
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
@@ -533,13 +538,13 @@
         compararParaVerQualSetorDiminuiu(); compararParaVerQualSetorCresceu(); ativacoesParaMetaDiaria(); ativacoesParaMetaSemanal(); fetchGraficoBarras(1); fetchRegistro();
     }, "1000");
 
-    function menuAjuda(){
+    function menuAjuda() {
         const menu = document.getElementById("menuAjuda");
         menu.classList.toggle("hidden");
     }
 
     function fecharMenu() {
-    document.getElementById("menuAjuda").classList.add("hidden");
+        document.getElementById("menuAjuda").classList.add("hidden");
     }
 </script>
 
@@ -773,8 +778,8 @@
                     label: 'Fluxo (%)',
                     data: valoresGraficoBarras,
                     backgroundColor: (conteudo) => {
-                    let valor = conteudo.raw;
-                    return valor > 15 ? '#E26A22' : '#6E8CB2';
+                        let valor = conteudo.raw;
+                        return valor > 15 ? '#E26A22' : '#6E8CB2';
                     },
                     borderRadius: 6
                 }]
@@ -880,10 +885,10 @@
                 if (response.ok) {
                     return response.json().then(function (resultado) {
                         console.log(`Ultimo registro: ${JSON.stringify(resultado)}`);
-                        var registro = resultado[0]; 
-                        var dataFormatada = registro.dataLeitura; 
-                    document.getElementById('spanUltimoRegistro').innerHTML = `<i>Dados Obtidos em ${dataFormatada}</i>`;
-                    return resultado;
+                        var registro = resultado[0];
+                        var dataFormatada = registro.dataLeitura;
+                        document.getElementById('spanUltimoRegistro').innerHTML = `<i>Dados Obtidos em ${dataFormatada}</i>`;
+                        return resultado;
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
