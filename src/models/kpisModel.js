@@ -57,8 +57,7 @@ function buscarAtivacoesPorSetorAteODiaDaConsulta(){
 function buscarMetaDiaria(){
   var instrucaoSql = `SELECT 
         SUM(meta) AS metaDiaria
-        FROM setor
-        GROUP BY meta;
+        FROM setor;
   `;
 
   console.log("Executando a instrução SQL: \n" + instrucaoSql);

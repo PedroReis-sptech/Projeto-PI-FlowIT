@@ -163,7 +163,7 @@ GROUP BY DAYOFWEEK(rs.dataLeitura), diaSemana;`;
 function buscarUltimoRegistro() {
   var instrucaoSql = `SELECT DATE_FORMAT(dataLeitura, '%d/%m/%y %H:%i:%s') AS dataLeitura 
 FROM registroSensor 
-WHERE dataLeitura < NOW() AND leitura = 1
+WHERE DAY(dataLeitura) <= DAY(NOW()) AND leitura = 1
 ORDER BY dataLeitura DESC 
 LIMIT 1;`;
 

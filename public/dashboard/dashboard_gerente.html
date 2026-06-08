@@ -278,12 +278,15 @@
 
     // KPI 3 função -> (meta diaria - quant de registros do dia)
     function ativacoesParaMetaDiaria() {
-        fetchMetaDiaria().then(function () {
-            fetchSomaDosRegistrosDosSetoresNoDia().then(function () {
+        fetchMetaDiaria().then(function (resultadoMeta) {
+            fetchSomaDosRegistrosDosSetoresNoDia().then(function (resultadoRegistros) {
                 const card = document.getElementById('cardDiaria');
                 const icon = document.getElementById('iconeDiaria');
 
-                let metaDiariaNum = metaDiaria[0].metaDiaria;
+                console.log( metaDiaria[0].metaDiaria)
+               let metaDiariaNum = resultadoMeta[0].metaDiaria;
+                
+               
                 let quantRegistrosDiaNum = quantRegistrosDia[0].Quant_Registros_Dia;
 
                 var quantoFaltaMetaDiaria = Number(metaDiariaNum) - Number(quantRegistrosDiaNum);
