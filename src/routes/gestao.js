@@ -3,7 +3,7 @@ var router = express.Router();
 
 var gestaoController = require("../controllers/gestaoController");
 
-router.get("/listarSetores:id", function (req, res) {
+router.get("/listarSetores/:idLoja", function (req, res) {
   gestaoController.listarSetores(req, res);
 });
 

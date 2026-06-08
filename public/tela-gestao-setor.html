@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <title>Tela de Gerente - Flow</title>
     <link rel="stylesheet" href="css/stylesGestao.css">
 </head>
+
 <body>
 
     <div class="cabecalho">
@@ -22,16 +24,6 @@
     </div>
 
     <div class="corpo-da-pagina">
-        
-        <div class="quadrado-cadastro">
-            <h3>ADICIONAR SETOR</h3>
-            
-            <input type="text" id="campoSetor" placeholder="NOME DO SETOR">
-            <input type="corredor" id="campoCorredor" placeholder="Corredor">
-            <input type="corredor" id="campoMeta" placeholder="Meta do setor">
-
-            <button onclick="modificarSetor()" class="botao-add"> MODIFICAR SETOR </button>
-        </div>
 
         <div class="quadrado-lista">
             <h3>LISTA DE SETORES</h3>
@@ -41,69 +33,80 @@
                         <th>NOME</th>
                         <th>CORREDOR</th>
                         <th>META</th>
-                        <th>DESEJA DELETAR?</th>
+                        <th>Ação</th>
                     </tr>
                 </thead>
                 <tbody id="tabelaSetores">
-                    </tbody>
+                </tbody>
             </table>
         </div>
 
     </div>
 
 </body>
+
 </html>
+
 
 <script>
     let loja = {
         setores: []
     };
 
- function obterSetores() {
+    if (sessionStorage.ID_LOJA) {
+        obterSetores();
+    } else {
+        console.error("ID da loja não encontrado no sessionStorage.");
+    }
+
+    function obterSetores() {
         fetch(`/gestao/listarSetores/${sessionStorage.ID_LOJA}`)
-            .then(function(resposta) {
+            .then(function (resposta) {
                 if (resposta.ok) {
-                    resposta.json().then(function(setor) {
+                    resposta.json().then(function (setor) {
                         console.log(`Dados recebidos: ${JSON.stringify(setor)}`);
-                        loja.setores = setor
+                        loja.setores = setor;
                         exibirSetor();
                     });
                 } else {
                     console.error('Nenhum dado encontrado ou erro na API');
                 }
             })
-            .catch(function(erro) {
+            .catch(function (erro) {
                 console.error(`Erro na obtenção dos setores: ${erro.message}`);
             });
     }
 
     function exibirSetor() {
-        let tabela = document.getElementById("tabelaSetores"); 
+        let tabela = document.getElementById("tabelaSetores");
         tabela.innerHTML = "";
-       for (var i = 0; i < loja.setores.length; i++){
+
+        for (var i = 0; i < loja.setores.length; i++) {
             var setorS = loja.setores[i];
 
             tabela.innerHTML += `
             <tr>
                 <td>${setorS.nomeSetor}</td>
-                <td>${setorS.idSetor}</td>
+                <td>${setorS.idSetor}</td> 
                 <td>${setorS.meta}</td>
                 <td>
-                    <button class="botao-excluir" onclick="remover(${i})">Excluir</button>
+                    <button class="botao-excluir" onclick="remover(${i}, ${setorS.idSetor})">Alterar</button>
                 </td>
             </tr>
-            `;  
+            `;
         }
     }
 
-function sairTela() {
-    if (confirm("Deseja sair desta tela?")) {
-    window.location.href = "../public/index.html";
-} 
-}
-
-function remover(posicao) {
-    listaDeSetor.splice(posicao, 1);
-    mostrarNaTela();
-}
+    function sairTela() {
+        if (confirm("Deseja sair desta tela?")) {
+            window.location.href = "../public/index.html";
+        }
+    }
+    
+    function remover(posicao, idSetor) {
+        if (confirm(`Deseja mesmo excluir o setor de ID ${idSetor}?`)) {
+            loja.setores.splice(posicao, 1);
+            exibirSetor();
+        }
+    }
 </script>
